@@ -5,7 +5,7 @@ import os
 app = Flask(__name__)
 
 # 🔐 беремо дані з Render
-TOKEN = os.environ.get("8623387819:AAEeSH0cecv0rUnAGOy2Al5jBvY7IWXsvhM")
+TOKEN = os.environ.get("8263855758:AAELXWQ8R5wS8NTypqvk0emd_YCwdOrkuxg")
 CHAT_ID = os.environ.get("CHAT_ID")
 
 # 📩 відправка в Telegram
