@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 # 🔐 ENV VARIABLES (Render)
 TOKEN = os.environ.get("8263855758:AAELXWQ8R5wS8NTypqvk0emd_YCwdOrkuxg")
-CHAT_ID = "@BorykNews"
+CHAT_ID = os.environ.get("-1003095797330")
 
 # 📩 Telegram send function
 def send_to_telegram(text):
