@@ -4,12 +4,13 @@ import os
 
 app = Flask(__name__)
 
-# 🔐 ENV VARIABLES (Render)
+# 🔐 TOKEN з Render ENV
 TOKEN = os.environ.get("8623387819:AAF20O9wm5B2gzAcTn-kxQhG1sPXa26kk-Q")
-CHAT_ID = os.environ.get("CHANNEL_USERNAME", "@BorykNews")
+
+# 📢 канал
+CHAT_ID = "@BorykNews"
 
 
-# 📩 ВІДПРАВКА В TELEGRAM
 def send_to_telegram(text):
     if not TOKEN:
         print("❌ TELEGRAM_TOKEN is missing")
@@ -20,24 +21,18 @@ def send_to_telegram(text):
     payload = {
         "chat_id": CHAT_ID,
         "text": text,
-        "parse_mode": "HTML",
-        "disable_web_page_preview": True
+        "parse_mode": "HTML"
     }
 
-    try:
-        r = requests.post(url, data=payload, timeout=10)
-        print("Telegram response:", r.text)
-    except Exception as e:
-        print("Telegram error:", e)
+    r = requests.post(url, data=payload)
+    print("Telegram response:", r.text)
 
 
-# 🟢 ПЕРЕВІРКА СЕРВЕРА (БРАУЗЕР)
 @app.route("/", methods=["GET"])
 def home():
     return "🟢 BorykNews bot is running 🚀", 200
 
 
-# 🔥 WEBHOOK (сюди приходять новини)
 @app.route("/webhook", methods=["POST"])
 def webhook():
     data = request.get_json(force=True, silent=True)
@@ -48,14 +43,13 @@ def webhook():
     title = data.get("title", "Без заголовка")
     link = data.get("link", "")
 
-    message = f"📰 <b>{title}</b>\n\n🔗 Деталі: {link}"
+    message = f"📰 <b>{title}</b>\n\n🔗 {link}"
 
     send_to_telegram(message)
 
     return "ok", 200
 
 
-# 🚀 ЗАПУСК ДЛЯ RENDER
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
