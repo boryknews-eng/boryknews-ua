@@ -4,12 +4,12 @@ import os
 
 app = Flask(__name__)
 
-# 🔐 змінні з Render
+# 🔐 ENV VARIABLES (Render)
 TOKEN = os.environ.get("8623387819:AAF20O9wm5B2gzAcTn-kxQhG1sPXa26kk-Q")
 CHAT_ID = os.environ.get("CHANNEL_USERNAME", "@BorykNews")
 
 
-# 📩 відправка в Telegram
+# 📩 ВІДПРАВКА В TELEGRAM
 def send_to_telegram(text):
     if not TOKEN:
         print("❌ TELEGRAM_TOKEN is missing")
@@ -31,8 +31,14 @@ def send_to_telegram(text):
         print("Telegram error:", e)
 
 
-# 🔥 WEBHOOK (сюди приходять новини з WordPress)
-@app.route("/", methods=["POST"])
+# 🟢 ПЕРЕВІРКА СЕРВЕРА (БРАУЗЕР)
+@app.route("/", methods=["GET"])
+def home():
+    return "🟢 BorykNews bot is running 🚀", 200
+
+
+# 🔥 WEBHOOK (сюди приходять новини)
+@app.route("/webhook", methods=["POST"])
 def webhook():
     data = request.get_json(force=True, silent=True)
 
@@ -49,13 +55,7 @@ def webhook():
     return "ok", 200
 
 
-# 🟢 перевірка сервера
-@app.route("/", methods=["GET"])
-def home():
-    return "BorykNews bot is running 🚀", 200
-
-
-# 🚀 ВАЖЛИВО ДЛЯ RENDER
+# 🚀 ЗАПУСК ДЛЯ RENDER
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
