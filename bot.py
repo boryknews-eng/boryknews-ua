@@ -12,7 +12,7 @@ CHAT_ID = os.environ.get("CHANNEL_USERNAME", "@BorykNews")
 # 📩 відправка в Telegram
 def send_to_telegram(text):
     if not TOKEN:
-        print("❌ No Telegram token")
+        print("❌ TELEGRAM_TOKEN is missing")
         return
 
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
@@ -25,12 +25,13 @@ def send_to_telegram(text):
     }
 
     try:
-        requests.post(url, data=payload, timeout=10)
+        r = requests.post(url, data=payload, timeout=10)
+        print("Telegram response:", r.text)
     except Exception as e:
         print("Telegram error:", e)
 
 
-# 🔥 webhook (сюди приходять пости)
+# 🔥 WEBHOOK (сюди приходять новини з WordPress)
 @app.route("/", methods=["POST"])
 def webhook():
     data = request.get_json(force=True, silent=True)
@@ -48,13 +49,13 @@ def webhook():
     return "ok", 200
 
 
-# 🟢 перевірка що сервер живий
+# 🟢 перевірка сервера
 @app.route("/", methods=["GET"])
 def home():
     return "BorykNews bot is running 🚀", 200
 
 
-# 🚀 ОБОВʼЯЗКОВО ДЛЯ RENDER
+# 🚀 ВАЖЛИВО ДЛЯ RENDER
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
