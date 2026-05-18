@@ -8,7 +8,7 @@ app = Flask(__name__)
 TOKEN = os.environ.get("8623387819:AAF20O9wm5B2gzAcTn-kxQhG1sPXa26kk-Q")
 
 # 📢 канал
-CHAT_ID = "-1001234567890"
+CHAT_ID = "@BorykNews"
 
 
 def send_to_telegram(text):
