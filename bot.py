@@ -5,7 +5,7 @@ import os
 app = Flask(__name__)
 
 # 🔐 TOKEN з Render ENV
-TOKEN = os.environ.get("8623387819:AAEeSH0cecv0rUnAGOy2Al5jBvY7IWXsvhM")
+TOKEN = os.environ.get("8623387819:AAGYU94QkOxq8z_CzuuI4TMZeRicDOsKW9A")
 
 # 📢 канал
 CHAT_ID = "@BorykNews"
