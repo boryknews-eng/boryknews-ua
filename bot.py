@@ -4,39 +4,36 @@ import os
 
 app = Flask(__name__)
 
-# беремо змінні з Render
+# 🔐 змінні з Render
 TOKEN = os.environ.get("8623387819:AAF20O9wm5B2gzAcTn-kxQhG1sPXa26kk-Q")
-CHAT_ID = os.environ.get("CHANNEL_USERNAME")
-
-# якщо щось не задано — не падаємо
-if not TOKEN:
-    TOKEN = ""
-if not CHAT_ID:
-    CHAT_ID = "@BorykNews"
+CHAT_ID = os.environ.get("CHANNEL_USERNAME", "@BorykNews")
 
 
+# 📩 відправка в Telegram
 def send_to_telegram(text):
     if not TOKEN:
-        print("No Telegram token!")
+        print("❌ No Telegram token")
         return
 
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
-    data = {
+
+    payload = {
         "chat_id": CHAT_ID,
         "text": text,
-        "parse_mode": "HTML"
+        "parse_mode": "HTML",
+        "disable_web_page_preview": True
     }
 
     try:
-        requests.post(url, data=data, timeout=10)
+        requests.post(url, data=payload, timeout=10)
     except Exception as e:
         print("Telegram error:", e)
 
 
-# 🔥 webhook від WordPress
+# 🔥 webhook (сюди приходять пости)
 @app.route("/", methods=["POST"])
 def webhook():
-    data = request.json
+    data = request.get_json(force=True, silent=True)
 
     if not data:
         return "no data", 400
@@ -45,18 +42,19 @@ def webhook():
     link = data.get("link", "")
 
     message = f"📰 <b>{title}</b>\n\n🔗 Деталі: {link}"
+
     send_to_telegram(message)
 
     return "ok", 200
 
 
-# 🟢 перевірка чи сервер живий
+# 🟢 перевірка що сервер живий
 @app.route("/", methods=["GET"])
 def home():
     return "BorykNews bot is running 🚀", 200
 
 
-# 🚀 ВАЖЛИВО ДЛЯ RENDER (це вирішує помилки запуску)
+# 🚀 ОБОВʼЯЗКОВО ДЛЯ RENDER
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
