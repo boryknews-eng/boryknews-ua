@@ -5,36 +5,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>BorykNews Telegram AI</title>
+<title>BorykNews Telegram</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
 
-/* RESET */
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Inter,sans-serif;
-}
-
-body{
-background:#0b0b10;
-color:#fff;
-height:100vh;
-overflow:hidden;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
+body{background:#0b0b10;color:#fff;height:100vh;overflow:hidden}
 
 /* APP */
-.app{
-display:flex;
-height:100vh;
-}
+.app{display:flex;height:100vh}
 
 /* SIDEBAR */
 .sidebar{
-width:340px;
+width:320px;
 background:rgba(255,255,255,0.04);
 border-right:1px solid rgba(255,255,255,0.08);
 display:flex;
@@ -43,9 +28,8 @@ flex-direction:column;
 
 .chat{
 display:flex;
-gap:12px;
-padding:14px;
-align-items:center;
+gap:10px;
+padding:12px;
 cursor:pointer;
 }
 
@@ -53,12 +37,11 @@ cursor:pointer;
 width:46px;height:46px;border-radius:12px;
 }
 
-/* CHAT AREA */
+/* CHAT */
 .chat-area{
 flex:1;
 display:flex;
 flex-direction:column;
-min-width:0;
 }
 
 /* HEADER */
@@ -66,7 +49,7 @@ min-width:0;
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:12px 16px;
+padding:12px;
 background:rgba(255,255,255,0.04);
 border-bottom:1px solid rgba(255,255,255,0.08);
 }
@@ -84,7 +67,7 @@ width:42px;height:42px;border-radius:12px;
 /* ACTIONS */
 .actions{
 display:flex;
-gap:10px;
+gap:8px;
 }
 
 .btn{
@@ -96,7 +79,7 @@ color:#fff;
 cursor:pointer;
 }
 
-/* SOCIAL */
+/* SOCIAL PANEL */
 .social-panel{
 display:none;
 position:absolute;
@@ -107,32 +90,21 @@ border:1px solid rgba(255,255,255,0.1);
 border-radius:12px;
 padding:10px;
 z-index:999;
-width:210px;
 }
 
-.social-item{
+.social-panel a{
 display:flex;
 align-items:center;
-gap:10px;
-padding:8px;
+gap:8px;
 color:#fff;
 text-decoration:none;
-font-size:14px;
-border-radius:8px;
-}
-
-.social-item:hover{
-background:rgba(255,255,255,0.08);
-}
-
-.social-item img{
-width:18px;height:18px;
+padding:8px;
 }
 
 /* MESSAGES */
 .messages{
 flex:1;
-padding:14px;
+padding:12px;
 overflow:auto;
 padding-bottom:110px;
 }
@@ -142,13 +114,12 @@ max-width:75%;
 padding:10px 12px;
 border-radius:12px;
 margin-bottom:10px;
-word-wrap:break-word;
 }
 
 .sent{background:#c41c1e;margin-left:auto}
 .received{background:rgba(255,255,255,0.08)}
 
-/* INPUT FIX MOBILE */
+/* INPUT */
 .input{
 position:fixed;
 bottom:0;
@@ -157,20 +128,18 @@ right:0;
 display:flex;
 gap:8px;
 padding:10px;
-background:rgba(10,10,12,0.96);
+background:rgba(10,10,12,0.95);
 border-top:1px solid rgba(255,255,255,0.08);
-z-index:10;
 }
 
 .input input{
 flex:1;
 padding:12px;
-border:none;
 border-radius:10px;
+border:none;
 background:rgba(255,255,255,0.08);
 color:#fff;
 outline:none;
-min-width:0;
 }
 
 .input button{
@@ -179,62 +148,27 @@ border:none;
 border-radius:10px;
 background:#c41c1e;
 color:#fff;
+}
+
+/* QUICK SUGGESTIONS */
+.suggestions{
+display:flex;
+gap:6px;
+padding:8px;
+flex-wrap:wrap;
+}
+
+.sug{
+font-size:12px;
+padding:6px 10px;
+background:rgba(255,255,255,0.08);
+border-radius:20px;
 cursor:pointer;
 }
 
-/* TYPING */
-.typing{
-display:inline-flex;
-gap:4px;
-}
-
-.typing span{
-width:6px;
-height:6px;
-background:#fff;
-border-radius:50%;
-animation:blink 1s infinite;
-}
-
-.typing span:nth-child(2){animation-delay:.2s}
-.typing span:nth-child(3){animation-delay:.4s}
-
-@keyframes blink{
-0%,100%{opacity:.3}
-50%{opacity:1}
-}
-
-/* MOBILE FIX FULL */
+/* MOBILE */
 @media(max-width:900px){
-
 .sidebar{display:none}
-
-.header{
-padding:10px;
-}
-
-.messages{
-padding:12px;
-padding-bottom:120px;
-}
-
-.msg{
-max-width:90%;
-}
-
-.input{
-padding:8px;
-}
-
-}
-
-/* SCROLL FIX */
-.messages::-webkit-scrollbar{
-width:6px;
-}
-.messages::-webkit-scrollbar-thumb{
-background:rgba(255,255,255,0.2);
-border-radius:10px;
 }
 
 </style>
@@ -247,10 +181,17 @@ border-radius:10px;
 
 <!-- SIDEBAR -->
 <div class="sidebar">
+
 <div class="chat">
 <img src="https://i.pravatar.cc/100?img=5">
-<div>BorykNews AI</div>
+<div>BorykNews</div>
 </div>
+
+<div class="chat">
+<img src="https://i.pravatar.cc/100?img=12">
+<div>Оголошення</div>
+</div>
+
 </div>
 
 <!-- CHAT -->
@@ -261,53 +202,57 @@ border-radius:10px;
 <div class="user">
 <img src="https://i.pravatar.cc/100?img=5">
 <div>
-<b>BorykNews AI</b>
+<div><b>BorykNews</b></div>
 <div style="font-size:12px;color:#00ff95">● online</div>
 </div>
 </div>
 
 <div class="actions">
 
+<!-- CALL -->
 <button class="btn" onclick="window.location.href='tel:+380975973256'">📞</button>
 
+<!-- EMAIL -->
+<button class="btn" onclick="window.location.href='mailto:boryknews@gmail.com'">✉️</button>
+
+<!-- SOCIAL -->
 <button class="btn" onclick="toggleSocial()">⋮</button>
 
 </div>
 
 </div>
 
-<!-- SOCIAL -->
+<!-- SOCIAL PANEL -->
 <div class="social-panel" id="social">
 
-<a class="social-item" href="https://www.instagram.com/boryknews/" target="_blank">
-📸 Instagram
-</a>
-
-<a class="social-item" href="https://www.facebook.com/BorykNews/" target="_blank">
-📘 Facebook
-</a>
-
-<a class="social-item" href="https://x.com/BorykNews" target="_blank">
-🐦 X (Twitter)
-</a>
-
-<a class="social-item" href="https://t.me/BorykNews" target="_blank">
-✈ Telegram
-</a>
+<a href="https://www.instagram.com/boryknews/" target="_blank">📸 Instagram</a>
+<a href="https://www.facebook.com/BorykNews/" target="_blank">📘 Facebook</a>
+<a href="https://x.com/BorykNews" target="_blank">🐦 X</a>
+<a href="https://t.me/BorykNews" target="_blank">✈ Telegram</a>
 
 </div>
 
 <!-- MESSAGES -->
 <div class="messages" id="messages">
 
-<div class="msg received">👋 Привіт! Я BorykNews AI</div>
+<div class="msg received">🚨 Новини Борисполя</div>
+<div class="msg sent">🔥 BorykNews онлайн</div>
+
+</div>
+
+<!-- SUGGESTIONS -->
+<div class="suggestions">
+
+<div class="sug" onclick="fill('Доброго дня!')">Доброго дня</div>
+<div class="sug" onclick="fill('Є новини?')">Є новини?</div>
+<div class="sug" onclick="fill('Що сталося?')">Що сталося?</div>
 
 </div>
 
 <!-- INPUT -->
 <div class="input">
 
-<input id="text" placeholder="Написати повідомлення..."
+<input id="text" placeholder="Написати..." 
 onkeydown="if(event.key==='Enter')send()">
 
 <button onclick="send()">➤</button>
@@ -320,81 +265,27 @@ onkeydown="if(event.key==='Enter')send()">
 
 <script>
 
-const API_KEY = "PASTE_YOUR_OPENAI_KEY";
+function send(){
 
-function addMsg(text,type){
+let t=document.getElementById("text");
+if(!t.value)return;
+
 let m=document.createElement("div");
-m.className="msg "+type;
-m.innerText=text;
+m.className="msg sent";
+m.innerText=t.value;
+
 document.getElementById("messages").appendChild(m);
+
+t.value="";
 }
 
-function addTyping(){
-let t=document.createElement("div");
-t.className="msg received";
-t.innerHTML=`<div class="typing"><span></span><span></span><span></span></div>`;
-t.id="typing";
-document.getElementById("messages").appendChild(t);
-}
-
-function removeTyping(){
-let t=document.getElementById("typing");
-if(t)t.remove();
-}
-
-async function send(){
-
-let input=document.getElementById("text");
-let text=input.value.trim();
-if(!text)return;
-
-addMsg(text,"sent");
-input.value="";
-
-addTyping();
-
-try{
-
-let res = await fetch("https://api.openai.com/v1/chat/completions",{
-method:"POST",
-headers:{
-"Content-Type":"application/json",
-"Authorization":"Bearer "+API_KEY
-},
-body:JSON.stringify({
-model:"gpt-4o-mini",
-messages:[
-{
-role:"system",
-content:"Ти AI BorykNews. Відповідай українською. Теми: новини, оголошення, нерухомість, beauty, послуги."
-},
-{role:"user",content:text}
-]
-})
-});
-
-let data = await res.json();
-
-removeTyping();
-
-let reply =
-data?.choices?.[0]?.message?.content
-|| "Я не знайшов відповідь, але спробуй інакше 🙂";
-
-addMsg(reply,"received");
-
-}catch(e){
-
-removeTyping();
-addMsg("❌ AI тимчасово недоступний","received");
-
-}
-
+function fill(text){
+document.getElementById("text").value=text;
 }
 
 function toggleSocial(){
 let s=document.getElementById("social");
-s.style.display=s.style.display==="block"?"none":"block";
+s.style.display = s.style.display==="block"?"none":"block";
 }
 
 Telegram.WebApp.expand();
