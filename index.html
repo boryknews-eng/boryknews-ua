@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BorykNews Telegram</title>
+<title>BorykNews Messenger</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
@@ -20,58 +20,55 @@ margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Inter',sans-serif;
+-webkit-tap-highlight-color:transparent;
 }
 
 body{
-background:#0f0f13;
-overflow:hidden;
-color:#fff;
 height:100vh;
+overflow:hidden;
+background:#09090c;
+color:#fff;
 }
 
-/* BACKGROUND */
+/* BG */
 
 .bg{
 position:fixed;
 inset:0;
-background:
-radial-gradient(circle at top left,#c41c1e33,transparent 30%),
-radial-gradient(circle at bottom right,#2563eb33,transparent 30%),
-#0f0f13;
 overflow:hidden;
+background:
+radial-gradient(circle at top left,#c41c1e44,transparent 30%),
+radial-gradient(circle at bottom right,#2563eb44,transparent 30%),
+#09090c;
 }
 
-.blur1,
-.blur2{
+.particle{
 position:absolute;
+width:6px;
+height:6px;
+background:#fff;
 border-radius:50%;
-filter:blur(100px);
-animation:float 8s infinite ease-in-out;
+opacity:.2;
+animation:float 12s linear infinite;
 }
 
-.blur1{
-width:400px;
-height:400px;
-background:#c41c1e55;
-top:-120px;
-left:-100px;
-}
-
-.blur2{
-width:350px;
-height:350px;
-background:#2563eb44;
-bottom:-120px;
-right:-100px;
-animation-delay:2s;
-}
+.particle:nth-child(1){left:10%;animation-duration:13s;}
+.particle:nth-child(2){left:30%;animation-duration:16s;}
+.particle:nth-child(3){left:50%;animation-duration:11s;}
+.particle:nth-child(4){left:70%;animation-duration:18s;}
+.particle:nth-child(5){left:90%;animation-duration:15s;}
 
 @keyframes float{
-0%,100%{
-transform:translateY(0px);
+0%{
+transform:translateY(100vh);
+opacity:0;
 }
-50%{
-transform:translateY(30px);
+20%{
+opacity:.3;
+}
+100%{
+transform:translateY(-100px);
+opacity:0;
 }
 }
 
@@ -88,38 +85,40 @@ backdrop-filter:blur(20px);
 /* SIDEBAR */
 
 .sidebar{
-width:370px;
+width:390px;
 background:rgba(255,255,255,.04);
+backdrop-filter:blur(40px) saturate(180%);
 border-right:1px solid rgba(255,255,255,.08);
 display:flex;
 flex-direction:column;
-backdrop-filter:blur(30px);
 }
 
-.sidebar-header{
-padding:25px;
+.top{
+padding:24px;
 display:flex;
-align-items:center;
 justify-content:space-between;
-border-bottom:1px solid rgba(255,255,255,.08);
+align-items:center;
+border-bottom:1px solid rgba(255,255,255,.06);
 }
 
 .logo{
 display:flex;
+gap:15px;
 align-items:center;
-gap:14px;
 }
 
 .logo-icon{
-width:60px;
-height:60px;
-border-radius:22px;
-background:linear-gradient(135deg,#c41c1e,#6f0d0f);
+width:65px;
+height:65px;
+border-radius:24px;
+background:linear-gradient(135deg,#c41c1e,#700e10);
 display:flex;
 align-items:center;
 justify-content:center;
 font-size:28px;
-box-shadow:0 0 30px #c41c1e88;
+box-shadow:
+0 0 20px #c41c1e,
+0 0 50px #c41c1e66;
 }
 
 .logo h1{
@@ -129,25 +128,25 @@ font-weight:800;
 
 .logo p{
 font-size:13px;
-color:#999;
+color:#aaa;
 margin-top:3px;
 }
 
-.new-btn{
-width:55px;
-height:55px;
+.plus{
+width:58px;
+height:58px;
 border:none;
-border-radius:20px;
-background:linear-gradient(135deg,#c41c1e,#7a1012);
+border-radius:22px;
+background:linear-gradient(135deg,#c41c1e,#700e10);
+font-size:28px;
 color:#fff;
-font-size:24px;
 cursor:pointer;
 transition:.3s;
 box-shadow:0 0 25px #c41c1e88;
 }
 
-.new-btn:hover{
-transform:scale(1.08);
+.plus:hover{
+transform:scale(1.1) rotate(90deg);
 }
 
 /* SEARCH */
@@ -157,22 +156,22 @@ padding:18px;
 }
 
 .search-box{
-height:56px;
-border-radius:20px;
-background:rgba(255,255,255,.06);
+height:58px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
+border-radius:22px;
 display:flex;
 align-items:center;
-padding:0 18px;
 gap:14px;
-border:1px solid rgba(255,255,255,.07);
+padding:0 20px;
 }
 
 .search-box input{
 background:none;
 border:none;
 outline:none;
-color:#fff;
 width:100%;
+color:#fff;
 font-size:15px;
 }
 
@@ -180,13 +179,13 @@ font-size:15px;
 
 .stories{
 display:flex;
-gap:14px;
-padding:0 18px 18px;
+gap:16px;
+padding:0 18px 20px;
 overflow-x:auto;
 }
 
 .story{
-min-width:72px;
+min-width:75px;
 display:flex;
 flex-direction:column;
 align-items:center;
@@ -194,16 +193,26 @@ gap:8px;
 }
 
 .story-avatar{
-width:64px;
-height:64px;
+width:68px;
+height:68px;
 border-radius:50%;
 background:linear-gradient(135deg,#c41c1e,#ff4b4d);
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:24px;
+font-size:26px;
 border:3px solid rgba(255,255,255,.12);
-box-shadow:0 0 25px #c41c1e66;
+box-shadow:0 0 30px #c41c1e66;
+animation:pulse 3s infinite;
+}
+
+@keyframes pulse{
+0%,100%{
+transform:scale(1);
+}
+50%{
+transform:scale(1.07);
+}
 }
 
 .story span{
@@ -216,16 +225,15 @@ color:#ddd;
 .chats{
 flex:1;
 overflow-y:auto;
-padding:0 12px 20px;
+padding:0 14px 20px;
 }
 
 .chat{
 display:flex;
-align-items:center;
 gap:15px;
 padding:16px;
-margin-bottom:10px;
-border-radius:26px;
+border-radius:28px;
+margin-bottom:12px;
 cursor:pointer;
 transition:.35s;
 background:rgba(255,255,255,.03);
@@ -233,67 +241,84 @@ border:1px solid transparent;
 }
 
 .chat:hover{
+transform:
+perspective(1000px)
+rotateX(2deg)
+translateY(-3px)
+scale(1.02);
+
 background:rgba(255,255,255,.08);
-transform:translateY(-2px);
+
+box-shadow:0 0 40px rgba(196,28,30,.25);
 }
 
 .chat.active{
-background:linear-gradient(135deg,#c41c1e55,#2c2a30);
+background:linear-gradient(135deg,#c41c1e44,#2c2a30);
 border-color:#c41c1e66;
-box-shadow:0 0 30px #c41c1e33;
 }
 
 .avatar{
-width:64px;
-height:64px;
+width:68px;
+height:68px;
 border-radius:24px;
-background:linear-gradient(135deg,#c41c1e,#8d1113);
+background:linear-gradient(135deg,#c41c1e,#781011);
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:22px;
+font-size:24px;
 font-weight:700;
 position:relative;
+box-shadow:0 0 25px #c41c1e55;
 }
 
 .online{
 position:absolute;
-bottom:4px;
-right:4px;
-width:14px;
-height:14px;
-background:#00ff7b;
+right:3px;
+bottom:3px;
+width:15px;
+height:15px;
 border-radius:50%;
+background:#00ff7b;
 border:2px solid #111;
+animation:online 2s infinite;
 }
 
-.chat-info{
+@keyframes online{
+0%,100%{
+transform:scale(1);
+}
+50%{
+transform:scale(1.2);
+}
+}
+
+.info{
 flex:1;
 }
 
-.chat-top{
+.row{
 display:flex;
 justify-content:space-between;
 margin-bottom:5px;
 }
 
-.chat-name{
+.name{
 font-weight:700;
 }
 
-.chat-time{
+.time{
 font-size:12px;
 color:#aaa;
 }
 
-.chat-msg{
+.preview{
 font-size:14px;
 color:#bbb;
 }
 
 .badge{
-min-width:28px;
-height:28px;
+min-width:30px;
+height:30px;
 padding:0 8px;
 border-radius:50px;
 background:#c41c1e;
@@ -302,7 +327,7 @@ align-items:center;
 justify-content:center;
 font-size:12px;
 font-weight:700;
-box-shadow:0 0 15px #c41c1e88;
+box-shadow:0 0 20px #c41c1e88;
 }
 
 /* CHAT AREA */
@@ -311,18 +336,17 @@ box-shadow:0 0 15px #c41c1e88;
 flex:1;
 display:flex;
 flex-direction:column;
-position:relative;
 }
 
 .chat-header{
 height:95px;
-padding:0 30px;
 display:flex;
-align-items:center;
 justify-content:space-between;
+align-items:center;
+padding:0 28px;
 background:rgba(255,255,255,.04);
-border-bottom:1px solid rgba(255,255,255,.08);
 backdrop-filter:blur(30px);
+border-bottom:1px solid rgba(255,255,255,.06);
 }
 
 .chat-user{
@@ -332,14 +356,14 @@ gap:16px;
 }
 
 .chat-user-avatar{
-width:68px;
-height:68px;
-border-radius:24px;
-background:linear-gradient(135deg,#c41c1e,#700f10);
+width:70px;
+height:70px;
+border-radius:25px;
+background:linear-gradient(135deg,#c41c1e,#700e10);
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:28px;
+font-size:30px;
 box-shadow:0 0 25px #c41c1e66;
 }
 
@@ -348,10 +372,21 @@ font-size:22px;
 font-weight:700;
 }
 
-.chat-user p{
-color:#00ff7b;
+.status{
 font-size:14px;
+color:#00ff7b;
 margin-top:5px;
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+.dot{
+width:10px;
+height:10px;
+background:#00ff7b;
+border-radius:50%;
+animation:online 2s infinite;
 }
 
 .actions{
@@ -359,11 +394,11 @@ display:flex;
 gap:12px;
 }
 
-.action-btn{
-width:52px;
-height:52px;
+.action{
+width:55px;
+height:55px;
 border:none;
-border-radius:18px;
+border-radius:20px;
 background:rgba(255,255,255,.08);
 color:#fff;
 font-size:22px;
@@ -371,7 +406,7 @@ cursor:pointer;
 transition:.3s;
 }
 
-.action-btn:hover{
+.action:hover{
 background:#c41c1e;
 transform:scale(1.08);
 }
@@ -383,19 +418,21 @@ flex:1;
 overflow-y:auto;
 padding:30px;
 background:
-linear-gradient(rgba(15,15,19,.82),rgba(15,15,19,.82)),
+linear-gradient(rgba(9,9,12,.82),rgba(9,9,12,.82)),
 url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2000');
 background-size:cover;
+background-position:center;
 }
 
 .msg{
-max-width:70%;
+max-width:72%;
 padding:18px 22px;
 border-radius:30px;
 margin-bottom:18px;
-position:relative;
 animation:show .4s ease;
-backdrop-filter:blur(25px);
+position:relative;
+backdrop-filter:blur(20px);
+line-height:1.5;
 }
 
 .msg.received{
@@ -427,34 +464,72 @@ transform:none;
 }
 }
 
+/* TYPING */
+
+.typing{
+display:flex;
+gap:6px;
+padding:18px 22px;
+width:max-content;
+border-radius:24px;
+background:rgba(255,255,255,.08);
+}
+
+.typing span{
+width:8px;
+height:8px;
+background:#fff;
+border-radius:50%;
+animation:typing 1s infinite;
+}
+
+.typing span:nth-child(2){
+animation-delay:.2s;
+}
+
+.typing span:nth-child(3){
+animation-delay:.4s;
+}
+
+@keyframes typing{
+0%,100%{
+opacity:.2;
+transform:translateY(0);
+}
+50%{
+opacity:1;
+transform:translateY(-4px);
+}
+}
+
 /* INPUT */
 
 .input-area{
 padding:22px;
-background:rgba(255,255,255,.04);
-border-top:1px solid rgba(255,255,255,.08);
 display:flex;
 gap:16px;
 align-items:center;
+background:rgba(255,255,255,.04);
+border-top:1px solid rgba(255,255,255,.08);
 backdrop-filter:blur(30px);
 }
 
 .attach{
-width:58px;
-height:58px;
+width:60px;
+height:60px;
 border:none;
 border-radius:22px;
 background:rgba(255,255,255,.08);
-color:#fff;
 font-size:24px;
+color:#fff;
 cursor:pointer;
 }
 
 .input-box{
 flex:1;
-height:62px;
-border-radius:24px;
+height:64px;
 background:rgba(255,255,255,.08);
+border-radius:24px;
 display:flex;
 align-items:center;
 padding:0 22px;
@@ -471,20 +546,22 @@ font-size:15px;
 }
 
 .send{
-width:64px;
-height:64px;
+width:66px;
+height:66px;
 border:none;
 border-radius:24px;
-background:linear-gradient(135deg,#c41c1e,#7d1113);
-font-size:26px;
+background:linear-gradient(135deg,#c41c1e,#700e10);
+font-size:28px;
 color:#fff;
 cursor:pointer;
-box-shadow:0 0 30px #c41c1e88;
 transition:.3s;
+box-shadow:
+0 0 20px #c41c1e,
+0 0 45px #c41c1e66;
 }
 
 .send:hover{
-transform:scale(1.08);
+transform:scale(1.1);
 }
 
 /* MOBILE */
@@ -499,51 +576,58 @@ display:none;
 display:none;
 }
 
+.messages{
+padding:20px 14px 120px;
+}
+
+.msg{
+max-width:90%;
+padding:16px 18px;
+border-radius:24px;
+}
+
 .chat-header{
-padding:0 18px;
-height:80px;
+height:82px;
+padding:0 16px;
 }
 
 .chat-user-avatar{
-width:54px;
-height:54px;
-font-size:22px;
+width:58px;
+height:58px;
+font-size:24px;
 }
 
 .chat-user h2{
 font-size:18px;
 }
 
-.messages{
-padding:20px 14px 120px;
-}
-
-.msg{
-max-width:88%;
-padding:16px 18px;
-border-radius:24px;
+.action{
+width:48px;
+height:48px;
+border-radius:18px;
+font-size:20px;
 }
 
 .input-area{
 position:fixed;
-bottom:75px;
+bottom:80px;
 left:0;
 right:0;
 padding:14px;
-background:rgba(10,10,12,.85);
-backdrop-filter:blur(30px);
+background:rgba(10,10,12,.9);
 }
 
 .attach{
-width:52px;
-height:52px;
+width:54px;
+height:54px;
 border-radius:18px;
 }
 
 .send{
-width:56px;
-height:56px;
+width:58px;
+height:58px;
 border-radius:20px;
+font-size:24px;
 }
 
 .mobile-nav{
@@ -551,29 +635,29 @@ position:fixed;
 bottom:0;
 left:0;
 right:0;
-height:78px;
+height:82px;
 display:flex;
 justify-content:space-around;
 align-items:center;
 background:rgba(10,10,12,.88);
-backdrop-filter:blur(30px);
+backdrop-filter:blur(40px);
 border-top:1px solid rgba(255,255,255,.08);
 z-index:100;
 }
 
 .mobile-btn{
-width:58px;
-height:58px;
-border-radius:22px;
+width:60px;
+height:60px;
+border-radius:24px;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:24px;
+font-size:25px;
 background:rgba(255,255,255,.06);
 }
 
 .mobile-btn.active{
-background:linear-gradient(135deg,#c41c1e,#7d1113);
+background:linear-gradient(135deg,#c41c1e,#700e10);
 box-shadow:0 0 20px #c41c1e88;
 }
 
@@ -595,8 +679,13 @@ border-radius:20px;
 <body>
 
 <div class="bg">
-<div class="blur1"></div>
-<div class="blur2"></div>
+
+<div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+
 </div>
 
 <div class="app">
@@ -605,18 +694,22 @@ border-radius:20px;
 
 <div class="sidebar">
 
-<div class="sidebar-header">
+<div class="top">
 
 <div class="logo">
-<div class="logo-icon">📰</div>
+
+<div class="logo-icon">
+📰
+</div>
 
 <div>
 <h1>BorykNews</h1>
-<p>Telegram Edition</p>
-</div>
+<p>Premium Messenger</p>
 </div>
 
-<button class="new-btn">✚</button>
+</div>
+
+<button class="plus">+</button>
 
 </div>
 
@@ -624,7 +717,7 @@ border-radius:20px;
 
 <div class="search-box">
 🔍
-<input type="text" placeholder="Пошук чатів...">
+<input type="text" placeholder="Пошук">
 </div>
 
 </div>
@@ -633,22 +726,22 @@ border-radius:20px;
 
 <div class="story">
 <div class="story-avatar">🔥</div>
-<span>News</span>
+<span>Новини</span>
 </div>
 
 <div class="story">
-<div class="story-avatar">💬</div>
-<span>Chat</span>
+<div class="story-avatar">📢</div>
+<span>Терміново</span>
 </div>
 
 <div class="story">
-<div class="story-avatar">🎥</div>
-<span>Media</span>
+<div class="story-avatar">🚓</div>
+<span>Поліція</span>
 </div>
 
 <div class="story">
-<div class="story-avatar">🚀</div>
-<span>Wow</span>
+<div class="story-avatar">🚌</div>
+<span>Транспорт</span>
 </div>
 
 </div>
@@ -662,55 +755,59 @@ BN
 <div class="online"></div>
 </div>
 
-<div class="chat-info">
+<div class="info">
 
-<div class="chat-top">
-<div class="chat-name">BorykNews</div>
-<div class="chat-time">17:42</div>
+<div class="row">
+<div class="name">BorykNews</div>
+<div class="time">17:42</div>
 </div>
 
-<div class="chat-msg">
-🔥 Термінові новини Борисполя
-</div>
-
-</div>
-
-<div class="badge">3</div>
-
-</div>
-
-<div class="chat">
-
-<div class="avatar">OG</div>
-
-<div class="chat-info">
-
-<div class="chat-top">
-<div class="chat-name">Оголошення</div>
-<div class="chat-time">16:11</div>
-</div>
-
-<div class="chat-msg">
-💼 Нові вакансії вже на сайті
+<div class="preview">
+⚡ На Київщині знову зросли ціни на маршрутки
 </div>
 
 </div>
+
+<div class="badge">5</div>
 
 </div>
 
 <div class="chat">
 
-<div class="avatar">NR</div>
-
-<div class="chat-info">
-
-<div class="chat-top">
-<div class="chat-name">Нерухомість</div>
-<div class="chat-time">15:04</div>
+<div class="avatar">
+KG
 </div>
 
-<div class="chat-msg">
-🏠 Новий будинок у центрі
+<div class="info">
+
+<div class="row">
+<div class="name">Київщина LIVE</div>
+<div class="time">16:55</div>
+</div>
+
+<div class="preview">
+🚨 ДТП біля Борисполя, утворився затор
+</div>
+
+</div>
+
+</div>
+
+<div class="chat">
+
+<div class="avatar">
+TR
+</div>
+
+<div class="info">
+
+<div class="row">
+<div class="name">Транспорт</div>
+<div class="time">15:14</div>
+</div>
+
+<div class="preview">
+🚌 Маршрутка Бориспіль-Київ тепер 150 грн
 </div>
 
 </div>
@@ -734,17 +831,23 @@ BN
 </div>
 
 <div>
+
 <h2>BorykNews</h2>
-<p>● online</p>
+
+<div class="status">
+<div class="dot"></div>
+online
+</div>
+
 </div>
 
 </div>
 
 <div class="actions">
 
-<button class="action-btn">📞</button>
-<button class="action-btn">🎥</button>
-<button class="action-btn">⚙️</button>
+<button class="action">📞</button>
+<button class="action">🎥</button>
+<button class="action">⚙️</button>
 
 </div>
 
@@ -753,30 +856,53 @@ BN
 <div class="messages">
 
 <div class="msg received">
-🔥 Вітаємо у wow Telegram дизайні BorykNews
-<div class="msg-time">17:38</div>
+⚡ У Борисполі помітили великі затори через ремонт дороги на Київському Шляху.
+<div class="msg-time">
+17:31 ✓✓
+</div>
 </div>
 
 <div class="msg sent">
-Виглядає як справжній Telegram 😍
-<div class="msg-time">17:39</div>
+Так, сьогодні взагалі жах 😳 Їхала майже годину.
+<div class="msg-time">
+17:32 ✓✓
+</div>
 </div>
 
 <div class="msg received">
-✨ Повна структура месенджера вже готова
-<div class="msg-time">17:40</div>
+🚌 Також перевізники підняли ціну на маршрутку Бориспіль — Київ до 150 грн.
+<div class="msg-time">
+17:34 ✓✓
+</div>
+</div>
+
+<div class="msg sent">
+150 грн це вже занадто 😐
+<div class="msg-time">
+17:35 ✓✓
+</div>
 </div>
 
 <div class="msg received">
-📱 Ultra premium mobile версія теж готова
-<div class="msg-time">17:41</div>
+📢 Люди масово обговорюють це у соцмережах та Telegram чатах Київщини.
+<div class="msg-time">
+17:36 ✓✓
+</div>
+</div>
+
+<div class="typing">
+<span></span>
+<span></span>
+<span></span>
 </div>
 
 </div>
 
 <div class="input-area">
 
-<button class="attach">➕</button>
+<button class="attach">
+➕
+</button>
 
 <div class="input-box">
 
@@ -786,7 +912,9 @@ BN
 
 </div>
 
-<button class="send">🚀</button>
+<button class="send">
+🚀
+</button>
 
 </div>
 
@@ -798,16 +926,29 @@ BN
 
 <div class="mobile-nav">
 
-<div class="mobile-btn active">💬</div>
-<div class="mobile-btn">📢</div>
-<div class="mobile-btn">🔔</div>
-<div class="mobile-btn">⚙️</div>
+<div class="mobile-btn active">
+💬
+</div>
+
+<div class="mobile-btn">
+📢
+</div>
+
+<div class="mobile-btn">
+🔔
+</div>
+
+<div class="mobile-btn">
+⚙️
+</div>
 
 </div>
 
 <script>
 
 Telegram.WebApp.expand();
+
+navigator.vibrate?.(20);
 
 </script>
 
