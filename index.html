@@ -5,22 +5,36 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>BorykNews AI Telegram</title>
+<title>BorykNews Telegram AI</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
 
 /* RESET */
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
-body{background:#0b0b10;color:#fff;height:100vh;overflow:hidden}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
+}
+
+body{
+background:#0b0b10;
+color:#fff;
+height:100vh;
+overflow:hidden;
+}
 
 /* APP */
-.app{display:flex;height:100vh}
+.app{
+display:flex;
+height:100vh;
+}
 
 /* SIDEBAR */
 .sidebar{
-width:300px;
+width:320px;
 background:rgba(255,255,255,0.04);
 border-right:1px solid rgba(255,255,255,0.08);
 display:flex;
@@ -29,14 +43,16 @@ flex-direction:column;
 
 .chat{
 display:flex;
-gap:10px;
-padding:12px;
-cursor:pointer;
+gap:12px;
+padding:14px;
 align-items:center;
+cursor:pointer;
 }
 
 .chat img{
-width:45px;height:45px;border-radius:12px;
+width:46px;
+height:46px;
+border-radius:12px;
 }
 
 /* CHAT AREA */
@@ -51,7 +67,7 @@ flex-direction:column;
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:12px;
+padding:12px 16px;
 background:rgba(255,255,255,0.04);
 border-bottom:1px solid rgba(255,255,255,0.08);
 }
@@ -63,25 +79,29 @@ gap:10px;
 }
 
 .user img{
-width:42px;height:42px;border-radius:12px;
+width:42px;
+height:42px;
+border-radius:12px;
 }
 
-/* BUTTONS */
+/* ACTIONS */
 .actions{
 display:flex;
-gap:8px;
+gap:10px;
 }
 
 .btn{
-width:42px;height:42px;
+width:42px;
+height:42px;
 border:none;
 border-radius:10px;
 background:rgba(255,255,255,0.08);
 color:#fff;
 cursor:pointer;
+font-size:16px;
 }
 
-/* SOCIAL PANEL */
+/* SOCIAL */
 .social-panel{
 display:none;
 position:absolute;
@@ -89,10 +109,10 @@ top:60px;
 right:10px;
 background:#111;
 border:1px solid rgba(255,255,255,0.1);
-border-radius:14px;
+border-radius:12px;
 padding:10px;
 z-index:999;
-width:220px;
+width:200px;
 }
 
 .social-item{
@@ -103,7 +123,7 @@ padding:8px;
 color:#fff;
 text-decoration:none;
 font-size:14px;
-border-radius:10px;
+border-radius:8px;
 }
 
 .social-item:hover{
@@ -111,15 +131,16 @@ background:rgba(255,255,255,0.08);
 }
 
 .social-item img{
-width:18px;height:18px;
+width:18px;
+height:18px;
 }
 
 /* MESSAGES */
 .messages{
 flex:1;
-padding:12px;
+padding:14px;
 overflow:auto;
-padding-bottom:100px;
+padding-bottom:110px;
 }
 
 .msg{
@@ -127,10 +148,17 @@ max-width:75%;
 padding:10px 12px;
 border-radius:12px;
 margin-bottom:10px;
+line-height:1.4;
 }
 
-.sent{background:#c41c1e;margin-left:auto}
-.received{background:rgba(255,255,255,0.08)}
+.sent{
+background:#c41c1e;
+margin-left:auto;
+}
+
+.received{
+background:rgba(255,255,255,0.08);
+}
 
 /* INPUT */
 .input{
@@ -148,8 +176,8 @@ border-top:1px solid rgba(255,255,255,0.08);
 .input input{
 flex:1;
 padding:12px;
-border-radius:10px;
 border:none;
+border-radius:10px;
 background:rgba(255,255,255,0.08);
 color:#fff;
 outline:none;
@@ -164,6 +192,7 @@ color:#fff;
 cursor:pointer;
 }
 
+/* MOBILE */
 @media(max-width:900px){
 .sidebar{display:none}
 }
@@ -178,10 +207,12 @@ cursor:pointer;
 
 <!-- SIDEBAR -->
 <div class="sidebar">
+
 <div class="chat">
 <img src="https://i.pravatar.cc/100?img=5">
 <div>BorykNews AI</div>
 </div>
+
 </div>
 
 <!-- CHAT -->
@@ -193,7 +224,7 @@ cursor:pointer;
 <img src="https://i.pravatar.cc/100?img=5">
 <div>
 <div><b>BorykNews AI</b></div>
-<div style="font-size:12px;color:#00ff95">● AI online</div>
+<div style="font-size:12px;color:#00ff95">● online</div>
 </div>
 </div>
 
@@ -219,7 +250,7 @@ cursor:pointer;
 </a>
 
 <a class="social-item" href="https://x.com/BorykNews" target="_blank">
-<img src="https://cdn-icons-png.flaticon.com/512/733/733579.png"> X (Twitter)
+<img src="https://cdn-icons-png.flaticon.com/512/733/733579.png"> X
 </a>
 
 <a class="social-item" href="https://t.me/BorykNews" target="_blank">
@@ -231,7 +262,9 @@ cursor:pointer;
 <!-- MESSAGES -->
 <div class="messages" id="messages">
 
-<div class="msg received">👋 Вітаємо! Я BorykNews AI</div>
+<div class="msg received">
+👋 Вітаю! Я BorykNews AI
+</div>
 
 </div>
 
@@ -251,7 +284,7 @@ onkeydown="if(event.key==='Enter')send()">
 
 <script>
 
-const API_KEY = "PASTE_YOUR_OPENAI_KEY_HERE"; // ⚠️ ключ сюди
+const API_KEY = "PASTE_YOUR_OPENAI_KEY_HERE";
 
 function addMsg(text,type){
 let m=document.createElement("div");
@@ -269,7 +302,7 @@ if(!text)return;
 addMsg(text,"sent");
 input.value="";
 
-addMsg("⏳ Думаю...","received");
+addMsg("⏳ друкую...","received");
 
 let res = await fetch("https://api.openai.com/v1/chat/completions",{
 method:"POST",
@@ -282,8 +315,7 @@ model:"gpt-4o-mini",
 messages:[
 {
 role:"system",
-content:
-"Ти AI асистент BorykNews. Відповідай українською. Теми: новини, оголошення, нерухомість, beauty, послуги."
+content:"Ти AI асистент BorykNews. Відповідай українською. Теми: новини, оголошення, нерухомість, beauty, послуги."
 },
 {role:"user",content:text}
 ]
@@ -293,10 +325,10 @@ content:
 let data = await res.json();
 
 document.querySelectorAll(".msg.received").forEach(m=>{
-if(m.innerText==="⏳ Думаю...") m.remove();
+if(m.innerText==="⏳ друкую...") m.remove();
 });
 
-let reply=data.choices?.[0]?.message?.content || "Помилка AI";
+let reply = data.choices?.[0]?.message?.content || "Помилка AI";
 
 addMsg(reply,"received");
 }
