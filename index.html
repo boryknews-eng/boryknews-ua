@@ -5,13 +5,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-<title>BorykNews Telegram AI</title>
+<title>BorykNews Telegram</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
 
-/* RESET */
+/* BASE */
 *{
 margin:0;
 padding:0;
@@ -20,7 +20,7 @@ font-family:Inter,sans-serif;
 }
 
 body{
-background:#0b0b10;
+background:#0f0f13;
 color:#fff;
 height:100vh;
 overflow:hidden;
@@ -34,25 +34,34 @@ height:100vh;
 
 /* SIDEBAR */
 .sidebar{
-width:320px;
+width:340px;
 background:rgba(255,255,255,0.04);
 border-right:1px solid rgba(255,255,255,0.08);
 display:flex;
 flex-direction:column;
 }
 
+/* CHAT LIST */
 .chat{
 display:flex;
 gap:12px;
 padding:14px;
 align-items:center;
+cursor:pointer;
+border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.chat:hover{
+background:rgba(255,255,255,0.06);
 }
 
 .chat img{
-width:46px;height:46px;border-radius:12px;
+width:46px;
+height:46px;
+border-radius:12px;
 }
 
-/* CHAT */
+/* RIGHT SIDE */
 .chat-area{
 flex:1;
 display:flex;
@@ -77,10 +86,12 @@ gap:10px;
 }
 
 .user img{
-width:42px;height:42px;border-radius:12px;
+width:42px;
+height:42px;
+border-radius:12px;
 }
 
-/* BUTTONS */
+/* ACTION BUTTONS */
 .btn{
 width:42px;
 height:42px;
@@ -89,33 +100,6 @@ border-radius:10px;
 background:rgba(255,255,255,0.08);
 color:#fff;
 cursor:pointer;
-}
-
-/* SOCIAL */
-.social{
-display:none;
-position:absolute;
-top:60px;
-right:10px;
-background:#111;
-border:1px solid rgba(255,255,255,0.1);
-border-radius:12px;
-padding:10px;
-width:210px;
-z-index:999;
-}
-
-.social a{
-display:flex;
-gap:8px;
-padding:8px;
-color:#fff;
-text-decoration:none;
-font-size:14px;
-}
-
-.social a:hover{
-background:rgba(255,255,255,0.08);
 }
 
 /* MESSAGES */
@@ -131,10 +115,17 @@ max-width:75%;
 padding:10px 12px;
 border-radius:12px;
 margin-bottom:10px;
+word-break:break-word;
 }
 
-.sent{background:#c41c1e;margin-left:auto}
-.received{background:rgba(255,255,255,0.08)}
+.sent{
+background:#c41c1e;
+margin-left:auto;
+}
+
+.received{
+background:rgba(255,255,255,0.08);
+}
 
 /* INPUT */
 .input{
@@ -168,24 +159,32 @@ color:#fff;
 cursor:pointer;
 }
 
-/* MOBILE FIX */
+/* MOBILE FIX (ВАЖЛИВО) */
 @media(max-width:900px){
-.sidebar{display:none}
+
+.sidebar{
+display:none;
 }
 
-/* TYPING */
-.typing span{
-width:6px;height:6px;background:#fff;border-radius:50%;
-display:inline-block;
-animation:b 1s infinite;
+.messages{
+padding:12px;
+padding-bottom:120px;
 }
 
-.typing span:nth-child(2){animation-delay:.2s}
-.typing span:nth-child(3){animation-delay:.4s}
+.input{
+padding:8px;
+}
 
-@keyframes b{
-0%,100%{opacity:.3}
-50%{opacity:1}
+}
+
+/* SCROLL */
+.messages::-webkit-scrollbar{
+width:6px;
+}
+
+.messages::-webkit-scrollbar-thumb{
+background:rgba(255,255,255,0.2);
+border-radius:10px;
 }
 
 </style>
@@ -198,10 +197,22 @@ animation:b 1s infinite;
 
 <!-- SIDEBAR -->
 <div class="sidebar">
+
 <div class="chat">
 <img src="https://i.pravatar.cc/100?img=5">
-<div>BorykNews AI</div>
+<div>BorykNews</div>
 </div>
+
+<div class="chat">
+<img src="https://i.pravatar.cc/100?img=12">
+<div>Оголошення</div>
+</div>
+
+<div class="chat">
+<img src="https://i.pravatar.cc/100?img=32">
+<div>Нерухомість</div>
+</div>
+
 </div>
 
 <!-- CHAT -->
@@ -212,42 +223,31 @@ animation:b 1s infinite;
 <div class="user">
 <img src="https://i.pravatar.cc/100?img=5">
 <div>
-<b>BorykNews AI</b>
+<b>BorykNews</b>
 <div style="font-size:12px;color:#00ff95">● online</div>
 </div>
 </div>
 
 <div>
-<button class="btn" onclick="window.location.href='tel:+380975973256'">📞</button>
-<button class="btn" onclick="toggleSocial()">⋮</button>
+<button class="btn">📞</button>
+<button class="btn">⋮</button>
 </div>
-
-</div>
-
-<!-- SOCIAL -->
-<div class="social" id="social">
-
-<a href="https://www.instagram.com/boryknews/">📸 Instagram</a>
-<a href="https://www.facebook.com/BorykNews/">📘 Facebook</a>
-<a href="https://x.com/BorykNews">🐦 X</a>
-<a href="https://t.me/BorykNews">✈ Telegram</a>
 
 </div>
 
 <!-- MESSAGES -->
-<div class="messages" id="messages">
+<div class="messages">
 
-<div class="msg received">👋 Я BorykNews AI готовий працювати</div>
+<div class="msg received">👋 Це твій Telegram шаблон BorykNews</div>
+<div class="msg sent">Так, тепер виглядає як треба 😍</div>
 
 </div>
 
 <!-- INPUT -->
 <div class="input">
 
-<input id="text" placeholder="Написати..."
-onkeydown="if(event.key==='Enter')send()">
-
-<button onclick="send()">➤</button>
+<input placeholder="Написати повідомлення...">
+<button>➤</button>
 
 </div>
 
@@ -256,71 +256,6 @@ onkeydown="if(event.key==='Enter')send()">
 </div>
 
 <script>
-
-const API_KEY = "PASTE_KEY";
-
-function addMsg(text,type){
-let m=document.createElement("div");
-m.className="msg "+type;
-m.innerText=text;
-document.getElementById("messages").appendChild(m);
-}
-
-function toggleSocial(){
-let s=document.getElementById("social");
-s.style.display=s.style.display==="block"?"none":"block";
-}
-
-/* AI НЕ ЛАМАЄ UI */
-async function send(){
-
-let input=document.getElementById("text");
-let text=input.value.trim();
-if(!text)return;
-
-addMsg(text,"sent");
-input.value="";
-
-addMsg("⏳ друкую...","received");
-
-try{
-
-let res=await fetch("https://api.openai.com/v1/chat/completions",{
-method:"POST",
-headers:{
-"Content-Type":"application/json",
-"Authorization":"Bearer "+API_KEY
-},
-body:JSON.stringify({
-model:"gpt-4o-mini",
-messages:[
-{
-role:"system",
-content:"Ти BorykNews AI. Відповідай українською. Новини, оголошення, нерухомість, beauty, послуги."
-},
-{role:"user",content:text}
-]
-})
-});
-
-let data=await res.json();
-
-document.querySelectorAll(".msg.received").forEach(m=>{
-if(m.innerText==="⏳ друкую...")m.remove();
-});
-
-let reply=data?.choices?.[0]?.message?.content
-|| "Спробуй ще раз";
-
-addMsg(reply,"received");
-
-}catch(e){
-
-addMsg("❌ AI тимчасово недоступний","received");
-
-}
-
-}
 
 Telegram.WebApp.expand();
 
