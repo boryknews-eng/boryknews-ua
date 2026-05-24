@@ -1,837 +1,456 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BorykNews Telegram UI</title>
+<title>BorykNews PRO UI</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
+:root{
+  --red:#c31f20;
+  --dark:#0f1720;
+  --blue:#3390ec;
+  --glass: rgba(255,255,255,0.08);
+  --stroke: rgba(255,255,255,0.12);
+}
+
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Inter',sans-serif;
 }
 
 body{
-
-background:#17212b;
-
-font-family:'Inter',sans-serif;
-
-height:100vh;
-
-overflow:hidden;
-
-display:flex;
+  height:100vh;
+  display:flex;
+  background: radial-gradient(circle at top,#1a2230,#0b0f14);
+  overflow:hidden;
 }
 
-/* LEFT SIDEBAR */
+/* ========== LEFT ========== */
 
 .left{
-
-width:430px;
-
-background:#ffffff;
-
-border-right:1px solid #d9d9d9;
-
-display:flex;
-
-height:100vh;
+  width:430px;
+  display:flex;
+  backdrop-filter: blur(18px);
+  background: rgba(255,255,255,0.05);
+  border-right:1px solid var(--stroke);
 }
 
 /* ICON BAR */
 
 .iconbar{
-
-width:74px;
-
-background:#2a3f54;
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-padding-top:12px;
+  width:78px;
+  background: linear-gradient(180deg,#121a25,#0d121a);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:14px 0;
 }
 
 .menu-btn{
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  background:rgba(255,255,255,0.08);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:20px;
+  margin-bottom:16px;
+  transition:.3s;
+}
 
-width:42px;
-height:42px;
-
-border-radius:12px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-color:#fff;
-
-font-size:22px;
-
-margin-bottom:16px;
+.menu-btn:hover{
+  transform:scale(1.1);
+  background:var(--blue);
 }
 
 .chat-icon{
+  width:58px;
+  height:58px;
+  border-radius:18px;
+  background:rgba(255,255,255,0.06);
+  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  color:white;
+  position:relative;
+  transition:.3s;
+}
 
-width:58px;
-height:58px;
-
-border-radius:16px;
-
-background:#0e1621;
-
-margin-bottom:14px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:20px;
-
-color:white;
-
-position:relative;
+.chat-icon:hover{
+  background:rgba(195,31,32,0.3);
+  transform:translateY(-2px);
 }
 
 .badge{
-
-position:absolute;
-
-top:-5px;
-right:-5px;
-
-background:#3fa7ff;
-
-width:22px;
-height:22px;
-
-border-radius:50%;
-
-font-size:12px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-weight:700;
+  position:absolute;
+  top:-4px;
+  right:-4px;
+  background:var(--red);
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  font-size:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
 }
 
 .icon-label{
-
-font-size:13px;
-
-color:#79c0ff;
-
-margin-bottom:20px;
+  font-size:11px;
+  color:#9fb3c8;
+  margin-bottom:18px;
 }
 
 /* CHATS */
 
 .chats{
-
-flex:1;
-
-background:#fff;
-
-display:flex;
-
-flex-direction:column;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  background: rgba(255,255,255,0.03);
 }
 
-/* SEARCH */
-
 .search{
-
-padding:12px;
-
-border-bottom:1px solid #ececec;
+  padding:14px;
 }
 
 .search input{
-
-width:100%;
-
-height:42px;
-
-border:none;
-
-background:#f2f2f2;
-
-border-radius:12px;
-
-padding:0 16px;
-
-font-size:15px;
-
-outline:none;
+  width:100%;
+  height:42px;
+  border:none;
+  border-radius:12px;
+  background:rgba(255,255,255,0.08);
+  color:#fff;
+  padding:0 14px;
+  outline:none;
 }
 
-/* CHAT ITEMS */
+/* CHAT ITEM */
 
 .chat-item{
-
-display:flex;
-
-gap:12px;
-
-padding:12px;
-
-cursor:pointer;
-
-transition:.2s;
-
-border-bottom:1px solid #f1f1f1;
+  display:flex;
+  gap:12px;
+  padding:14px;
+  cursor:pointer;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  transition:.25s;
 }
 
 .chat-item:hover{
-
-background:#f6f8fa;
+  background:rgba(255,255,255,0.06);
+  transform:scale(1.01);
 }
 
 .chat-item.active{
-
-background:#3390ec;
-color:white;
+  background:linear-gradient(90deg,rgba(195,31,32,0.3),transparent);
+  border-left:3px solid var(--red);
 }
 
 .avatar{
-
-width:56px;
-height:56px;
-
-border-radius:50%;
-
-background:#1d9bf0;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-weight:800;
-
-font-size:22px;
-
-color:white;
-
-flex-shrink:0;
-}
-
-.chat-content{
-
-flex:1;
-}
-
-.chat-top{
-
-display:flex;
-
-justify-content:space-between;
-
-margin-bottom:6px;
+  width:54px;
+  height:54px;
+  border-radius:18px;
+  background:linear-gradient(135deg,var(--red),#ff5a5a);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+  color:white;
 }
 
 .chat-name{
-
-font-size:16px;
-
-font-weight:700;
-}
-
-.chat-time{
-
-font-size:13px;
-
-opacity:.7;
+  color:#fff;
+  font-weight:700;
 }
 
 .chat-message{
-
-font-size:14px;
-
-opacity:.8;
-
-white-space:nowrap;
-
-overflow:hidden;
-
-text-overflow:ellipsis;
+  color:#9fb3c8;
+  font-size:13px;
 }
 
-/* CENTER */
+/* ========== CENTER ========== */
 
 .center{
-
-flex:1;
-
-display:flex;
-
-flex-direction:column;
-
-background:#efeae2;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  background:linear-gradient(180deg,#0f1720,#0b0f14);
 }
 
-/* HEADER */
-
 .header{
-
-height:56px;
-
-background:#ffffff;
-
-border-bottom:1px solid #d9d9d9;
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-padding:0 18px;
+  height:58px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
+  background:rgba(255,255,255,0.04);
+  backdrop-filter: blur(10px);
+  border-bottom:1px solid rgba(255,255,255,0.06);
 }
 
 .header-title{
-
-font-size:18px;
-
-font-weight:700;
+  color:#fff;
+  font-weight:700;
 }
 
 .header-icons{
-
-display:flex;
-
-gap:18px;
-
-font-size:22px;
-
-color:#777;
+  color:#9fb3c8;
+  font-size:20px;
 }
 
 /* CHAT AREA */
 
 .chat-area{
-
-flex:1;
-
-overflow:auto;
-
-padding:20px;
-
-background:
-linear-gradient(
-135deg,
-#f14abf,
-#4d5dfb
-);
+  flex:1;
+  padding:24px;
+  overflow:auto;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(195,31,32,0.25), transparent 40%),
+    radial-gradient(circle at 80% 40%, rgba(51,144,236,0.25), transparent 40%);
 }
 
-/* POST */
+/* POST CARD */
 
 .post{
+  width:460px;
+  border-radius:22px;
+  overflow:hidden;
+  background:rgba(255,255,255,0.06);
+  backdrop-filter: blur(20px);
+  border:1px solid rgba(255,255,255,0.08);
+  box-shadow:0 10px 40px rgba(0,0,0,0.5);
+  animation:fadeIn .5s ease;
+}
 
-width:440px;
-
-background:#fff;
-
-border-radius:18px;
-
-overflow:hidden;
-
-box-shadow:
-0 4px 18px rgba(0,0,0,.15);
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
 }
 
 .post-top{
-
-padding:14px 16px;
-
-font-size:20px;
-
-font-weight:700;
-
-color:#4caf50;
+  padding:14px;
+  color:#fff;
+  font-weight:700;
+  background:rgba(195,31,32,0.2);
 }
 
 .post-image{
-
-height:280px;
-
-background:url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop') center/cover;
+  height:280px;
+  background:url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop') center/cover;
+  filter:contrast(1.1);
 }
 
 .post-content{
-
-padding:18px;
+  padding:18px;
 }
 
 .post-title{
-
-font-size:28px;
-
-font-weight:800;
-
-margin-bottom:18px;
+  font-size:22px;
+  font-weight:800;
+  color:#fff;
+  margin-bottom:10px;
 }
 
 .post-text{
-
-font-size:20px;
-
-line-height:1.6;
-
-color:#222;
+  color:#cfd9e6;
+  line-height:1.6;
+  font-size:15px;
 }
 
 /* INPUT */
 
 .inputbar{
-
-height:64px;
-
-background:#fff;
-
-display:flex;
-
-align-items:center;
-
-padding:0 16px;
-
-gap:14px;
-
-border-top:1px solid #ddd;
+  height:64px;
+  display:flex;
+  align-items:center;
+  padding:0 14px;
+  gap:10px;
+  background:rgba(255,255,255,0.04);
+  border-top:1px solid rgba(255,255,255,0.08);
 }
 
 .inputbar input{
-
-flex:1;
-
-height:44px;
-
-border:none;
-
-background:#f3f3f3;
-
-border-radius:999px;
-
-padding:0 18px;
-
-font-size:15px;
-
-outline:none;
+  flex:1;
+  height:42px;
+  border:none;
+  border-radius:999px;
+  padding:0 16px;
+  background:rgba(255,255,255,0.08);
+  color:#fff;
+  outline:none;
 }
 
 .send{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:var(--red);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  cursor:pointer;
+  transition:.3s;
+}
 
-width:44px;
-height:44px;
-
-border-radius:50%;
-
-background:#3390ec;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-color:white;
-
-font-size:22px;
+.send:hover{
+  transform:scale(1.1) rotate(10deg);
 }
 
 /* RIGHT */
 
 .right{
-
-width:320px;
-
-background:#f5f5f5;
-
-border-left:1px solid #d9d9d9;
-
-display:flex;
-
-flex-direction:column;
+  width:320px;
+  background:rgba(255,255,255,0.04);
+  border-left:1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(20px);
+  display:flex;
+  flex-direction:column;
 }
 
-/* EMOJI TOP */
-
 .emoji-top{
-
-height:56px;
-
-background:#fff;
-
-display:flex;
-
-align-items:center;
-
-padding:0 18px;
-
-gap:24px;
-
-border-bottom:1px solid #ddd;
-
-font-weight:600;
+  height:56px;
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+  color:#9fb3c8;
+  font-weight:600;
 }
 
 .tab.active{
-
-color:#3390ec;
-
-border-bottom:3px solid #3390ec;
-
-padding-bottom:14px;
+  color:#fff;
+  border-bottom:2px solid var(--red);
 }
-
-/* EMOJI SEARCH */
-
-.emoji-search{
-
-padding:12px;
-}
-
-.emoji-search input{
-
-width:100%;
-
-height:40px;
-
-border:none;
-
-background:#fff;
-
-border-radius:12px;
-
-padding:0 14px;
-
-outline:none;
-}
-
-/* EMOJIS */
 
 .emojis{
-
-padding:10px;
-
-display:grid;
-
-grid-template-columns:repeat(6,1fr);
-
-gap:12px;
-
-font-size:28px;
-
-overflow:auto;
+  padding:14px;
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:10px;
 }
 
 .emoji{
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-height:44px;
-
-cursor:pointer;
-
-transition:.2s;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  cursor:pointer;
+  transition:.2s;
 }
 
 .emoji:hover{
-
-transform:scale(1.2);
+  transform:scale(1.3);
 }
 
 </style>
-
 </head>
 
 <body>
 
-<!-- LEFT -->
-
 <div class="left">
 
-<div class="iconbar">
+  <div class="iconbar">
+    <div class="menu-btn">☰</div>
+    <div class="chat-icon">💬<div class="badge">3</div></div>
+    <div class="icon-label">Чати</div>
+    <div class="chat-icon">📁</div>
+    <div class="icon-label">BN</div>
+    <div class="chat-icon">⚙️</div>
+    <div class="icon-label">Налашт</div>
+  </div>
 
-<div class="menu-btn">
-☰
+  <div class="chats">
+    <div class="search">
+      <input placeholder="Пошук...">
+    </div>
+
+    <div class="chat-item active">
+      <div class="avatar">BN</div>
+      <div>
+        <div class="chat-name">BorykNews</div>
+        <div class="chat-message">🚍 Ціни на проїзд зросли</div>
+      </div>
+    </div>
+
+    <div class="chat-item">
+      <div class="avatar">AL</div>
+      <div>
+        <div class="chat-name">Alerts</div>
+        <div class="chat-message">⚠️ Повітряна тривога</div>
+      </div>
+    </div>
+
+  </div>
 </div>
-
-<div class="chat-icon">
-💬
-<div class="badge">1</div>
-</div>
-
-<div class="icon-label">
-Все чаты
-</div>
-
-<div class="chat-icon">
-📁
-</div>
-
-<div class="icon-label">
-BorykNews
-</div>
-
-<div class="chat-icon">
-⚙️
-</div>
-
-<div class="icon-label">
-Ред.
-</div>
-
-</div>
-
-<div class="chats">
-
-<div class="search">
-
-<input placeholder="Поиск">
-
-</div>
-
-<div class="chat-item active">
-
-<div class="avatar">
-BN
-</div>
-
-<div class="chat-content">
-
-<div class="chat-top">
-
-<div class="chat-name">
-Новини Борисполя
-</div>
-
-<div class="chat-time">
-Пт
-</div>
-
-</div>
-
-<div class="chat-message">
-🚍 ЦІНИ НА ПРОЇЗД ПІДВИЩИЛИСЯ...
-</div>
-
-</div>
-
-</div>
-
-<div class="chat-item">
-
-<div class="avatar">
-BC
-</div>
-
-<div class="chat-content">
-
-<div class="chat-top">
-
-<div class="chat-name">
-BorykNews
-</div>
-
-<div class="chat-time">
-21:50
-</div>
-
-</div>
-
-<div class="chat-message">
-⚠️ ПОВІТРЯНА ТРИВОГА
-</div>
-
-</div>
-
-</div>
-
-<div class="chat-item">
-
-<div class="avatar">
-B
-</div>
-
-<div class="chat-content">
-
-<div class="chat-top">
-
-<div class="chat-name">
-BotFather
-</div>
-
-<div class="chat-time">
-20:48
-</div>
-
-</div>
-
-<div class="chat-message">
-Here is the token for your bot
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- CENTER -->
 
 <div class="center">
 
-<div class="header">
+  <div class="header">
+    <div class="header-title">BorykNews PRO 🇺🇦</div>
+    <div class="header-icons">🔍 ☰</div>
+  </div>
 
-<div class="header-title">
-Новини Борисполя | BorykNews 🇺🇦
-</div>
+  <div class="chat-area">
 
-<div class="header-icons">
-🔍 ☰
-</div>
+    <div class="post">
 
-</div>
+      <div class="post-top">🔥 ТЕРМІНОВА НОВИНА</div>
 
-<div class="chat-area">
+      <div class="post-image"></div>
 
-<div class="post">
+      <div class="post-content">
+        <div class="post-title">🚍 ЦІНИ НА ПРОЇЗД ПІДВИЩИЛИСЯ</div>
+        <div class="post-text">
+          📍 Бориспіль → Баришівка <br><br>
+          Вартість квитка тепер <b style="color:#fff">150 грн</b> <br><br>
+          💬 Пишіть свої маршрути
+        </div>
+      </div>
 
-<div class="post-top">
-Новини Борисполя | BorykNews 🇺🇦
-</div>
+    </div>
 
-<div class="post-image"></div>
+  </div>
 
-<div class="post-content">
-
-<div class="post-title">
-🚍 ЦІНИ НА ПРОЇЗД ПІДВИЩИЛИСЯ
-</div>
-
-<div class="post-text">
-
-📍 Бориспіль → Баришівка
-
-<br><br>
-
-За повідомленнями пасажирів, вартість квитка зросла до <b>150 грн</b>.
-
-<br><br>
-
-💬 Діліться в коментарях своїми маршрутами.
+  <div class="inputbar">
+    📎
+    <input placeholder="Написати пост...">
+    <div class="send">➤</div>
+  </div>
 
 </div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="inputbar">
-
-📎
-
-<input placeholder="Публікація...">
-
-<div class="send">
-➤
-</div>
-
-</div>
-
-</div>
-
-<!-- RIGHT -->
 
 <div class="right">
 
-<div class="emoji-top">
+  <div class="emoji-top">
+    <div class="tab active">😀</div>
+    <div class="tab">🎭</div>
+    <div class="tab">GIF</div>
+  </div>
 
-<div class="tab active">
-Эмодзи
-</div>
-
-<div class="tab">
-Стикеры
-</div>
-
-<div class="tab">
-GIF
-</div>
-
-</div>
-
-<div class="emoji-search">
-
-<input placeholder="Поиск">
-
-</div>
-
-<div class="emojis">
-
-<div class="emoji">😀</div>
-<div class="emoji">😂</div>
-<div class="emoji">😍</div>
-<div class="emoji">🔥</div>
-<div class="emoji">❤️</div>
-<div class="emoji">👍</div>
-
-<div class="emoji">⚡</div>
-<div class="emoji">😎</div>
-<div class="emoji">🥳</div>
-<div class="emoji">🚀</div>
-<div class="emoji">😭</div>
-<div class="emoji">🤯</div>
-
-<div class="emoji">😡</div>
-<div class="emoji">😱</div>
-<div class="emoji">🤔</div>
-<div class="emoji">🙏</div>
-<div class="emoji">💀</div>
-<div class="emoji">😅</div>
-
-<div class="emoji">😈</div>
-<div class="emoji">🤖</div>
-<div class="emoji">🌍</div>
-<div class="emoji">💎</div>
-<div class="emoji">📢</div>
-<div class="emoji">📸</div>
-
-<div class="emoji">🚌</div>
-<div class="emoji">⚠️</div>
-<div class="emoji">🎉</div>
-<div class="emoji">🎵</div>
-<div class="emoji">🍕</div>
-<div class="emoji">☕</div>
-
-</div>
+  <div class="emojis">
+    <div class="emoji">🔥</div>
+    <div class="emoji">🚀</div>
+    <div class="emoji">⚡</div>
+    <div class="emoji">❤️</div>
+    <div class="emoji">😂</div>
+    <div class="emoji">😱</div>
+  </div>
 
 </div>
 
