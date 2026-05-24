@@ -2,32 +2,34 @@
 <html lang="uk">
 <head>
 
-<meta charset="UTF-8"/>
+<meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 
-<title>BorykNews</title>
+<title>BoryNews</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 
 :root{
 
---bg:#0e1621;
---card:#182533;
---line:#263445;
+--bg:#08111d;
+--card:#0d1724;
+--line:#132235;
+
+--blue:#1d9bff;
+--blue2:#0066ff;
 
 --text:#ffffff;
---sub:#95a4b5;
+--sub:#94a3b8;
 
---blue:#2ea6ff;
---red:#ff453a;
+--red:#ff3b30;
+--green:#31d158;
 
 }
-
-/* RESET */
 
 *{
 margin:0;
@@ -38,98 +40,43 @@ box-sizing:border-box;
 
 body{
 
+background:
+radial-gradient(circle at top,#0b2b55 0%,#08111d 35%);
+
+background-color:#08111d;
+
 font-family:'Inter',sans-serif;
 
-background:var(--bg);
+color:white;
 
 overflow-x:hidden;
-
-color:white;
 }
 
-/* ANIMATED BACKGROUND */
+/* BG GLOW */
 
-.bg{
+body::before{
+
+content:"";
 
 position:fixed;
+
 inset:0;
 
-overflow:hidden;
+background:
 
-z-index:0;
-}
+radial-gradient(circle at 20% 20%,
+rgba(0,132,255,.18),
+transparent 30%),
 
-.blur1,
-.blur2,
-.blur3{
+radial-gradient(circle at 80% 10%,
+rgba(0,102,255,.15),
+transparent 30%),
 
-position:absolute;
+radial-gradient(circle at 50% 80%,
+rgba(0,132,255,.08),
+transparent 35%);
 
-border-radius:50%;
-
-filter:blur(120px);
-
-animation:float 10s infinite ease-in-out;
-}
-
-.blur1{
-
-width:300px;
-height:300px;
-
-background:#2ea6ff;
-
-top:-120px;
-left:-100px;
-
-opacity:.18;
-}
-
-.blur2{
-
-width:250px;
-height:250px;
-
-background:#ff453a;
-
-bottom:-80px;
-right:-80px;
-
-opacity:.14;
-
-animation-delay:2s;
-}
-
-.blur3{
-
-width:220px;
-height:220px;
-
-background:#31d158;
-
-top:40%;
-
-left:60%;
-
-opacity:.10;
-
-animation-delay:4s;
-}
-
-@keyframes float{
-
-0%{
-transform:translateY(0px) translateX(0px);
-}
-
-50%{
-transform:translateY(-30px) translateX(20px);
-}
-
-100%{
-transform:translateY(0px) translateX(0px);
-}
-
+pointer-events:none;
 }
 
 /* APP */
@@ -145,69 +92,196 @@ padding:16px;
 padding-bottom:120px;
 }
 
-/* TOPBAR */
+/* TOP */
 
 .top{
 
-display:flex;
+height:54px;
 
-justify-content:space-between;
+display:flex;
 
 align-items:center;
 
-padding-top:8px;
+justify-content:space-between;
+}
+
+.back,
+.menu{
+
+width:40px;
+height:40px;
+
+border-radius:50%;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:22px;
+
+color:#fff;
 }
 
 .logo{
 
-font-size:30px;
+font-size:24px;
+
+font-weight:700;
+}
+
+/* HERO */
+
+.hero{
+
+margin-top:20px;
+
+background:
+linear-gradient(
+180deg,
+rgba(0,0,0,.15),
+transparent
+);
+
+border-radius:28px;
+
+padding:20px;
+
+position:relative;
+
+overflow:hidden;
+}
+
+.hero::before{
+
+content:"";
+
+position:absolute;
+
+width:500px;
+height:500px;
+
+border-radius:50%;
+
+border:1px solid rgba(0,140,255,.08);
+
+top:-320px;
+right:-100px;
+}
+
+.hero::after{
+
+content:"";
+
+position:absolute;
+
+width:320px;
+height:320px;
+
+border-radius:50%;
+
+border:1px solid rgba(0,140,255,.06);
+
+top:-200px;
+right:0;
+}
+
+.big-title{
+
+font-size:64px;
 
 font-weight:900;
 
-letter-spacing:.5px;
+line-height:1;
 
-background:linear-gradient(90deg,#fff,#2ea6ff);
+letter-spacing:-3px;
 
--webkit-background-clip:text;
-
--webkit-text-fill-color:transparent;
+text-align:center;
 }
 
-.live{
+.live-badge{
 
-background:rgba(255,69,58,.12);
+display:inline-flex;
 
-border:1px solid rgba(255,69,58,.25);
+align-items:center;
 
-color:#ff453a;
+justify-content:center;
 
-padding:8px 14px;
+background:
+linear-gradient(
+135deg,
+#0ea5ff,
+#0066ff
+);
 
-border-radius:999px;
+padding:10px 20px;
 
-font-size:13px;
+border-radius:16px;
+
+font-size:36px;
 
 font-weight:800;
+
+font-style:italic;
+
+margin-left:10px;
+
+box-shadow:
+0 0 40px rgba(0,132,255,.4);
+}
+
+.subtitle{
+
+margin-top:14px;
+
+text-align:center;
+
+font-size:24px;
+
+color:var(--sub);
+}
+
+/* ONLINE */
+
+.online{
+
+margin:24px auto 0;
+
+width:max-content;
+
+background:rgba(255,255,255,.04);
+
+border:1px solid rgba(255,255,255,.04);
+
+height:54px;
+
+padding:0 24px;
+
+border-radius:999px;
 
 display:flex;
 
 align-items:center;
 
-gap:8px;
+gap:14px;
 
 backdrop-filter:blur(20px);
 }
 
-.live-dot{
+.dot{
 
-width:8px;
-height:8px;
-
-background:#ff453a;
+width:16px;
+height:16px;
 
 border-radius:50%;
 
-animation:pulse 1s infinite;
+background:#31d158;
+
+box-shadow:
+0 0 20px #31d158;
+
+animation:pulse 1.2s infinite;
 }
 
 @keyframes pulse{
@@ -218,8 +292,8 @@ opacity:1;
 }
 
 50%{
-transform:scale(1.7);
-opacity:.5;
+transform:scale(1.5);
+opacity:.6;
 }
 
 100%{
@@ -229,389 +303,346 @@ opacity:1;
 
 }
 
-/* HERO */
+.online span{
 
-.hero{
+font-size:26px;
 
-margin-top:34px;
-}
-
-.hero-title{
-
-font-size:48px;
-
-font-weight:900;
-
-line-height:1.02;
-
-letter-spacing:-2px;
-}
-
-.hero-sub{
-
-margin-top:18px;
-
-font-size:16px;
-
-line-height:1.6;
-
-color:var(--sub);
-
-max-width:90%;
-}
-
-/* LIVE BLOCK */
-
-.live-card{
-
-margin-top:28px;
-
-background:
-linear-gradient(
-135deg,
-rgba(46,166,255,.18),
-rgba(255,255,255,.04)
-);
-
-border:1px solid rgba(255,255,255,.06);
-
-backdrop-filter:blur(30px);
-
-border-radius:32px;
-
-padding:24px;
-
-position:relative;
-
-overflow:hidden;
-}
-
-.live-card::before{
-
-content:"";
-
-position:absolute;
-
-width:180px;
-height:180px;
-
-background:
-radial-gradient(circle,
-rgba(255,255,255,.18),
-transparent 70%);
-
-top:-100px;
-right:-100px;
-}
-
-.live-top{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-}
-
-.badge{
-
-background:#ff453a;
-
-padding:7px 14px;
-
-border-radius:999px;
-
-font-size:12px;
-
-font-weight:800;
-
-box-shadow:
-0 0 25px rgba(255,69,58,.4);
-}
-
-.clock{
-
-font-size:22px;
-
-font-weight:800;
-
-color:#2ea6ff;
-}
-
-.live-title{
-
-margin-top:18px;
-
-font-size:28px;
-
-font-weight:900;
-
-line-height:1.15;
-}
-
-.live-text{
-
-margin-top:14px;
-
-line-height:1.6;
-
-color:var(--sub);
-
-font-size:15px;
+font-weight:600;
 }
 
 /* GRID */
 
 .grid{
 
-margin-top:24px;
+margin-top:34px;
 
 display:grid;
 
 grid-template-columns:1fr 1fr;
 
-gap:16px;
+gap:18px;
 }
 
 .card{
 
 background:
-rgba(255,255,255,.04);
+linear-gradient(
+180deg,
+rgba(255,255,255,.02),
+rgba(255,255,255,.01)
+);
 
-border:1px solid rgba(255,255,255,.05);
+border:1px solid rgba(0,140,255,.35);
 
-backdrop-filter:blur(30px);
+border-radius:34px;
 
-border-radius:28px;
+padding:30px 24px;
 
-padding:22px;
-
-min-height:170px;
+min-height:260px;
 
 position:relative;
 
 overflow:hidden;
 
+box-shadow:
+0 0 40px rgba(0,132,255,.18),
+inset 0 0 25px rgba(0,132,255,.08);
+
 transition:.35s;
 }
 
-.card:hover{
+.card:active{
 
-transform:
-translateY(-5px)
-scale(1.02);
-
-border-color:
-rgba(46,166,255,.25);
-
-box-shadow:
-0 0 40px rgba(46,166,255,.15);
+transform:scale(.97);
 }
 
-.card::after{
+.card::before{
 
 content:"";
 
 position:absolute;
 
-width:130px;
-height:130px;
+inset:0;
 
 background:
-radial-gradient(circle,
-rgba(46,166,255,.16),
-transparent 70%);
-
-top:-60px;
-right:-60px;
+radial-gradient(circle at top,
+rgba(0,132,255,.16),
+transparent 60%);
 }
 
 .icon{
 
-font-size:46px;
+font-size:72px;
 
-animation:iconFloat 4s infinite ease-in-out;
-}
+text-align:center;
 
-@keyframes iconFloat{
-
-0%{
-transform:translateY(0px);
-}
-
-50%{
-transform:translateY(-8px);
-}
-
-100%{
-transform:translateY(0px);
-}
-
+filter:drop-shadow(0 0 20px rgba(0,132,255,.5));
 }
 
 .card-title{
 
-margin-top:22px;
+margin-top:26px;
 
-font-size:22px;
+font-size:28px;
 
-font-weight:800;
+font-weight:700;
+
+line-height:1.2;
+
+text-align:center;
 }
 
 .card-sub{
 
 margin-top:10px;
 
-font-size:14px;
-
-line-height:1.5;
+font-size:20px;
 
 color:var(--sub);
+
+text-align:center;
 }
 
-/* NEWS */
+/* LIVE BAR */
 
-.news{
+.livebar{
 
-margin-top:28px;
-}
+margin-top:24px;
 
-.news-card{
+height:72px;
 
-background:var(--card);
+background:
+rgba(0,0,0,.28);
 
-border-radius:28px;
+border:1px solid rgba(255,255,255,.04);
 
-padding:18px;
-
-border:1px solid rgba(255,255,255,.05);
-
-margin-bottom:16px;
-
-animation:fadeUp .8s ease;
-}
-
-@keyframes fadeUp{
-
-from{
-opacity:0;
-transform:translateY(20px);
-}
-
-to{
-opacity:1;
-transform:translateY(0);
-}
-
-}
-
-.news-top{
+border-radius:24px;
 
 display:flex;
 
 align-items:center;
 
 justify-content:space-between;
+
+padding:0 22px;
+
+backdrop-filter:blur(20px);
 }
 
-.news-user{
+.left-live{
 
 display:flex;
 
 align-items:center;
 
-gap:12px;
+gap:14px;
 }
 
-.avatar{
+.red-dot{
 
-width:44px;
-height:44px;
+width:18px;
+height:18px;
 
 border-radius:50%;
 
-background:#243446;
+background:#ff3b30;
+
+box-shadow:
+0 0 20px #ff3b30;
+
+animation:pulse 1s infinite;
+}
+
+.live-text{
+
+font-size:22px;
+
+font-weight:700;
+
+color:#ff3b30;
+}
+
+.live-sub{
+
+font-size:18px;
+
+color:var(--sub);
+}
+
+.clock{
+
+font-size:28px;
+
+font-weight:700;
+
+color:#1d9bff;
+}
+
+/* NEWS */
+
+.news{
+
+margin-top:34px;
+}
+
+.news-top{
 
 display:flex;
 
-justify-content:center;
+justify-content:space-between;
 
 align-items:center;
 
-font-size:20px;
-}
-
-.name{
-
-font-weight:700;
-}
-
-.time{
-
-font-size:12px;
-
-color:var(--sub);
-
-margin-top:3px;
+margin-bottom:18px;
 }
 
 .news-title{
 
-margin-top:18px;
-
-font-size:22px;
+font-size:38px;
 
 font-weight:800;
+}
 
-line-height:1.3;
+.news-link{
+
+font-size:28px;
+
+color:#1d9bff;
+}
+
+.news-card{
+
+background:
+linear-gradient(
+180deg,
+rgba(255,255,255,.02),
+rgba(255,255,255,.01)
+);
+
+border-radius:28px;
+
+overflow:hidden;
+
+border:1px solid rgba(255,255,255,.04);
+
+margin-bottom:16px;
+}
+
+.news-item{
+
+display:flex;
+
+gap:16px;
+
+padding:16px;
+
+border-bottom:1px solid rgba(255,255,255,.04);
+}
+
+.news-item:last-child{
+border-bottom:none;
 }
 
 .news-image{
 
-margin-top:16px;
+width:170px;
+height:120px;
 
-height:180px;
-
-border-radius:22px;
+border-radius:18px;
 
 background:
 linear-gradient(
 135deg,
-#2ea6ff22,
+#1d9bff33,
 #ffffff08
 );
 
-display:flex;
+flex-shrink:0;
+
+overflow:hidden;
+}
+
+.news-image img{
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+}
+
+.badge{
+
+display:inline-flex;
 
 align-items:center;
 
 justify-content:center;
 
-font-size:60px;
+padding:8px 14px;
 
-overflow:hidden;
+border-radius:12px;
+
+font-size:16px;
+
+font-weight:700;
+
+margin-bottom:10px;
 }
 
-/* BOTTOM NAV */
+.blue{
+background:#0b5ed7;
+}
 
-.bottom{
+.green{
+background:#0f9d58;
+}
+
+.orange{
+background:#f59e0b;
+}
+
+.news-text{
+
+flex:1;
+}
+
+.news-head{
+
+font-size:28px;
+
+font-weight:700;
+
+line-height:1.2;
+}
+
+.news-time{
+
+margin-top:10px;
+
+font-size:18px;
+
+color:var(--sub);
+}
+
+/* NAVBAR */
+
+.navbar{
 
 position:fixed;
 
-left:0;
 bottom:0;
+left:0;
 
 width:100%;
 
-height:92px;
+height:100px;
 
 background:
-rgba(14,22,33,.88);
+rgba(5,10,18,.92);
 
-backdrop-filter:blur(30px);
+backdrop-filter:blur(40px);
 
-border-top:
-1px solid rgba(255,255,255,.05);
+border-top:1px solid rgba(255,255,255,.05);
 
 display:flex;
 
@@ -619,7 +650,7 @@ justify-content:space-around;
 
 align-items:center;
 
-z-index:100;
+z-index:50;
 }
 
 .nav{
@@ -630,49 +661,21 @@ flex-direction:column;
 
 align-items:center;
 
-gap:6px;
+gap:8px;
 
-font-size:11px;
+color:#7c8ba1;
 
-color:#7f8d9c;
-
-transition:.3s;
+font-size:18px;
 }
 
 .nav.active{
 
-color:#2ea6ff;
-
-transform:translateY(-4px);
+color:#1d9bff;
 }
 
 .nav-icon{
 
-font-size:24px;
-}
-
-/* ENTRY ANIMATIONS */
-
-.hero,
-.live-card,
-.grid,
-.news{
-
-animation:show .7s ease;
-}
-
-@keyframes show{
-
-from{
-opacity:0;
-transform:translateY(20px);
-}
-
-to{
-opacity:1;
-transform:translateY(0);
-}
-
+font-size:34px;
 }
 
 </style>
@@ -681,30 +684,22 @@ transform:translateY(0);
 
 <body>
 
-<div class="bg">
-
-<div class="blur1"></div>
-<div class="blur2"></div>
-<div class="blur3"></div>
-
-</div>
-
 <div class="app">
 
 <!-- TOP -->
 
 <div class="top">
 
-<div class="logo">
-BorykNews
+<div class="back">
+✕
 </div>
 
-<div class="live">
+<div class="logo">
+BoryNews
+</div>
 
-<div class="live-dot"></div>
-
-LIVE
-
+<div class="menu">
+⋮
 </div>
 
 </div>
@@ -713,48 +708,27 @@ LIVE
 
 <div class="hero">
 
-<div class="hero-title">
+<div class="big-title">
 
-Новини<br>
-нового рівня
+BORYNEWS
 
-</div>
-
-<div class="hero-sub">
-
-Telegram Mini App для Борисполя з live-анімаціями, оперативними новинами та wow-дизайном.
+<span class="live-badge">
+LIVE
+</span>
 
 </div>
 
+<div class="subtitle">
+Бориспіль інформує 24/7
 </div>
 
-<!-- LIVE -->
+<div class="online">
 
-<div class="live-card">
+<div class="dot"></div>
 
-<div class="live-top">
-
-<div class="badge">
-BREAKING
-</div>
-
-<div class="clock" id="clock">
-00:00
-</div>
-
-</div>
-
-<div class="live-title">
-
-BorykNews LIVE вже в Telegram
-
-</div>
-
-<div class="live-text">
-
-Тривоги • транспорт • новини • погода • комуналка — все в одному Mini App.
-
-</div>
+<span>
+Онлайн
+</span>
 
 </div>
 
@@ -765,47 +739,12 @@ BorykNews LIVE вже в Telegram
 <div class="card">
 
 <div class="icon">
-🏙
+🏙️
 </div>
 
 <div class="card-title">
-Новини
-</div>
-
-<div class="card-sub">
-Оперативні події міста
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="icon">
-🚨
-</div>
-
-<div class="card-title">
-LIVE
-</div>
-
-<div class="card-sub">
-Термінові повідомлення
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="icon">
-⚠️
-</div>
-
-<div class="card-title">
-Тривоги
-</div>
-
-<div class="card-sub">
-Карта та alerts
+🏢 Новини<br>
+Борисполя
 </div>
 
 </div>
@@ -817,13 +756,66 @@ LIVE
 </div>
 
 <div class="card-title">
-Транспорт
+🚍 Транспорт
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="icon">
+⚡
+</div>
+
+<div class="card-title">
+⚡ Терміново
 </div>
 
 <div class="card-sub">
-Маршрути та затримки
+Срочні події
 </div>
 
+</div>
+
+<div class="card">
+
+<div class="icon">
+🛰️
+</div>
+
+<div class="card-title">
+🗺 Карта<br>
+тривог
+</div>
+
+</div>
+
+</div>
+
+<!-- LIVE -->
+
+<div class="livebar">
+
+<div class="left-live">
+
+<div class="red-dot"></div>
+
+<div>
+
+<div class="live-text">
+LIVE
+</div>
+
+<div class="live-sub">
+Оновлюється в реальному часі
+</div>
+
+</div>
+
+</div>
+
+<div class="clock" id="clock">
+10:24
 </div>
 
 </div>
@@ -832,55 +824,95 @@ LIVE
 
 <div class="news">
 
-<div class="news-card">
-
 <div class="news-top">
 
-<div class="news-user">
-
-<div class="avatar">
-📰
-</div>
-
-<div>
-
-<div class="name">
-BorykNews
-</div>
-
-<div class="time">
-щойно
-</div>
-
-</div>
-
-</div>
-
-<div class="badge">
-LIVE
-</div>
-
-</div>
-
 <div class="news-title">
-
-У Борисполі запущено новий Telegram Mini App
-
+Останні новини
 </div>
 
-<div class="news-image">
-🏙
-</div>
-
+<div class="news-link">
+Усі новини
 </div>
 
 </div>
 
+<div class="news-card">
+
+<div class="news-item">
+
+<div class="news-image"></div>
+
+<div class="news-text">
+
+<div class="badge blue">
+ВАЖЛИВО
 </div>
 
-<!-- NAV -->
+<div class="news-head">
+У Борисполі чутно вибухи, працює ППО
+</div>
 
-<div class="bottom">
+<div class="news-time">
+10:15
+</div>
+
+</div>
+
+</div>
+
+<div class="news-item">
+
+<div class="news-image"></div>
+
+<div class="news-text">
+
+<div class="badge green">
+ОФІЦІЙНО
+</div>
+
+<div class="news-head">
+Відключення світла в Борисполі 24 травня
+</div>
+
+<div class="news-time">
+09:40
+</div>
+
+</div>
+
+</div>
+
+<div class="news-item">
+
+<div class="news-image"></div>
+
+<div class="news-text">
+
+<div class="badge orange">
+ПОДІЯ
+</div>
+
+<div class="news-head">
+ДТП на Київському шляху, ускладнено рух
+</div>
+
+<div class="news-time">
+08:30
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
 
 <div class="nav active">
 
@@ -897,11 +929,11 @@ LIVE
 <div class="nav">
 
 <div class="nav-icon">
-📰
+🔔
 </div>
 
 <div>
-Новини
+Сповіщення
 </div>
 
 </div>
@@ -909,11 +941,11 @@ LIVE
 <div class="nav">
 
 <div class="nav-icon">
-🔴
+✈️
 </div>
 
 <div>
-LIVE
+Надіслати
 </div>
 
 </div>
@@ -925,7 +957,7 @@ LIVE
 </div>
 
 <div>
-Меню
+Налаштування
 </div>
 
 </div>
@@ -935,19 +967,18 @@ LIVE
 <script>
 
 Telegram.WebApp.ready();
-
 Telegram.WebApp.expand();
 
 function updateClock(){
 
 const now = new Date();
 
-document.getElementById("clock")
-.innerHTML =
+document.getElementById("clock").innerHTML =
 now.toLocaleTimeString("uk-UA",{
-hour:'2-digit',
-minute:'2-digit'
+hour:"2-digit",
+minute:"2-digit"
 });
+
 }
 
 setInterval(updateClock,1000);
