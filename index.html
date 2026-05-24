@@ -6,11 +6,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BorykNews Messenger</title>
+<title>BorykNews Premium Telegram</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
@@ -26,7 +27,7 @@ font-family:'Inter',sans-serif;
 body{
 height:100vh;
 overflow:hidden;
-background:#09090c;
+background:#09090d;
 color:#fff;
 }
 
@@ -37,38 +38,42 @@ position:fixed;
 inset:0;
 overflow:hidden;
 background:
-radial-gradient(circle at top left,#c41c1e44,transparent 30%),
-radial-gradient(circle at bottom right,#2563eb44,transparent 30%),
-#09090c;
+radial-gradient(circle at top left,#c41c1e33,transparent 25%),
+radial-gradient(circle at bottom right,#2563eb33,transparent 25%),
+#09090d;
 }
 
-.particle{
+.blur{
 position:absolute;
-width:6px;
-height:6px;
-background:#fff;
 border-radius:50%;
-opacity:.2;
-animation:float 12s linear infinite;
+filter:blur(120px);
+opacity:.5;
+animation:float 8s infinite ease-in-out;
 }
 
-.particle:nth-child(1){left:10%;animation-duration:13s;}
-.particle:nth-child(2){left:30%;animation-duration:16s;}
-.particle:nth-child(3){left:50%;animation-duration:11s;}
-.particle:nth-child(4){left:70%;animation-duration:18s;}
-.particle:nth-child(5){left:90%;animation-duration:15s;}
+.blur.red{
+width:450px;
+height:450px;
+background:#c41c1e;
+top:-140px;
+left:-100px;
+}
+
+.blur.blue{
+width:400px;
+height:400px;
+background:#2563eb;
+bottom:-120px;
+right:-120px;
+animation-delay:2s;
+}
 
 @keyframes float{
-0%{
-transform:translateY(100vh);
-opacity:0;
+0%,100%{
+transform:translateY(0px);
 }
-20%{
-opacity:.3;
-}
-100%{
-transform:translateY(-100px);
-opacity:0;
+50%{
+transform:translateY(30px);
 }
 }
 
@@ -76,7 +81,7 @@ opacity:0;
 
 .app{
 position:relative;
-z-index:10;
+z-index:2;
 display:flex;
 height:100vh;
 backdrop-filter:blur(20px);
@@ -93,32 +98,35 @@ display:flex;
 flex-direction:column;
 }
 
+/* TOP */
+
 .top{
 padding:24px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-border-bottom:1px solid rgba(255,255,255,.06);
+border-bottom:1px solid rgba(255,255,255,.08);
 }
 
 .logo{
 display:flex;
-gap:15px;
+gap:14px;
 align-items:center;
 }
 
 .logo-icon{
-width:65px;
-height:65px;
+width:64px;
+height:64px;
 border-radius:24px;
-background:linear-gradient(135deg,#c41c1e,#700e10);
+background:linear-gradient(135deg,#c41c1e,#700d0f);
 display:flex;
 align-items:center;
 justify-content:center;
 font-size:28px;
+font-weight:700;
 box-shadow:
-0 0 20px #c41c1e,
-0 0 50px #c41c1e66;
+0 0 15px #c41c1e,
+0 0 45px #c41c1e88;
 }
 
 .logo h1{
@@ -133,20 +141,20 @@ margin-top:3px;
 }
 
 .plus{
-width:58px;
-height:58px;
+width:56px;
+height:56px;
 border:none;
 border-radius:22px;
-background:linear-gradient(135deg,#c41c1e,#700e10);
+background:linear-gradient(135deg,#c41c1e,#700d0f);
 font-size:28px;
 color:#fff;
 cursor:pointer;
-transition:.3s;
-box-shadow:0 0 25px #c41c1e88;
+transition:.35s;
+box-shadow:0 0 30px #c41c1e88;
 }
 
 .plus:hover{
-transform:scale(1.1) rotate(90deg);
+transform:rotate(90deg) scale(1.08);
 }
 
 /* SEARCH */
@@ -158,12 +166,12 @@ padding:18px;
 .search-box{
 height:58px;
 background:rgba(255,255,255,.05);
-border:1px solid rgba(255,255,255,.08);
 border-radius:22px;
 display:flex;
 align-items:center;
-gap:14px;
-padding:0 20px;
+padding:0 18px;
+gap:12px;
+border:1px solid rgba(255,255,255,.08);
 }
 
 .search-box input{
@@ -180,12 +188,12 @@ font-size:15px;
 .stories{
 display:flex;
 gap:16px;
-padding:0 18px 20px;
+padding:0 18px 18px;
 overflow-x:auto;
 }
 
 .story{
-min-width:75px;
+min-width:74px;
 display:flex;
 flex-direction:column;
 align-items:center;
@@ -193,26 +201,29 @@ gap:8px;
 }
 
 .story-avatar{
-width:68px;
-height:68px;
+width:70px;
+height:70px;
 border-radius:50%;
-background:linear-gradient(135deg,#c41c1e,#ff4b4d);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:26px;
-border:3px solid rgba(255,255,255,.12);
-box-shadow:0 0 30px #c41c1e66;
-animation:pulse 3s infinite;
+padding:3px;
+background:linear-gradient(135deg,#ff3c3f,#c41c1e,#ff7d7f);
+animation:story 4s linear infinite;
 }
 
-@keyframes pulse{
-0%,100%{
-transform:scale(1);
+@keyframes story{
+0%{
+transform:rotate(0deg);
 }
-50%{
-transform:scale(1.07);
+100%{
+transform:rotate(360deg);
 }
+}
+
+.story-avatar img{
+width:100%;
+height:100%;
+object-fit:cover;
+border-radius:50%;
+border:3px solid #09090d;
 }
 
 .story span{
@@ -233,8 +244,8 @@ display:flex;
 gap:15px;
 padding:16px;
 border-radius:28px;
-margin-bottom:12px;
 cursor:pointer;
+margin-bottom:12px;
 transition:.35s;
 background:rgba(255,255,255,.03);
 border:1px solid transparent;
@@ -249,32 +260,35 @@ scale(1.02);
 
 background:rgba(255,255,255,.08);
 
-box-shadow:0 0 40px rgba(196,28,30,.25);
+box-shadow:
+0 0 15px #c41c1e33,
+0 0 35px #c41c1e22;
 }
 
 .chat.active{
 background:linear-gradient(135deg,#c41c1e44,#2c2a30);
-border-color:#c41c1e66;
+border-color:#c41c1e55;
 }
 
 .avatar{
-width:68px;
-height:68px;
+width:70px;
+height:70px;
 border-radius:24px;
-background:linear-gradient(135deg,#c41c1e,#781011);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
-font-weight:700;
+overflow:hidden;
 position:relative;
-box-shadow:0 0 25px #c41c1e55;
+box-shadow:0 0 25px rgba(0,0,0,.3);
+}
+
+.avatar img{
+width:100%;
+height:100%;
+object-fit:cover;
 }
 
 .online{
 position:absolute;
-right:3px;
-bottom:3px;
+bottom:4px;
+right:4px;
 width:15px;
 height:15px;
 border-radius:50%;
@@ -304,6 +318,7 @@ margin-bottom:5px;
 
 .name{
 font-weight:700;
+font-size:16px;
 }
 
 .time{
@@ -317,8 +332,8 @@ color:#bbb;
 }
 
 .badge{
-min-width:30px;
-height:30px;
+min-width:28px;
+height:28px;
 padding:0 8px;
 border-radius:50px;
 background:#c41c1e;
@@ -338,15 +353,17 @@ display:flex;
 flex-direction:column;
 }
 
+/* HEADER */
+
 .chat-header{
 height:95px;
+padding:0 28px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:0 28px;
 background:rgba(255,255,255,.04);
 backdrop-filter:blur(30px);
-border-bottom:1px solid rgba(255,255,255,.06);
+border-bottom:1px solid rgba(255,255,255,.08);
 }
 
 .chat-user{
@@ -356,15 +373,17 @@ gap:16px;
 }
 
 .chat-user-avatar{
-width:70px;
-height:70px;
-border-radius:25px;
-background:linear-gradient(135deg,#c41c1e,#700e10);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:30px;
-box-shadow:0 0 25px #c41c1e66;
+width:72px;
+height:72px;
+border-radius:24px;
+overflow:hidden;
+box-shadow:0 0 25px #c41c1e44;
+}
+
+.chat-user-avatar img{
+width:100%;
+height:100%;
+object-fit:cover;
 }
 
 .chat-user h2{
@@ -373,12 +392,12 @@ font-weight:700;
 }
 
 .status{
-font-size:14px;
-color:#00ff7b;
-margin-top:5px;
 display:flex;
 align-items:center;
 gap:8px;
+margin-top:5px;
+font-size:14px;
+color:#00ff7b;
 }
 
 .dot{
@@ -389,26 +408,73 @@ border-radius:50%;
 animation:online 2s infinite;
 }
 
+/* BUTTONS */
+
 .actions{
 display:flex;
 gap:12px;
 }
 
-.action{
-width:55px;
-height:55px;
+.tg-btn{
+width:54px;
+height:54px;
 border:none;
 border-radius:20px;
 background:rgba(255,255,255,.08);
-color:#fff;
-font-size:22px;
+backdrop-filter:blur(20px);
+display:flex;
+align-items:center;
+justify-content:center;
 cursor:pointer;
-transition:.3s;
+transition:.35s;
+color:#fff;
+font-size:26px;
 }
 
-.action:hover{
+.tg-btn:hover{
+transform:translateY(-3px) scale(1.06);
 background:#c41c1e;
-transform:scale(1.08);
+box-shadow:
+0 0 15px #c41c1e,
+0 0 35px #c41c1e88;
+}
+
+.tg-btn svg{
+width:24px;
+height:24px;
+fill:#fff;
+}
+
+/* SOCIALS */
+
+.socials{
+display:flex;
+gap:12px;
+padding:18px 28px;
+background:rgba(255,255,255,.03);
+border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.socials a{
+width:52px;
+height:52px;
+border-radius:18px;
+background:rgba(255,255,255,.06);
+display:flex;
+align-items:center;
+justify-content:center;
+transition:.35s;
+}
+
+.socials a:hover{
+transform:translateY(-3px) scale(1.08);
+background:#c41c1e;
+box-shadow:0 0 20px #c41c1e88;
+}
+
+.socials img{
+width:26px;
+height:26px;
 }
 
 /* MESSAGES */
@@ -418,39 +484,38 @@ flex:1;
 overflow-y:auto;
 padding:30px;
 background:
-linear-gradient(rgba(9,9,12,.82),rgba(9,9,12,.82)),
+linear-gradient(rgba(9,9,13,.82),rgba(9,9,13,.82)),
 url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2000');
+
 background-size:cover;
 background-position:center;
 }
+
+/* PIN */
+
+.pin{
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.08);
+padding:14px 18px;
+border-radius:22px;
+margin-bottom:25px;
+display:flex;
+gap:12px;
+align-items:center;
+backdrop-filter:blur(20px);
+}
+
+/* MSG */
 
 .msg{
 max-width:72%;
 padding:18px 22px;
 border-radius:30px;
 margin-bottom:18px;
-animation:show .4s ease;
 position:relative;
-backdrop-filter:blur(20px);
+animation:show .4s ease;
 line-height:1.5;
-}
-
-.msg.received{
-background:rgba(255,255,255,.08);
-border:1px solid rgba(255,255,255,.08);
-}
-
-.msg.sent{
-margin-left:auto;
-background:linear-gradient(135deg,#c41c1e,#7d1113);
-box-shadow:0 0 25px #c41c1e66;
-}
-
-.msg-time{
-font-size:11px;
-opacity:.7;
-margin-top:10px;
-text-align:right;
+backdrop-filter:blur(20px);
 }
 
 @keyframes show{
@@ -464,6 +529,30 @@ transform:none;
 }
 }
 
+.msg.received{
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.08);
+}
+
+.msg.sent{
+margin-left:auto;
+background:linear-gradient(135deg,#c41c1e,#7b1112);
+box-shadow:0 0 25px #c41c1e55;
+}
+
+.msg img{
+width:100%;
+border-radius:20px;
+margin-top:12px;
+}
+
+.msg-time{
+font-size:11px;
+opacity:.7;
+margin-top:10px;
+text-align:right;
+}
+
 /* TYPING */
 
 .typing{
@@ -471,15 +560,15 @@ display:flex;
 gap:6px;
 padding:18px 22px;
 width:max-content;
-border-radius:24px;
 background:rgba(255,255,255,.08);
+border-radius:24px;
 }
 
 .typing span{
 width:8px;
 height:8px;
-background:#fff;
 border-radius:50%;
+background:#fff;
 animation:typing 1s infinite;
 }
 
@@ -493,7 +582,7 @@ animation-delay:.4s;
 
 @keyframes typing{
 0%,100%{
-opacity:.2;
+opacity:.3;
 transform:translateY(0);
 }
 50%{
@@ -505,13 +594,13 @@ transform:translateY(-4px);
 /* INPUT */
 
 .input-area{
-padding:22px;
+padding:20px;
 display:flex;
 gap:16px;
 align-items:center;
 background:rgba(255,255,255,.04);
-border-top:1px solid rgba(255,255,255,.08);
 backdrop-filter:blur(30px);
+border-top:1px solid rgba(255,255,255,.08);
 }
 
 .attach{
@@ -520,20 +609,20 @@ height:60px;
 border:none;
 border-radius:22px;
 background:rgba(255,255,255,.08);
-font-size:24px;
 color:#fff;
+font-size:24px;
 cursor:pointer;
 }
 
 .input-box{
 flex:1;
 height:64px;
-background:rgba(255,255,255,.08);
 border-radius:24px;
+background:rgba(255,255,255,.08);
 display:flex;
 align-items:center;
 padding:0 22px;
-gap:15px;
+gap:14px;
 }
 
 .input-box input{
@@ -550,11 +639,11 @@ width:66px;
 height:66px;
 border:none;
 border-radius:24px;
-background:linear-gradient(135deg,#c41c1e,#700e10);
+background:linear-gradient(135deg,#c41c1e,#700d0f);
 font-size:28px;
 color:#fff;
 cursor:pointer;
-transition:.3s;
+transition:.35s;
 box-shadow:
 0 0 20px #c41c1e,
 0 0 45px #c41c1e66;
@@ -577,7 +666,7 @@ display:none;
 }
 
 .messages{
-padding:20px 14px 120px;
+padding:18px 14px 120px;
 }
 
 .msg{
@@ -594,18 +683,15 @@ padding:0 16px;
 .chat-user-avatar{
 width:58px;
 height:58px;
-font-size:24px;
 }
 
 .chat-user h2{
 font-size:18px;
 }
 
-.action{
-width:48px;
-height:48px;
-border-radius:18px;
-font-size:20px;
+.socials{
+padding:14px 16px;
+overflow-x:auto;
 }
 
 .input-area{
@@ -615,19 +701,6 @@ left:0;
 right:0;
 padding:14px;
 background:rgba(10,10,12,.9);
-}
-
-.attach{
-width:54px;
-height:54px;
-border-radius:18px;
-}
-
-.send{
-width:58px;
-height:58px;
-border-radius:20px;
-font-size:24px;
 }
 
 .mobile-nav{
@@ -657,7 +730,7 @@ background:rgba(255,255,255,.06);
 }
 
 .mobile-btn.active{
-background:linear-gradient(135deg,#c41c1e,#700e10);
+background:linear-gradient(135deg,#c41c1e,#700d0f);
 box-shadow:0 0 20px #c41c1e88;
 }
 
@@ -680,11 +753,8 @@ border-radius:20px;
 
 <div class="bg">
 
-<div class="particle"></div>
-<div class="particle"></div>
-<div class="particle"></div>
-<div class="particle"></div>
-<div class="particle"></div>
+<div class="blur red"></div>
+<div class="blur blue"></div>
 
 </div>
 
@@ -725,23 +795,24 @@ border-radius:20px;
 <div class="stories">
 
 <div class="story">
-<div class="story-avatar">🔥</div>
-<span>Новини</span>
+<div class="story-avatar">
+<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400">
+</div>
+<span>Анна</span>
 </div>
 
 <div class="story">
-<div class="story-avatar">📢</div>
-<span>Терміново</span>
+<div class="story-avatar">
+<img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400">
+</div>
+<span>Макс</span>
 </div>
 
 <div class="story">
-<div class="story-avatar">🚓</div>
-<span>Поліція</span>
+<div class="story-avatar">
+<img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400">
 </div>
-
-<div class="story">
-<div class="story-avatar">🚌</div>
-<span>Транспорт</span>
+<span>News</span>
 </div>
 
 </div>
@@ -751,44 +822,28 @@ border-radius:20px;
 <div class="chat active">
 
 <div class="avatar">
-BN
+
+<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400">
+
 <div class="online"></div>
+
 </div>
 
 <div class="info">
 
 <div class="row">
-<div class="name">BorykNews</div>
+<div class="name">Анна</div>
 <div class="time">17:42</div>
 </div>
 
 <div class="preview">
-⚡ На Київщині знову зросли ціни на маршрутки
+😍 Це виглядає як справжній Telegram
 </div>
 
 </div>
 
-<div class="badge">5</div>
-
-</div>
-
-<div class="chat">
-
-<div class="avatar">
-KG
-</div>
-
-<div class="info">
-
-<div class="row">
-<div class="name">Київщина LIVE</div>
-<div class="time">16:55</div>
-</div>
-
-<div class="preview">
-🚨 ДТП біля Борисполя, утворився затор
-</div>
-
+<div class="badge">
+3
 </div>
 
 </div>
@@ -796,18 +851,20 @@ KG
 <div class="chat">
 
 <div class="avatar">
-TR
+
+<img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400">
+
 </div>
 
 <div class="info">
 
 <div class="row">
-<div class="name">Транспорт</div>
-<div class="time">15:14</div>
+<div class="name">Макс</div>
+<div class="time">16:20</div>
 </div>
 
 <div class="preview">
-🚌 Маршрутка Бориспіль-Київ тепер 150 грн
+🔥 Бачив новий дизайн BorykNews?
 </div>
 
 </div>
@@ -827,12 +884,14 @@ TR
 <div class="chat-user">
 
 <div class="chat-user-avatar">
-📰
+
+<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400">
+
 </div>
 
 <div>
 
-<h2>BorykNews</h2>
+<h2>Анна</h2>
 
 <div class="status">
 <div class="dot"></div>
@@ -845,58 +904,105 @@ online
 
 <div class="actions">
 
-<button class="action">📞</button>
-<button class="action">🎥</button>
-<button class="action">⚙️</button>
+<button class="tg-btn">
+
+<svg viewBox="0 0 24 24">
+<path d="M6.6 10.8c1.5 2.9 3.7 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.7 21 3 13.3 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1l-2.2 2.2z"/>
+</svg>
+
+</button>
+
+<button class="tg-btn">
+⋮
+</button>
 
 </div>
 
 </div>
+
+<!-- SOCIALS -->
+
+<div class="socials">
+
+<a href="#">
+<img src="https://cdn-icons-png.flaticon.com/512/733/733547.png">
+</a>
+
+<a href="#">
+<img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
+</a>
+
+<a href="#">
+<img src="https://cdn-icons-png.flaticon.com/512/733/733558.png">
+</a>
+
+<a href="#">
+<img src="https://cdn-icons-png.flaticon.com/512/5968/5968830.png">
+</a>
+
+</div>
+
+<!-- MESSAGES -->
 
 <div class="messages">
 
+<div class="pin">
+📌 Закріплене повідомлення: Новий wow дизайн BorykNews уже онлайн
+</div>
+
 <div class="msg received">
-⚡ У Борисполі помітили великі затори через ремонт дороги на Київському Шляху.
+
+😍 Це реально виглядає як Telegram Premium
+
 <div class="msg-time">
 17:31 ✓✓
 </div>
+
 </div>
 
 <div class="msg sent">
-Так, сьогодні взагалі жах 😳 Їхала майже годину.
+
+🔥 Я ще додала glass ефекти та живі фото
+
 <div class="msg-time">
-17:32 ✓✓
+17:33 ✓✓
 </div>
+
 </div>
 
 <div class="msg received">
-🚌 Також перевізники підняли ціну на маршрутку Бориспіль — Київ до 150 грн.
-<div class="msg-time">
-17:34 ✓✓
-</div>
-</div>
 
-<div class="msg sent">
-150 грн це вже занадто 😐
+📸 Дивись як тепер виглядають повідомлення з фото
+
+<img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200">
+
 <div class="msg-time">
 17:35 ✓✓
 </div>
+
 </div>
 
-<div class="msg received">
-📢 Люди масово обговорюють це у соцмережах та Telegram чатах Київщини.
+<div class="msg sent">
+
+😳 Вау це вже як справжній месенджер
+
 <div class="msg-time">
 17:36 ✓✓
 </div>
+
 </div>
 
 <div class="typing">
+
 <span></span>
 <span></span>
 <span></span>
+
 </div>
 
 </div>
+
+<!-- INPUT -->
 
 <div class="input-area">
 
@@ -906,9 +1012,11 @@ online
 
 <div class="input-box">
 
+😊
+
 <input type="text" placeholder="Написати повідомлення...">
 
-😊 🎤
+🎤
 
 </div>
 
