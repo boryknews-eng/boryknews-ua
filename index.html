@@ -34,7 +34,7 @@ height:100vh;
 
 /* SIDEBAR */
 .sidebar{
-width:320px;
+width:340px;
 background:rgba(255,255,255,0.04);
 border-right:1px solid rgba(255,255,255,0.08);
 display:flex;
@@ -50,9 +50,7 @@ cursor:pointer;
 }
 
 .chat img{
-width:46px;
-height:46px;
-border-radius:12px;
+width:46px;height:46px;border-radius:12px;
 }
 
 /* CHAT AREA */
@@ -60,6 +58,7 @@ border-radius:12px;
 flex:1;
 display:flex;
 flex-direction:column;
+min-width:0;
 }
 
 /* HEADER */
@@ -79,9 +78,7 @@ gap:10px;
 }
 
 .user img{
-width:42px;
-height:42px;
-border-radius:12px;
+width:42px;height:42px;border-radius:12px;
 }
 
 /* ACTIONS */
@@ -91,14 +88,12 @@ gap:10px;
 }
 
 .btn{
-width:42px;
-height:42px;
+width:42px;height:42px;
 border:none;
 border-radius:10px;
 background:rgba(255,255,255,0.08);
 color:#fff;
 cursor:pointer;
-font-size:16px;
 }
 
 /* SOCIAL */
@@ -112,7 +107,7 @@ border:1px solid rgba(255,255,255,0.1);
 border-radius:12px;
 padding:10px;
 z-index:999;
-width:200px;
+width:210px;
 }
 
 .social-item{
@@ -131,8 +126,7 @@ background:rgba(255,255,255,0.08);
 }
 
 .social-item img{
-width:18px;
-height:18px;
+width:18px;height:18px;
 }
 
 /* MESSAGES */
@@ -148,19 +142,13 @@ max-width:75%;
 padding:10px 12px;
 border-radius:12px;
 margin-bottom:10px;
-line-height:1.4;
+word-wrap:break-word;
 }
 
-.sent{
-background:#c41c1e;
-margin-left:auto;
-}
+.sent{background:#c41c1e;margin-left:auto}
+.received{background:rgba(255,255,255,0.08)}
 
-.received{
-background:rgba(255,255,255,0.08);
-}
-
-/* INPUT */
+/* INPUT FIX MOBILE */
 .input{
 position:fixed;
 bottom:0;
@@ -169,8 +157,9 @@ right:0;
 display:flex;
 gap:8px;
 padding:10px;
-background:rgba(10,10,12,0.95);
+background:rgba(10,10,12,0.96);
 border-top:1px solid rgba(255,255,255,0.08);
+z-index:10;
 }
 
 .input input{
@@ -181,6 +170,7 @@ border-radius:10px;
 background:rgba(255,255,255,0.08);
 color:#fff;
 outline:none;
+min-width:0;
 }
 
 .input button{
@@ -192,9 +182,59 @@ color:#fff;
 cursor:pointer;
 }
 
-/* MOBILE */
+/* TYPING */
+.typing{
+display:inline-flex;
+gap:4px;
+}
+
+.typing span{
+width:6px;
+height:6px;
+background:#fff;
+border-radius:50%;
+animation:blink 1s infinite;
+}
+
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
+
+@keyframes blink{
+0%,100%{opacity:.3}
+50%{opacity:1}
+}
+
+/* MOBILE FIX FULL */
 @media(max-width:900px){
+
 .sidebar{display:none}
+
+.header{
+padding:10px;
+}
+
+.messages{
+padding:12px;
+padding-bottom:120px;
+}
+
+.msg{
+max-width:90%;
+}
+
+.input{
+padding:8px;
+}
+
+}
+
+/* SCROLL FIX */
+.messages::-webkit-scrollbar{
+width:6px;
+}
+.messages::-webkit-scrollbar-thumb{
+background:rgba(255,255,255,0.2);
+border-radius:10px;
 }
 
 </style>
@@ -207,12 +247,10 @@ cursor:pointer;
 
 <!-- SIDEBAR -->
 <div class="sidebar">
-
 <div class="chat">
 <img src="https://i.pravatar.cc/100?img=5">
 <div>BorykNews AI</div>
 </div>
-
 </div>
 
 <!-- CHAT -->
@@ -223,7 +261,7 @@ cursor:pointer;
 <div class="user">
 <img src="https://i.pravatar.cc/100?img=5">
 <div>
-<div><b>BorykNews AI</b></div>
+<b>BorykNews AI</b>
 <div style="font-size:12px;color:#00ff95">● online</div>
 </div>
 </div>
@@ -242,19 +280,19 @@ cursor:pointer;
 <div class="social-panel" id="social">
 
 <a class="social-item" href="https://www.instagram.com/boryknews/" target="_blank">
-<img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"> Instagram
+📸 Instagram
 </a>
 
 <a class="social-item" href="https://www.facebook.com/BorykNews/" target="_blank">
-<img src="https://cdn-icons-png.flaticon.com/512/733/733547.png"> Facebook
+📘 Facebook
 </a>
 
 <a class="social-item" href="https://x.com/BorykNews" target="_blank">
-<img src="https://cdn-icons-png.flaticon.com/512/733/733579.png"> X
+🐦 X (Twitter)
 </a>
 
 <a class="social-item" href="https://t.me/BorykNews" target="_blank">
-<img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png"> Telegram
+✈ Telegram
 </a>
 
 </div>
@@ -262,16 +300,14 @@ cursor:pointer;
 <!-- MESSAGES -->
 <div class="messages" id="messages">
 
-<div class="msg received">
-👋 Вітаю! Я BorykNews AI
-</div>
+<div class="msg received">👋 Привіт! Я BorykNews AI</div>
 
 </div>
 
 <!-- INPUT -->
 <div class="input">
 
-<input id="text" placeholder="Напишіть повідомлення..."
+<input id="text" placeholder="Написати повідомлення..."
 onkeydown="if(event.key==='Enter')send()">
 
 <button onclick="send()">➤</button>
@@ -284,7 +320,7 @@ onkeydown="if(event.key==='Enter')send()">
 
 <script>
 
-const API_KEY = "PASTE_YOUR_OPENAI_KEY_HERE";
+const API_KEY = "PASTE_YOUR_OPENAI_KEY";
 
 function addMsg(text,type){
 let m=document.createElement("div");
@@ -293,16 +329,31 @@ m.innerText=text;
 document.getElementById("messages").appendChild(m);
 }
 
+function addTyping(){
+let t=document.createElement("div");
+t.className="msg received";
+t.innerHTML=`<div class="typing"><span></span><span></span><span></span></div>`;
+t.id="typing";
+document.getElementById("messages").appendChild(t);
+}
+
+function removeTyping(){
+let t=document.getElementById("typing");
+if(t)t.remove();
+}
+
 async function send(){
 
 let input=document.getElementById("text");
-let text=input.value;
+let text=input.value.trim();
 if(!text)return;
 
 addMsg(text,"sent");
 input.value="";
 
-addMsg("⏳ друкую...","received");
+addTyping();
+
+try{
 
 let res = await fetch("https://api.openai.com/v1/chat/completions",{
 method:"POST",
@@ -315,7 +366,7 @@ model:"gpt-4o-mini",
 messages:[
 {
 role:"system",
-content:"Ти AI асистент BorykNews. Відповідай українською. Теми: новини, оголошення, нерухомість, beauty, послуги."
+content:"Ти AI BorykNews. Відповідай українською. Теми: новини, оголошення, нерухомість, beauty, послуги."
 },
 {role:"user",content:text}
 ]
@@ -324,13 +375,21 @@ content:"Ти AI асистент BorykNews. Відповідай українс
 
 let data = await res.json();
 
-document.querySelectorAll(".msg.received").forEach(m=>{
-if(m.innerText==="⏳ друкую...") m.remove();
-});
+removeTyping();
 
-let reply = data.choices?.[0]?.message?.content || "Помилка AI";
+let reply =
+data?.choices?.[0]?.message?.content
+|| "Я не знайшов відповідь, але спробуй інакше 🙂";
 
 addMsg(reply,"received");
+
+}catch(e){
+
+removeTyping();
+addMsg("❌ AI тимчасово недоступний","received");
+
+}
+
 }
 
 function toggleSocial(){
