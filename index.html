@@ -3,25 +3,53 @@
 
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-<title>BorykNews AI News</title>
+<title>BorykNews Telegram AI</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter}
-body{background:#0b0b10;color:#fff;height:100vh;overflow:hidden}
+/* RESET */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
+}
 
-.app{display:flex;height:100vh}
+body{
+background:#0b0b10;
+color:#fff;
+height:100vh;
+overflow:hidden;
+}
+
+/* APP */
+.app{
+display:flex;
+height:100vh;
+}
 
 /* SIDEBAR */
 .sidebar{
-width:300px;
+width:320px;
 background:rgba(255,255,255,0.04);
 border-right:1px solid rgba(255,255,255,0.08);
-padding:12px;
+display:flex;
+flex-direction:column;
+}
+
+.chat{
+display:flex;
+gap:12px;
+padding:14px;
+align-items:center;
+}
+
+.chat img{
+width:46px;height:46px;border-radius:12px;
 }
 
 /* CHAT */
@@ -29,18 +57,110 @@ padding:12px;
 flex:1;
 display:flex;
 flex-direction:column;
+min-width:0;
 }
 
+/* HEADER */
 .header{
-padding:12px;
 display:flex;
 justify-content:space-between;
 align-items:center;
+padding:12px 16px;
 background:rgba(255,255,255,0.04);
+border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
+.user{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.user img{
+width:42px;height:42px;border-radius:12px;
+}
+
+/* BUTTONS */
 .btn{
-padding:10px 14px;
+width:42px;
+height:42px;
+border:none;
+border-radius:10px;
+background:rgba(255,255,255,0.08);
+color:#fff;
+cursor:pointer;
+}
+
+/* SOCIAL */
+.social{
+display:none;
+position:absolute;
+top:60px;
+right:10px;
+background:#111;
+border:1px solid rgba(255,255,255,0.1);
+border-radius:12px;
+padding:10px;
+width:210px;
+z-index:999;
+}
+
+.social a{
+display:flex;
+gap:8px;
+padding:8px;
+color:#fff;
+text-decoration:none;
+font-size:14px;
+}
+
+.social a:hover{
+background:rgba(255,255,255,0.08);
+}
+
+/* MESSAGES */
+.messages{
+flex:1;
+padding:14px;
+overflow:auto;
+padding-bottom:110px;
+}
+
+.msg{
+max-width:75%;
+padding:10px 12px;
+border-radius:12px;
+margin-bottom:10px;
+}
+
+.sent{background:#c41c1e;margin-left:auto}
+.received{background:rgba(255,255,255,0.08)}
+
+/* INPUT */
+.input{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+display:flex;
+gap:8px;
+padding:10px;
+background:rgba(10,10,12,0.95);
+border-top:1px solid rgba(255,255,255,0.08);
+}
+
+.input input{
+flex:1;
+padding:12px;
+border:none;
+border-radius:10px;
+background:rgba(255,255,255,0.08);
+color:#fff;
+outline:none;
+}
+
+.input button{
+width:46px;
 border:none;
 border-radius:10px;
 background:#c41c1e;
@@ -48,24 +168,24 @@ color:#fff;
 cursor:pointer;
 }
 
-.messages{
-flex:1;
-padding:14px;
-overflow:auto;
+/* MOBILE FIX */
+@media(max-width:900px){
+.sidebar{display:none}
 }
 
-.news{
-background:rgba(255,255,255,0.08);
-padding:14px;
-border-radius:14px;
-margin-bottom:10px;
+/* TYPING */
+.typing span{
+width:6px;height:6px;background:#fff;border-radius:50%;
+display:inline-block;
+animation:b 1s infinite;
 }
 
-.input{
-padding:10px;
-display:flex;
-gap:10px;
-background:rgba(0,0,0,0.5);
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
+
+@keyframes b{
+0%,100%{opacity:.3}
+50%{opacity:1}
 }
 
 </style>
@@ -76,21 +196,58 @@ background:rgba(0,0,0,0.5);
 
 <div class="app">
 
+<!-- SIDEBAR -->
 <div class="sidebar">
-<h3>BorykNews AI</h3>
-<p>🧠 Auto News System</p>
+<div class="chat">
+<img src="https://i.pravatar.cc/100?img=5">
+<div>BorykNews AI</div>
+</div>
 </div>
 
+<!-- CHAT -->
 <div class="chat-area">
 
 <div class="header">
-<b>AI Новини</b>
-<button class="btn" onclick="generateNews()">📰 Згенерувати новину</button>
+
+<div class="user">
+<img src="https://i.pravatar.cc/100?img=5">
+<div>
+<b>BorykNews AI</b>
+<div style="font-size:12px;color:#00ff95">● online</div>
+</div>
 </div>
 
+<div>
+<button class="btn" onclick="window.location.href='tel:+380975973256'">📞</button>
+<button class="btn" onclick="toggleSocial()">⋮</button>
+</div>
+
+</div>
+
+<!-- SOCIAL -->
+<div class="social" id="social">
+
+<a href="https://www.instagram.com/boryknews/">📸 Instagram</a>
+<a href="https://www.facebook.com/BorykNews/">📘 Facebook</a>
+<a href="https://x.com/BorykNews">🐦 X</a>
+<a href="https://t.me/BorykNews">✈ Telegram</a>
+
+</div>
+
+<!-- MESSAGES -->
 <div class="messages" id="messages">
 
-<div class="news">👋 Натисни кнопку щоб AI створив новину</div>
+<div class="msg received">👋 Я BorykNews AI готовий працювати</div>
+
+</div>
+
+<!-- INPUT -->
+<div class="input">
+
+<input id="text" placeholder="Написати..."
+onkeydown="if(event.key==='Enter')send()">
+
+<button onclick="send()">➤</button>
 
 </div>
 
@@ -100,20 +257,35 @@ background:rgba(0,0,0,0.5);
 
 <script>
 
-const API_KEY = "PASTE_YOUR_OPENAI_KEY";
+const API_KEY = "PASTE_KEY";
 
-function addNews(text){
-let d=document.createElement("div");
-d.className="news";
-d.innerText=text;
-document.getElementById("messages").prepend(d);
+function addMsg(text,type){
+let m=document.createElement("div");
+m.className="msg "+type;
+m.innerText=text;
+document.getElementById("messages").appendChild(m);
 }
 
-async function generateNews(){
+function toggleSocial(){
+let s=document.getElementById("social");
+s.style.display=s.style.display==="block"?"none":"block";
+}
 
-addNews("⏳ AI генерує новину...");
+/* AI НЕ ЛАМАЄ UI */
+async function send(){
 
-let res = await fetch("https://api.openai.com/v1/chat/completions",{
+let input=document.getElementById("text");
+let text=input.value.trim();
+if(!text)return;
+
+addMsg(text,"sent");
+input.value="";
+
+addMsg("⏳ друкую...","received");
+
+try{
+
+let res=await fetch("https://api.openai.com/v1/chat/completions",{
 method:"POST",
 headers:{
 "Content-Type":"application/json",
@@ -124,31 +296,29 @@ model:"gpt-4o-mini",
 messages:[
 {
 role:"system",
-content:
-`Ти редактор новин BorykNews.
-Створи коротку новину українською.
-Теми: Бориспіль, нерухомість, оголошення, послуги, beauty.
-Формат:
-📰 Заголовок
-📍 Місце
-📝 Текст 3-5 речень`
+content:"Ти BorykNews AI. Відповідай українською. Новини, оголошення, нерухомість, beauty, послуги."
 },
-{
-role:"user",
-content:"Згенеруй новину"
-}
+{role:"user",content:text}
 ]
 })
 });
 
-let data = await res.json();
+let data=await res.json();
 
-let news = data?.choices?.[0]?.message?.content
-|| "Помилка генерації новини";
+document.querySelectorAll(".msg.received").forEach(m=>{
+if(m.innerText==="⏳ друкую...")m.remove();
+});
 
-document.querySelector(".news").remove();
+let reply=data?.choices?.[0]?.message?.content
+|| "Спробуй ще раз";
 
-addNews(news);
+addMsg(reply,"received");
+
+}catch(e){
+
+addMsg("❌ AI тимчасово недоступний","received");
+
+}
 
 }
 
