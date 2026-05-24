@@ -1,376 +1,244 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+export default function TelegramWowUI() {
+  const chats = [
+    {
+      name: 'BorykNews',
+      msg: '🔥 Термінові новини Борисполя',
+      time: '17:42',
+      unread: 3,
+      avatar: 'BN'
+    },
+    {
+      name: 'Оголошення',
+      msg: '💼 Нові вакансії вже на сайті',
+      time: '16:11',
+      unread: 1,
+      avatar: 'OG'
+    },
+    {
+      name: 'Нерухомість',
+      msg: '🏠 Новий будинок у центрі',
+      time: '15:04',
+      unread: 0,
+      avatar: 'NR'
+    },
+    {
+      name: 'Транспорт',
+      msg: '🚌 Підвищення цін на маршрутки',
+      time: '13:55',
+      unread: 7,
+      avatar: 'TR'
+    }
+  ];
 
-<title>BorykNews VAU FIX</title>
+  const messages = [
+    {
+      type: 'received',
+      text: '🔥 Вітаємо у новому Telegram-дизайні BorykNews',
+      time: '17:38'
+    },
+    {
+      type: 'sent',
+      text: 'Вау 😍 Це виглядає як справжній Telegram',
+      time: '17:39'
+    },
+    {
+      type: 'received',
+      text: '✨ Адаптивний дизайн для ПК та мобільних пристроїв уже готовий.',
+      time: '17:40'
+    },
+    {
+      type: 'received',
+      text: '🚀 Анімації, скло-морфізм, сучасний стиль та ефекти світіння.',
+      time: '17:41'
+    }
+  ];
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  return (
+    <div className="min-h-screen bg-[#0f172a] overflow-hidden relative text-white">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#c41c1e]/20 via-transparent to-[#2563eb]/20"></div>
 
-<style>
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-red-500/20 blur-3xl rounded-full animate-pulse"></div>
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-blue-500/20 blur-3xl rounded-full animate-pulse"></div>
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Inter',sans-serif;
-}
+      <div className="relative z-10 flex h-screen backdrop-blur-xl">
 
-body{
-  height:100vh;
-  display:flex;
-  background:#0b0f14;
-  overflow:hidden;
-}
+        {/* Sidebar */}
+        <aside className="w-[350px] hidden md:flex flex-col border-r border-white/10 bg-white/5 backdrop-blur-2xl">
 
-/* ================= LEFT ================= */
+          <div className="p-5 border-b border-white/10 flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold tracking-wide">Telegram</h1>
+              <p className="text-sm text-gray-400">BorykNews Edition</p>
+            </div>
 
-.left{
-  width:420px;
-  display:flex;
-  background:#0f1720;
-  border-right:1px solid rgba(255,255,255,0.08);
-}
+            <button className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#c41c1e] to-red-700 shadow-2xl hover:scale-105 transition-all duration-300">
+              ✨
+            </button>
+          </div>
 
-.iconbar{
-  width:78px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding:14px 0;
-  gap:10px;
-  background:#0c131b;
-}
+          <div className="p-4">
+            <div className="bg-white/10 rounded-2xl px-4 py-3 flex items-center gap-3 border border-white/10 focus-within:border-red-500 transition-all">
+              <span className="text-gray-400">🔍</span>
+              <input
+                type="text"
+                placeholder="Пошук чатів..."
+                className="bg-transparent outline-none w-full placeholder:text-gray-400"
+              />
+            </div>
+          </div>
 
-.menu-btn{
-  width:46px;
-  height:46px;
-  border-radius:14px;
-  background:rgba(255,255,255,0.06);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#fff;
-  cursor:pointer;
-  font-size:20px;
-}
+          <div className="flex-1 overflow-y-auto px-3 pb-4 space-y-2">
+            {chats.map((chat, index) => (
+              <div
+                key={index}
+                className={`group rounded-3xl p-4 flex items-center gap-4 cursor-pointer transition-all duration-300 border ${
+                  index === 0
+                    ? 'bg-gradient-to-r from-[#c41c1e]/40 to-red-800/20 border-red-500/30 shadow-2xl'
+                    : 'bg-white/5 hover:bg-white/10 border-white/5'
+                } hover:scale-[1.02]`}
+              >
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-red-500 to-red-900 flex items-center justify-center font-bold text-lg shadow-xl">
+                  {chat.avatar}
+                </div>
 
-.left-content{
-  flex:1;
-  padding:14px;
-  overflow:auto;
-}
+                <div className="flex-1 min-w-0">
+                  <div className="flex justify-between items-center mb-1">
+                    <h3 className="font-semibold truncate">{chat.name}</h3>
+                    <span className="text-xs text-gray-400">{chat.time}</span>
+                  </div>
 
-.ads-title{
-  color:#c31f20;
-  font-weight:800;
-  margin-bottom:12px;
-}
+                  <p className="text-sm text-gray-300 truncate">{chat.msg}</p>
+                </div>
 
-.ad{
-  background:rgba(255,255,255,0.05);
-  padding:12px;
-  border-radius:12px;
-  margin-bottom:10px;
-}
+                {chat.unread > 0 && (
+                  <div className="min-w-[28px] h-7 px-2 rounded-full bg-[#c41c1e] flex items-center justify-center text-xs font-bold shadow-lg animate-pulse">
+                    {chat.unread}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </aside>
 
-.ad-title{
-  color:#fff;
-  font-weight:700;
-}
+        {/* Main Chat */}
+        <main className="flex-1 flex flex-col relative">
 
-.ad-text{
-  color:#9fb3c8;
-  font-size:13px;
-}
+          <header className="h-24 border-b border-white/10 bg-white/5 backdrop-blur-xl flex items-center justify-between px-6">
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-[#c41c1e] to-red-900 flex items-center justify-center text-2xl shadow-2xl">
+                📰
+              </div>
 
-/* ================= CENTER ================= */
+              <div>
+                <h2 className="text-xl font-bold">BorykNews</h2>
+                <p className="text-sm text-green-400">● online</p>
+              </div>
+            </div>
 
-.center{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-}
+            <div className="flex items-center gap-3">
+              {['📞', '🎥', '⚙️'].map((icon, index) => (
+                <button
+                  key={index}
+                  className="w-12 h-12 rounded-2xl bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-110 backdrop-blur-xl border border-white/10"
+                >
+                  {icon}
+                </button>
+              ))}
+            </div>
+          </header>
 
-.header{
-  height:58px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 16px;
-  background:#111826;
-  border-bottom:1px solid rgba(255,255,255,0.08);
-}
+          {/* Messages */}
+          <div className="flex-1 overflow-y-auto p-6 space-y-5 bg-[url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1974&auto=format&fit=crop')] bg-cover bg-center relative">
+            <div className="absolute inset-0 bg-[#0f172a]/70 backdrop-blur-sm"></div>
 
-.header-title{
-  color:#fff;
-  font-weight:800;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  max-width:70%;
-}
+            <div className="relative z-10 space-y-5">
+              {messages.map((msg, index) => (
+                <div
+                  key={index}
+                  className={`flex ${msg.type === 'sent' ? 'justify-end' : 'justify-start'} animate-[fadeIn_.5s_ease]`}
+                >
+                  <div
+                    className={`max-w-[75%] rounded-[28px] px-5 py-4 shadow-2xl border backdrop-blur-2xl transition-all duration-300 hover:scale-[1.01] ${
+                      msg.type === 'sent'
+                        ? 'bg-gradient-to-r from-[#c41c1e] to-red-800 border-red-500/30'
+                        : 'bg-white/10 border-white/10'
+                    }`}
+                  >
+                    <p className="text-[15px] leading-relaxed">{msg.text}</p>
+                    <div className="text-right text-xs mt-2 opacity-70">
+                      {msg.time}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
 
-.post{
-  width:460px;
-  margin:20px auto;
-  background:rgba(255,255,255,0.05);
-  border-radius:16px;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,0.08);
-}
+          {/* Input */}
+          <div className="p-5 border-t border-white/10 bg-white/5 backdrop-blur-2xl">
+            <div className="flex items-center gap-4">
+              <button className="w-14 h-14 rounded-2xl bg-white/10 hover:bg-white/20 transition-all text-xl border border-white/10">
+                ➕
+              </button>
 
-.post-img{
-  height:260px;
-  background:url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop') center/cover;
-}
+              <div className="flex-1 rounded-3xl bg-white/10 border border-white/10 flex items-center px-5 py-4 backdrop-blur-xl shadow-2xl">
+                <input
+                  type="text"
+                  placeholder="Написати повідомлення..."
+                  className="bg-transparent outline-none flex-1 placeholder:text-gray-400"
+                />
 
-.post-content{
-  padding:16px;
-}
+                <div className="flex items-center gap-3 ml-3">
+                  <button className="text-xl hover:scale-110 transition-all">😊</button>
+                  <button className="text-xl hover:scale-110 transition-all">🎤</button>
+                </div>
+              </div>
 
-.post-title{
-  color:#fff;
-  font-weight:800;
-}
+              <button className="w-16 h-16 rounded-3xl bg-gradient-to-br from-[#c41c1e] to-red-900 shadow-[0_0_35px_rgba(196,28,30,.6)] hover:scale-110 transition-all duration-300 text-2xl">
+                🚀
+              </button>
+            </div>
+          </div>
+        </main>
+      </div>
 
-.post-text{
-  color:#9fb3c8;
-  margin-top:8px;
-}
+      {/* Mobile Bottom Nav */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-black/40 backdrop-blur-3xl border-t border-white/10 px-4 py-3 flex justify-around">
+        {['💬', '📢', '🔔', '⚙️'].map((item, index) => (
+          <button
+            key={index}
+            className={`w-14 h-14 rounded-2xl text-2xl transition-all duration-300 ${
+              index === 0
+                ? 'bg-gradient-to-br from-[#c41c1e] to-red-900 shadow-2xl'
+                : 'bg-white/10'
+            }`}
+          >
+            {item}
+          </button>
+        ))}
+      </div>
 
-/* ================= RIGHT ================= */
+      <style>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0px);
+          }
+        }
 
-.right{
-  width:380px;
-  display:flex;
-  flex-direction:column;
-  background:#0f1720;
-  border-left:1px solid rgba(255,255,255,0.08);
-}
+        ::-webkit-scrollbar {
+          width: 8px;
+        }
 
-.map-title{
-  padding:14px;
-  color:#fff;
-  font-weight:800;
-}
-
-iframe{
-  width:100%;
-  height:100%;
-  border:0;
-}
-
-/* ================= MENU ================= */
-
-.overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.6);
-  opacity:0;
-  pointer-events:none;
-  transition:.3s;
-  z-index:50;
-}
-
-.overlay.active{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.menu{
-  position:fixed;
-  top:0;
-  left:-300px;
-  width:300px;
-  height:100vh;
-  background:rgba(15,23,32,0.98);
-  backdrop-filter:blur(20px);
-  padding:18px;
-  transition:.35s;
-  z-index:60;
-}
-
-.menu.active{
-  left:0;
-}
-
-.menu-title{
-  color:#fff;
-  font-weight:800;
-  margin-bottom:20px;
-}
-
-.item{
-  display:flex;
-  align-items:center;
-  padding:12px;
-  border-radius:12px;
-  color:#fff;
-  text-decoration:none;
-  transition:.2s;
-}
-
-.item:hover{
-  background:rgba(255,255,255,0.06);
-  transform:translateX(4px);
-}
-
-/* ================= RESPONSIVE FIX ================= */
-
-@media (max-width: 1100px){
-
-  body{
-    flex-direction:column;
-    overflow:auto;
-  }
-
-  .left{
-    width:100%;
-    flex-direction:row;
-    align-items:center;
-  }
-
-  .iconbar{
-    flex-direction:row;
-    width:100%;
-    justify-content:space-around;
-    padding:10px 0;
-  }
-
-  .center{
-    width:100%;
-  }
-
-  .post{
-    width:92%;
-  }
-
-  .right{
-    width:100%;
-    height:380px;
-  }
-
-  /* HEADER FIX */
-  .header{
-    height:52px;
-    padding:0 12px;
-  }
-
-  .header-title{
-    font-size:14px;
-    max-width:65%;
-  }
-}
-
-/* MOBILE */
-@media (max-width: 600px){
-
-  .header{
-    height:48px;
-    padding:0 10px;
-  }
-
-  .header-title{
-    font-size:13px;
-  }
-
-  .post{
-    width:95%;
-  }
-
-}
-
-</style>
-</head>
-
-<body>
-
-<!-- LEFT -->
-<div class="left">
-
-  <div class="iconbar">
-    <div class="menu-btn" id="menuBtn">☰</div>
-    <div class="menu-btn">🏠</div>
-    <div class="menu-btn">📰</div>
-    <div class="menu-btn">📍</div>
-  </div>
-
-  <div class="left-content">
-
-    <div class="ads-title">ОГОЛОШЕННЯ</div>
-
-    <div class="ad">
-      <div class="ad-title">🏠 Оренда</div>
-      <div class="ad-text">Центр — 12 000 грн</div>
+        ::-webkit-scrollbar-thumb {
+          background: rgba(255,255,255,.15);
+          border-radius: 20px;
+        }
+      `}</style>
     </div>
-
-    <div class="ad">
-      <div class="ad-title">💼 Робота</div>
-      <div class="ad-text">SMM / Дизайн</div>
-    </div>
-
-  </div>
-
-</div>
-
-<!-- CENTER -->
-<div class="center">
-
-  <div class="header">
-    <div class="header-title">BorykNews VAU FIX</div>
-  </div>
-
-  <div class="post">
-    <div class="post-img"></div>
-    <div class="post-content">
-      <div class="post-title">🚍 Ціни на проїзд</div>
-      <div class="post-text">Бориспіль → Баришівка — 150 грн</div>
-    </div>
-  </div>
-
-</div>
-
-<!-- RIGHT -->
-<div class="right">
-
-  <div class="map-title">📍 Live карта</div>
-
-  <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=30.8%2C50.3%2C31.2%2C50.5&layer=mapnik"></iframe>
-
-</div>
-
-<!-- MENU -->
-<div class="overlay" id="overlay"></div>
-
-<div class="menu" id="menu">
-
-  <div class="menu-title">Соцмережі</div>
-
-  <a class="item" href="https://instagram.com" target="_blank">Instagram</a>
-  <a class="item" href="https://t.me" target="_blank">Telegram</a>
-  <a class="item" href="https://youtube.com" target="_blank">YouTube</a>
-
-</div>
-
-<script>
-
-const menu = document.getElementById('menu');
-const overlay = document.getElementById('overlay');
-const btn = document.getElementById('menuBtn');
-
-btn.onclick = () => {
-  menu.classList.add('active');
-  overlay.classList.add('active');
+  );
 }
-
-overlay.onclick = () => {
-  menu.classList.remove('active');
-  overlay.classList.remove('active');
-}
-
-</script>
-
-</body>
-</html>
