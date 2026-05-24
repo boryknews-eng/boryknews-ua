@@ -2,658 +2,56 @@
 <html lang="uk">
 <head>
 
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BoryNews</title>
+<title>BorykNews Telegram UI</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-
-:root{
-
---bg:#08111d;
---card:#0d1724;
---line:#132235;
-
---blue:#1d9bff;
---blue2:#0066ff;
-
---text:#ffffff;
---sub:#94a3b8;
-
---red:#ff3b30;
---green:#31d158;
-
-}
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
--webkit-tap-highlight-color:transparent;
 }
 
 body{
 
-background:
-radial-gradient(circle at top,#0b2b55 0%,#08111d 35%);
-
-background-color:#08111d;
+background:#17212b;
 
 font-family:'Inter',sans-serif;
 
-color:white;
-
-overflow-x:hidden;
-}
-
-/* BG GLOW */
-
-body::before{
-
-content:"";
-
-position:fixed;
-
-inset:0;
-
-background:
-
-radial-gradient(circle at 20% 20%,
-rgba(0,132,255,.18),
-transparent 30%),
-
-radial-gradient(circle at 80% 10%,
-rgba(0,102,255,.15),
-transparent 30%),
-
-radial-gradient(circle at 50% 80%,
-rgba(0,132,255,.08),
-transparent 35%);
-
-pointer-events:none;
-}
-
-/* APP */
-
-.app{
-
-position:relative;
-
-z-index:2;
-
-padding:16px;
-
-padding-bottom:120px;
-}
-
-/* TOP */
-
-.top{
-
-height:54px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-}
-
-.back,
-.menu{
-
-width:40px;
-height:40px;
-
-border-radius:50%;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:22px;
-
-color:#fff;
-}
-
-.logo{
-
-font-size:24px;
-
-font-weight:700;
-}
-
-/* HERO */
-
-.hero{
-
-margin-top:20px;
-
-background:
-linear-gradient(
-180deg,
-rgba(0,0,0,.15),
-transparent
-);
-
-border-radius:28px;
-
-padding:20px;
-
-position:relative;
+height:100vh;
 
 overflow:hidden;
+
+display:flex;
 }
 
-.hero::before{
+/* LEFT SIDEBAR */
 
-content:"";
+.left{
 
-position:absolute;
+width:430px;
 
-width:500px;
-height:500px;
+background:#ffffff;
 
-border-radius:50%;
-
-border:1px solid rgba(0,140,255,.08);
-
-top:-320px;
-right:-100px;
-}
-
-.hero::after{
-
-content:"";
-
-position:absolute;
-
-width:320px;
-height:320px;
-
-border-radius:50%;
-
-border:1px solid rgba(0,140,255,.06);
-
-top:-200px;
-right:0;
-}
-
-.big-title{
-
-font-size:64px;
-
-font-weight:900;
-
-line-height:1;
-
-letter-spacing:-3px;
-
-text-align:center;
-}
-
-.live-badge{
-
-display:inline-flex;
-
-align-items:center;
-
-justify-content:center;
-
-background:
-linear-gradient(
-135deg,
-#0ea5ff,
-#0066ff
-);
-
-padding:10px 20px;
-
-border-radius:16px;
-
-font-size:36px;
-
-font-weight:800;
-
-font-style:italic;
-
-margin-left:10px;
-
-box-shadow:
-0 0 40px rgba(0,132,255,.4);
-}
-
-.subtitle{
-
-margin-top:14px;
-
-text-align:center;
-
-font-size:24px;
-
-color:var(--sub);
-}
-
-/* ONLINE */
-
-.online{
-
-margin:24px auto 0;
-
-width:max-content;
-
-background:rgba(255,255,255,.04);
-
-border:1px solid rgba(255,255,255,.04);
-
-height:54px;
-
-padding:0 24px;
-
-border-radius:999px;
+border-right:1px solid #d9d9d9;
 
 display:flex;
 
-align-items:center;
-
-gap:14px;
-
-backdrop-filter:blur(20px);
+height:100vh;
 }
 
-.dot{
+/* ICON BAR */
 
-width:16px;
-height:16px;
+.iconbar{
 
-border-radius:50%;
+width:74px;
 
-background:#31d158;
-
-box-shadow:
-0 0 20px #31d158;
-
-animation:pulse 1.2s infinite;
-}
-
-@keyframes pulse{
-
-0%{
-transform:scale(1);
-opacity:1;
-}
-
-50%{
-transform:scale(1.5);
-opacity:.6;
-}
-
-100%{
-transform:scale(1);
-opacity:1;
-}
-
-}
-
-.online span{
-
-font-size:26px;
-
-font-weight:600;
-}
-
-/* GRID */
-
-.grid{
-
-margin-top:34px;
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:18px;
-}
-
-.card{
-
-background:
-linear-gradient(
-180deg,
-rgba(255,255,255,.02),
-rgba(255,255,255,.01)
-);
-
-border:1px solid rgba(0,140,255,.35);
-
-border-radius:34px;
-
-padding:30px 24px;
-
-min-height:260px;
-
-position:relative;
-
-overflow:hidden;
-
-box-shadow:
-0 0 40px rgba(0,132,255,.18),
-inset 0 0 25px rgba(0,132,255,.08);
-
-transition:.35s;
-}
-
-.card:active{
-
-transform:scale(.97);
-}
-
-.card::before{
-
-content:"";
-
-position:absolute;
-
-inset:0;
-
-background:
-radial-gradient(circle at top,
-rgba(0,132,255,.16),
-transparent 60%);
-}
-
-.icon{
-
-font-size:72px;
-
-text-align:center;
-
-filter:drop-shadow(0 0 20px rgba(0,132,255,.5));
-}
-
-.card-title{
-
-margin-top:26px;
-
-font-size:28px;
-
-font-weight:700;
-
-line-height:1.2;
-
-text-align:center;
-}
-
-.card-sub{
-
-margin-top:10px;
-
-font-size:20px;
-
-color:var(--sub);
-
-text-align:center;
-}
-
-/* LIVE BAR */
-
-.livebar{
-
-margin-top:24px;
-
-height:72px;
-
-background:
-rgba(0,0,0,.28);
-
-border:1px solid rgba(255,255,255,.04);
-
-border-radius:24px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-padding:0 22px;
-
-backdrop-filter:blur(20px);
-}
-
-.left-live{
-
-display:flex;
-
-align-items:center;
-
-gap:14px;
-}
-
-.red-dot{
-
-width:18px;
-height:18px;
-
-border-radius:50%;
-
-background:#ff3b30;
-
-box-shadow:
-0 0 20px #ff3b30;
-
-animation:pulse 1s infinite;
-}
-
-.live-text{
-
-font-size:22px;
-
-font-weight:700;
-
-color:#ff3b30;
-}
-
-.live-sub{
-
-font-size:18px;
-
-color:var(--sub);
-}
-
-.clock{
-
-font-size:28px;
-
-font-weight:700;
-
-color:#1d9bff;
-}
-
-/* NEWS */
-
-.news{
-
-margin-top:34px;
-}
-
-.news-top{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-bottom:18px;
-}
-
-.news-title{
-
-font-size:38px;
-
-font-weight:800;
-}
-
-.news-link{
-
-font-size:28px;
-
-color:#1d9bff;
-}
-
-.news-card{
-
-background:
-linear-gradient(
-180deg,
-rgba(255,255,255,.02),
-rgba(255,255,255,.01)
-);
-
-border-radius:28px;
-
-overflow:hidden;
-
-border:1px solid rgba(255,255,255,.04);
-
-margin-bottom:16px;
-}
-
-.news-item{
-
-display:flex;
-
-gap:16px;
-
-padding:16px;
-
-border-bottom:1px solid rgba(255,255,255,.04);
-}
-
-.news-item:last-child{
-border-bottom:none;
-}
-
-.news-image{
-
-width:170px;
-height:120px;
-
-border-radius:18px;
-
-background:
-linear-gradient(
-135deg,
-#1d9bff33,
-#ffffff08
-);
-
-flex-shrink:0;
-
-overflow:hidden;
-}
-
-.news-image img{
-
-width:100%;
-height:100%;
-
-object-fit:cover;
-}
-
-.badge{
-
-display:inline-flex;
-
-align-items:center;
-
-justify-content:center;
-
-padding:8px 14px;
-
-border-radius:12px;
-
-font-size:16px;
-
-font-weight:700;
-
-margin-bottom:10px;
-}
-
-.blue{
-background:#0b5ed7;
-}
-
-.green{
-background:#0f9d58;
-}
-
-.orange{
-background:#f59e0b;
-}
-
-.news-text{
-
-flex:1;
-}
-
-.news-head{
-
-font-size:28px;
-
-font-weight:700;
-
-line-height:1.2;
-}
-
-.news-time{
-
-margin-top:10px;
-
-font-size:18px;
-
-color:var(--sub);
-}
-
-/* NAVBAR */
-
-.navbar{
-
-position:fixed;
-
-bottom:0;
-left:0;
-
-width:100%;
-
-height:100px;
-
-background:
-rgba(5,10,18,.92);
-
-backdrop-filter:blur(40px);
-
-border-top:1px solid rgba(255,255,255,.05);
-
-display:flex;
-
-justify-content:space-around;
-
-align-items:center;
-
-z-index:50;
-}
-
-.nav{
+background:#2a3f54;
 
 display:flex;
 
@@ -661,21 +59,508 @@ flex-direction:column;
 
 align-items:center;
 
-gap:8px;
+padding-top:12px;
+}
 
-color:#7c8ba1;
+.menu-btn{
+
+width:42px;
+height:42px;
+
+border-radius:12px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+color:#fff;
+
+font-size:22px;
+
+margin-bottom:16px;
+}
+
+.chat-icon{
+
+width:58px;
+height:58px;
+
+border-radius:16px;
+
+background:#0e1621;
+
+margin-bottom:14px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:20px;
+
+color:white;
+
+position:relative;
+}
+
+.badge{
+
+position:absolute;
+
+top:-5px;
+right:-5px;
+
+background:#3fa7ff;
+
+width:22px;
+height:22px;
+
+border-radius:50%;
+
+font-size:12px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-weight:700;
+}
+
+.icon-label{
+
+font-size:13px;
+
+color:#79c0ff;
+
+margin-bottom:20px;
+}
+
+/* CHATS */
+
+.chats{
+
+flex:1;
+
+background:#fff;
+
+display:flex;
+
+flex-direction:column;
+}
+
+/* SEARCH */
+
+.search{
+
+padding:12px;
+
+border-bottom:1px solid #ececec;
+}
+
+.search input{
+
+width:100%;
+
+height:42px;
+
+border:none;
+
+background:#f2f2f2;
+
+border-radius:12px;
+
+padding:0 16px;
+
+font-size:15px;
+
+outline:none;
+}
+
+/* CHAT ITEMS */
+
+.chat-item{
+
+display:flex;
+
+gap:12px;
+
+padding:12px;
+
+cursor:pointer;
+
+transition:.2s;
+
+border-bottom:1px solid #f1f1f1;
+}
+
+.chat-item:hover{
+
+background:#f6f8fa;
+}
+
+.chat-item.active{
+
+background:#3390ec;
+color:white;
+}
+
+.avatar{
+
+width:56px;
+height:56px;
+
+border-radius:50%;
+
+background:#1d9bf0;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-weight:800;
+
+font-size:22px;
+
+color:white;
+
+flex-shrink:0;
+}
+
+.chat-content{
+
+flex:1;
+}
+
+.chat-top{
+
+display:flex;
+
+justify-content:space-between;
+
+margin-bottom:6px;
+}
+
+.chat-name{
+
+font-size:16px;
+
+font-weight:700;
+}
+
+.chat-time{
+
+font-size:13px;
+
+opacity:.7;
+}
+
+.chat-message{
+
+font-size:14px;
+
+opacity:.8;
+
+white-space:nowrap;
+
+overflow:hidden;
+
+text-overflow:ellipsis;
+}
+
+/* CENTER */
+
+.center{
+
+flex:1;
+
+display:flex;
+
+flex-direction:column;
+
+background:#efeae2;
+}
+
+/* HEADER */
+
+.header{
+
+height:56px;
+
+background:#ffffff;
+
+border-bottom:1px solid #d9d9d9;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+padding:0 18px;
+}
+
+.header-title{
 
 font-size:18px;
+
+font-weight:700;
 }
 
-.nav.active{
+.header-icons{
 
-color:#1d9bff;
+display:flex;
+
+gap:18px;
+
+font-size:22px;
+
+color:#777;
 }
 
-.nav-icon{
+/* CHAT AREA */
 
-font-size:34px;
+.chat-area{
+
+flex:1;
+
+overflow:auto;
+
+padding:20px;
+
+background:
+linear-gradient(
+135deg,
+#f14abf,
+#4d5dfb
+);
+}
+
+/* POST */
+
+.post{
+
+width:440px;
+
+background:#fff;
+
+border-radius:18px;
+
+overflow:hidden;
+
+box-shadow:
+0 4px 18px rgba(0,0,0,.15);
+}
+
+.post-top{
+
+padding:14px 16px;
+
+font-size:20px;
+
+font-weight:700;
+
+color:#4caf50;
+}
+
+.post-image{
+
+height:280px;
+
+background:url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop') center/cover;
+}
+
+.post-content{
+
+padding:18px;
+}
+
+.post-title{
+
+font-size:28px;
+
+font-weight:800;
+
+margin-bottom:18px;
+}
+
+.post-text{
+
+font-size:20px;
+
+line-height:1.6;
+
+color:#222;
+}
+
+/* INPUT */
+
+.inputbar{
+
+height:64px;
+
+background:#fff;
+
+display:flex;
+
+align-items:center;
+
+padding:0 16px;
+
+gap:14px;
+
+border-top:1px solid #ddd;
+}
+
+.inputbar input{
+
+flex:1;
+
+height:44px;
+
+border:none;
+
+background:#f3f3f3;
+
+border-radius:999px;
+
+padding:0 18px;
+
+font-size:15px;
+
+outline:none;
+}
+
+.send{
+
+width:44px;
+height:44px;
+
+border-radius:50%;
+
+background:#3390ec;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+color:white;
+
+font-size:22px;
+}
+
+/* RIGHT */
+
+.right{
+
+width:320px;
+
+background:#f5f5f5;
+
+border-left:1px solid #d9d9d9;
+
+display:flex;
+
+flex-direction:column;
+}
+
+/* EMOJI TOP */
+
+.emoji-top{
+
+height:56px;
+
+background:#fff;
+
+display:flex;
+
+align-items:center;
+
+padding:0 18px;
+
+gap:24px;
+
+border-bottom:1px solid #ddd;
+
+font-weight:600;
+}
+
+.tab.active{
+
+color:#3390ec;
+
+border-bottom:3px solid #3390ec;
+
+padding-bottom:14px;
+}
+
+/* EMOJI SEARCH */
+
+.emoji-search{
+
+padding:12px;
+}
+
+.emoji-search input{
+
+width:100%;
+
+height:40px;
+
+border:none;
+
+background:#fff;
+
+border-radius:12px;
+
+padding:0 14px;
+
+outline:none;
+}
+
+/* EMOJIS */
+
+.emojis{
+
+padding:10px;
+
+display:grid;
+
+grid-template-columns:repeat(6,1fr);
+
+gap:12px;
+
+font-size:28px;
+
+overflow:auto;
+}
+
+.emoji{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+height:44px;
+
+cursor:pointer;
+
+transition:.2s;
+}
+
+.emoji:hover{
+
+transform:scale(1.2);
 }
 
 </style>
@@ -684,308 +569,271 @@ font-size:34px;
 
 <body>
 
-<div class="app">
+<!-- LEFT -->
 
-<!-- TOP -->
+<div class="left">
 
-<div class="top">
+<div class="iconbar">
 
-<div class="back">
-✕
+<div class="menu-btn">
+☰
 </div>
 
-<div class="logo">
-BoryNews
+<div class="chat-icon">
+💬
+<div class="badge">1</div>
 </div>
 
-<div class="menu">
-⋮
+<div class="icon-label">
+Все чаты
 </div>
 
+<div class="chat-icon">
+📁
 </div>
 
-<!-- HERO -->
-
-<div class="hero">
-
-<div class="big-title">
-
-BORYNEWS
-
-<span class="live-badge">
-LIVE
-</span>
-
+<div class="icon-label">
+BorykNews
 </div>
 
-<div class="subtitle">
-Бориспіль інформує 24/7
-</div>
-
-<div class="online">
-
-<div class="dot"></div>
-
-<span>
-Онлайн
-</span>
-
-</div>
-
-<!-- GRID -->
-
-<div class="grid">
-
-<div class="card">
-
-<div class="icon">
-🏙️
-</div>
-
-<div class="card-title">
-🏢 Новини<br>
-Борисполя
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="icon">
-🚌
-</div>
-
-<div class="card-title">
-🚍 Транспорт
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="icon">
-⚡
-</div>
-
-<div class="card-title">
-⚡ Терміново
-</div>
-
-<div class="card-sub">
-Срочні події
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="icon">
-🛰️
-</div>
-
-<div class="card-title">
-🗺 Карта<br>
-тривог
-</div>
-
-</div>
-
-</div>
-
-<!-- LIVE -->
-
-<div class="livebar">
-
-<div class="left-live">
-
-<div class="red-dot"></div>
-
-<div>
-
-<div class="live-text">
-LIVE
-</div>
-
-<div class="live-sub">
-Оновлюється в реальному часі
-</div>
-
-</div>
-
-</div>
-
-<div class="clock" id="clock">
-10:24
-</div>
-
-</div>
-
-<!-- NEWS -->
-
-<div class="news">
-
-<div class="news-top">
-
-<div class="news-title">
-Останні новини
-</div>
-
-<div class="news-link">
-Усі новини
-</div>
-
-</div>
-
-<div class="news-card">
-
-<div class="news-item">
-
-<div class="news-image"></div>
-
-<div class="news-text">
-
-<div class="badge blue">
-ВАЖЛИВО
-</div>
-
-<div class="news-head">
-У Борисполі чутно вибухи, працює ППО
-</div>
-
-<div class="news-time">
-10:15
-</div>
-
-</div>
-
-</div>
-
-<div class="news-item">
-
-<div class="news-image"></div>
-
-<div class="news-text">
-
-<div class="badge green">
-ОФІЦІЙНО
-</div>
-
-<div class="news-head">
-Відключення світла в Борисполі 24 травня
-</div>
-
-<div class="news-time">
-09:40
-</div>
-
-</div>
-
-</div>
-
-<div class="news-item">
-
-<div class="news-image"></div>
-
-<div class="news-text">
-
-<div class="badge orange">
-ПОДІЯ
-</div>
-
-<div class="news-head">
-ДТП на Київському шляху, ускладнено рух
-</div>
-
-<div class="news-time">
-08:30
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- NAVBAR -->
-
-<div class="navbar">
-
-<div class="nav active">
-
-<div class="nav-icon">
-🏠
-</div>
-
-<div>
-Головна
-</div>
-
-</div>
-
-<div class="nav">
-
-<div class="nav-icon">
-🔔
-</div>
-
-<div>
-Сповіщення
-</div>
-
-</div>
-
-<div class="nav">
-
-<div class="nav-icon">
-✈️
-</div>
-
-<div>
-Надіслати
-</div>
-
-</div>
-
-<div class="nav">
-
-<div class="nav-icon">
+<div class="chat-icon">
 ⚙️
 </div>
 
-<div>
-Налаштування
+<div class="icon-label">
+Ред.
+</div>
+
+</div>
+
+<div class="chats">
+
+<div class="search">
+
+<input placeholder="Поиск">
+
+</div>
+
+<div class="chat-item active">
+
+<div class="avatar">
+BN
+</div>
+
+<div class="chat-content">
+
+<div class="chat-top">
+
+<div class="chat-name">
+Новини Борисполя
+</div>
+
+<div class="chat-time">
+Пт
+</div>
+
+</div>
+
+<div class="chat-message">
+🚍 ЦІНИ НА ПРОЇЗД ПІДВИЩИЛИСЯ...
 </div>
 
 </div>
 
 </div>
 
-<script>
+<div class="chat-item">
 
-Telegram.WebApp.ready();
-Telegram.WebApp.expand();
+<div class="avatar">
+BC
+</div>
 
-function updateClock(){
+<div class="chat-content">
 
-const now = new Date();
+<div class="chat-top">
 
-document.getElementById("clock").innerHTML =
-now.toLocaleTimeString("uk-UA",{
-hour:"2-digit",
-minute:"2-digit"
-});
+<div class="chat-name">
+BorykNews
+</div>
 
-}
+<div class="chat-time">
+21:50
+</div>
 
-setInterval(updateClock,1000);
+</div>
 
-updateClock();
+<div class="chat-message">
+⚠️ ПОВІТРЯНА ТРИВОГА
+</div>
 
-</script>
+</div>
+
+</div>
+
+<div class="chat-item">
+
+<div class="avatar">
+B
+</div>
+
+<div class="chat-content">
+
+<div class="chat-top">
+
+<div class="chat-name">
+BotFather
+</div>
+
+<div class="chat-time">
+20:48
+</div>
+
+</div>
+
+<div class="chat-message">
+Here is the token for your bot
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CENTER -->
+
+<div class="center">
+
+<div class="header">
+
+<div class="header-title">
+Новини Борисполя | BorykNews 🇺🇦
+</div>
+
+<div class="header-icons">
+🔍 ☰
+</div>
+
+</div>
+
+<div class="chat-area">
+
+<div class="post">
+
+<div class="post-top">
+Новини Борисполя | BorykNews 🇺🇦
+</div>
+
+<div class="post-image"></div>
+
+<div class="post-content">
+
+<div class="post-title">
+🚍 ЦІНИ НА ПРОЇЗД ПІДВИЩИЛИСЯ
+</div>
+
+<div class="post-text">
+
+📍 Бориспіль → Баришівка
+
+<br><br>
+
+За повідомленнями пасажирів, вартість квитка зросла до <b>150 грн</b>.
+
+<br><br>
+
+💬 Діліться в коментарях своїми маршрутами.
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="inputbar">
+
+📎
+
+<input placeholder="Публікація...">
+
+<div class="send">
+➤
+</div>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="right">
+
+<div class="emoji-top">
+
+<div class="tab active">
+Эмодзи
+</div>
+
+<div class="tab">
+Стикеры
+</div>
+
+<div class="tab">
+GIF
+</div>
+
+</div>
+
+<div class="emoji-search">
+
+<input placeholder="Поиск">
+
+</div>
+
+<div class="emojis">
+
+<div class="emoji">😀</div>
+<div class="emoji">😂</div>
+<div class="emoji">😍</div>
+<div class="emoji">🔥</div>
+<div class="emoji">❤️</div>
+<div class="emoji">👍</div>
+
+<div class="emoji">⚡</div>
+<div class="emoji">😎</div>
+<div class="emoji">🥳</div>
+<div class="emoji">🚀</div>
+<div class="emoji">😭</div>
+<div class="emoji">🤯</div>
+
+<div class="emoji">😡</div>
+<div class="emoji">😱</div>
+<div class="emoji">🤔</div>
+<div class="emoji">🙏</div>
+<div class="emoji">💀</div>
+<div class="emoji">😅</div>
+
+<div class="emoji">😈</div>
+<div class="emoji">🤖</div>
+<div class="emoji">🌍</div>
+<div class="emoji">💎</div>
+<div class="emoji">📢</div>
+<div class="emoji">📸</div>
+
+<div class="emoji">🚌</div>
+<div class="emoji">⚠️</div>
+<div class="emoji">🎉</div>
+<div class="emoji">🎵</div>
+<div class="emoji">🍕</div>
+<div class="emoji">☕</div>
+
+</div>
+
+</div>
 
 </body>
 </html>
