@@ -2,797 +2,169 @@
 <html lang="uk">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>Anna Telegram Premium</title>
+<title>BorykNews Messenger</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Inter',sans-serif;
--webkit-tap-highlight-color:transparent;
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
+body{background:#0b0b10;color:#fff;overflow:hidden;height:100vh}
+
+/* LOGIN */
+.login{
+position:fixed;inset:0;
+display:flex;align-items:center;justify-content:center;
+background:#0b0b10;
+z-index:999;
 }
 
-html,
-body{
+.login-box{
+width:320px;
+padding:20px;
+border-radius:16px;
+background:rgba(255,255,255,0.06);
+text-align:center;
+}
+
+.login-box input{
 width:100%;
-max-width:100%;
-overflow:hidden;
-background:#09090d;
+padding:12px;
+margin-top:10px;
+border-radius:10px;
+border:none;
+background:rgba(255,255,255,0.08);
 color:#fff;
-height:100vh;
 }
 
-/* BG */
-
-.bg{
-position:fixed;
-inset:0;
-overflow:hidden;
-background:
-radial-gradient(circle at top left,#c41c1e33,transparent 25%),
-radial-gradient(circle at bottom right,#2563eb33,transparent 25%),
-#09090d;
-}
-
-.blur{
-position:absolute;
-border-radius:50%;
-filter:blur(120px);
-opacity:.45;
-animation:float 8s infinite ease-in-out;
-}
-
-.blur.red{
-width:420px;
-height:420px;
+.login-box button{
+margin-top:10px;
+width:100%;
+padding:12px;
+border:none;
+border-radius:10px;
 background:#c41c1e;
-top:-140px;
-left:-100px;
-}
-
-.blur.blue{
-width:380px;
-height:380px;
-background:#2563eb;
-bottom:-120px;
-right:-120px;
-animation-delay:2s;
-}
-
-@keyframes float{
-0%,100%{
-transform:translateY(0px);
-}
-50%{
-transform:translateY(30px);
-}
+color:#fff;
 }
 
 /* APP */
-
-.app{
-position:relative;
-z-index:2;
-display:flex;
-height:100vh;
-backdrop-filter:blur(20px);
-overflow:hidden;
-}
+.app{display:flex;height:100vh}
 
 /* SIDEBAR */
-
 .sidebar{
-width:390px;
-background:rgba(255,255,255,.04);
-backdrop-filter:blur(40px) saturate(180%);
-border-right:1px solid rgba(255,255,255,.08);
-display:flex;
-flex-direction:column;
-overflow:hidden;
-}
-
-/* TOP */
-
-.top{
-padding:24px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.logo{
-display:flex;
-gap:14px;
-align-items:center;
-}
-
-.logo-icon{
-width:64px;
-height:64px;
-border-radius:24px;
-overflow:hidden;
-box-shadow:
-0 0 15px #c41c1e,
-0 0 45px #c41c1e88;
-}
-
-.logo-icon img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-.logo h1{
-font-size:24px;
-font-weight:800;
-}
-
-.logo p{
-font-size:13px;
-color:#aaa;
-margin-top:3px;
-}
-
-.plus{
-width:56px;
-height:56px;
-border:none;
-border-radius:22px;
-background:linear-gradient(135deg,#c41c1e,#700d0f);
-font-size:28px;
-color:#fff;
-cursor:pointer;
-transition:.35s;
-box-shadow:0 0 30px #c41c1e88;
-}
-
-.plus:hover{
-transform:rotate(90deg) scale(1.08);
-}
-
-/* SEARCH */
-
-.search{
-padding:18px;
-}
-
-.search-box{
-height:58px;
-background:rgba(255,255,255,.05);
-border-radius:22px;
-display:flex;
-align-items:center;
-padding:0 18px;
-gap:12px;
-border:1px solid rgba(255,255,255,.08);
-}
-
-.search-box input{
-background:none;
-border:none;
-outline:none;
-width:100%;
-color:#fff;
-font-size:15px;
-}
-
-/* STORIES */
-
-.stories{
-display:flex;
-gap:16px;
-padding:0 18px 18px;
-overflow-x:auto;
-}
-
-.story{
-min-width:74px;
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:8px;
-}
-
-.story-avatar{
-width:70px;
-height:70px;
-border-radius:50%;
-padding:3px;
-background:linear-gradient(135deg,#ff3c3f,#c41c1e,#ff7d7f);
-animation:story 5s linear infinite;
-}
-
-.story-avatar img{
-width:100%;
-height:100%;
-object-fit:cover;
-border-radius:50%;
-border:3px solid #09090d;
-}
-
-.story span{
-font-size:12px;
-color:#ddd;
-}
-
-@keyframes story{
-0%{
-transform:rotate(0deg);
-}
-100%{
-transform:rotate(360deg);
-}
-}
-
-/* CHATS */
-
-.chats{
-flex:1;
-overflow-y:auto;
-padding:0 14px 20px;
+width:320px;
+background:rgba(255,255,255,0.04);
+border-right:1px solid rgba(255,255,255,0.1);
+display:flex;flex-direction:column;
 }
 
 .chat{
+padding:12px;
 display:flex;
-gap:15px;
-padding:16px;
-border-radius:28px;
+gap:10px;
 cursor:pointer;
-margin-bottom:12px;
-transition:.35s;
-background:rgba(255,255,255,.03);
-border:1px solid transparent;
+transition:.3s;
 }
 
-.chat:hover{
-transform:
-perspective(1000px)
-rotateX(2deg)
-translateY(-3px)
-scale(1.02);
+.chat:hover{background:rgba(255,255,255,0.06)}
 
-background:rgba(255,255,255,.08);
+.chat img{width:45px;height:45px;border-radius:12px}
 
-box-shadow:
-0 0 15px #c41c1e33,
-0 0 35px #c41c1e22;
-}
-
-.chat.active{
-background:linear-gradient(135deg,#c41c1e44,#2c2a30);
-border-color:#c41c1e55;
-}
-
-.avatar{
-width:70px;
-height:70px;
-border-radius:24px;
-overflow:hidden;
-position:relative;
-}
-
-.avatar img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-.online{
-position:absolute;
-bottom:4px;
-right:4px;
-width:15px;
-height:15px;
-border-radius:50%;
-background:#00ff7b;
-border:2px solid #111;
-animation:online 2s infinite;
-}
-
-@keyframes online{
-0%,100%{
-transform:scale(1);
-}
-50%{
-transform:scale(1.2);
-}
-}
-
-.info{
-flex:1;
-}
-
-.row{
-display:flex;
-justify-content:space-between;
-margin-bottom:5px;
-}
-
-.name{
-font-weight:700;
-font-size:16px;
-}
-
-.time{
-font-size:12px;
-color:#aaa;
-}
-
-.preview{
-font-size:14px;
-color:#bbb;
-}
-
-.badge{
-min-width:28px;
-height:28px;
-padding:0 8px;
-border-radius:50px;
-background:#c41c1e;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:12px;
-font-weight:700;
-box-shadow:0 0 20px #c41c1e88;
-}
+.name{font-weight:700}
 
 /* CHAT */
-
 .chat-area{
 flex:1;
 display:flex;
 flex-direction:column;
-overflow:hidden;
 }
 
-/* HEADER */
-
-.chat-header{
-height:95px;
-padding:0 24px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:rgba(255,255,255,.04);
-backdrop-filter:blur(30px);
-border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.chat-user{
+.header{
+padding:14px;
 display:flex;
 align-items:center;
-gap:16px;
+gap:10px;
+background:rgba(255,255,255,0.04);
 }
 
-.chat-user-avatar{
-width:72px;
-height:72px;
-border-radius:24px;
-overflow:hidden;
-}
-
-.chat-user-avatar img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-/* TYPING STATUS */
-
-.typing-status{
-display:flex;
-align-items:center;
-gap:5px;
-margin-top:6px;
-font-size:14px;
-color:#00ff95;
-font-weight:500;
-}
-
-.typing-status span{
-width:6px;
-height:6px;
-border-radius:50%;
-background:#00ff95;
-animation:typingDots 1.2s infinite;
-}
-
-.typing-status span:nth-child(2){
-animation-delay:.2s;
-}
-
-.typing-status span:nth-child(3){
-animation-delay:.4s;
-}
-
-@keyframes typingDots{
-0%,100%{
-opacity:.3;
-transform:translateY(0);
-}
-50%{
-opacity:1;
-transform:translateY(-3px);
-}
-}
-
-/* ACTIONS */
-
-.actions{
-display:flex;
-gap:12px;
-}
-
-.tg-btn{
-width:54px;
-height:54px;
-border:none;
-border-radius:20px;
-background:rgba(255,255,255,.08);
-display:flex;
-align-items:center;
-justify-content:center;
-cursor:pointer;
-transition:.35s;
-color:#fff;
-font-size:26px;
-}
-
-.tg-btn:hover{
-transform:translateY(-3px) scale(1.06);
-background:#c41c1e;
-box-shadow:
-0 0 15px #c41c1e,
-0 0 35px #c41c1e88;
-}
-
-.tg-btn svg{
-width:24px;
-height:24px;
-fill:#fff;
-}
-
-/* SOCIALS */
-
-.socials{
-display:flex;
-gap:12px;
-padding:18px 24px;
-background:rgba(255,255,255,.03);
-border-bottom:1px solid rgba(255,255,255,.05);
-overflow-x:auto;
-}
-
-.socials a{
-width:52px;
-height:52px;
-border-radius:18px;
-background:rgba(255,255,255,.06);
-display:flex;
-align-items:center;
-justify-content:center;
-transition:.35s;
-flex-shrink:0;
-}
-
-.socials a:hover{
-transform:translateY(-3px) scale(1.08);
-background:#c41c1e;
-box-shadow:0 0 20px #c41c1e88;
-}
-
-.socials img{
-width:26px;
-height:26px;
-object-fit:contain;
-}
+.header img{width:45px;height:45px;border-radius:12px}
 
 /* MESSAGES */
-
 .messages{
 flex:1;
-overflow-y:auto;
-padding:30px;
-background:
-linear-gradient(rgba(9,9,13,.82),rgba(9,9,13,.82)),
-url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2000');
-
-background-size:cover;
-background-position:center;
+padding:15px;
+overflow:auto;
 }
-
-/* PIN */
-
-.pin{
-background:rgba(255,255,255,.08);
-border:1px solid rgba(255,255,255,.08);
-padding:14px 18px;
-border-radius:22px;
-margin-bottom:25px;
-display:flex;
-gap:12px;
-align-items:center;
-backdrop-filter:blur(20px);
-}
-
-/* MSG */
 
 .msg{
-max-width:72%;
-padding:18px 22px;
-border-radius:30px;
-margin-bottom:18px;
-position:relative;
-animation:show .4s ease;
-line-height:1.5;
-backdrop-filter:blur(20px);
+max-width:70%;
+padding:12px;
+border-radius:14px;
+margin-bottom:10px;
+animation:fade .3s;
 }
 
-.msg.received{
-background:rgba(255,255,255,.08);
-border:1px solid rgba(255,255,255,.08);
-}
+.sent{background:#c41c1e;margin-left:auto}
+.received{background:rgba(255,255,255,0.08)}
 
-.msg.sent{
-margin-left:auto;
-background:linear-gradient(135deg,#c41c1e,#7b1112);
-box-shadow:0 0 25px #c41c1e55;
-}
-
-.msg img{
-width:100%;
-border-radius:20px;
-margin-top:12px;
-}
-
-.msg-time{
-font-size:11px;
-opacity:.7;
-margin-top:10px;
-text-align:right;
-}
-
-@keyframes show{
-from{
-opacity:0;
-transform:translateY(20px);
-}
-to{
-opacity:1;
-transform:none;
-}
-}
-
-/* TYPING */
-
-.typing{
-display:flex;
-gap:6px;
-padding:18px 22px;
-width:max-content;
-background:rgba(255,255,255,.08);
-border-radius:24px;
-}
-
-.typing span{
-width:8px;
-height:8px;
-border-radius:50%;
-background:#fff;
-animation:typing 1s infinite;
-}
-
-.typing span:nth-child(2){
-animation-delay:.2s;
-}
-
-.typing span:nth-child(3){
-animation-delay:.4s;
-}
-
-@keyframes typing{
-0%,100%{
-opacity:.3;
-transform:translateY(0);
-}
-50%{
-opacity:1;
-transform:translateY(-4px);
-}
+@keyframes fade{
+from{opacity:0;transform:translateY(10px)}
+to{opacity:1}
 }
 
 /* INPUT */
-
-.input-area{
-padding:18px;
+.input{
 display:flex;
-gap:14px;
-align-items:center;
-background:rgba(255,255,255,.04);
-backdrop-filter:blur(30px);
-border-top:1px solid rgba(255,255,255,.08);
+padding:10px;
+background:rgba(255,255,255,0.04);
+gap:10px;
 }
 
-.attach{
-width:58px;
-height:58px;
-border:none;
-border-radius:20px;
-background:rgba(255,255,255,.08);
-color:#fff;
-font-size:24px;
-cursor:pointer;
-flex-shrink:0;
-}
-
-.input-box{
+.input input{
 flex:1;
-height:62px;
-border-radius:24px;
-background:rgba(255,255,255,.08);
-display:flex;
-align-items:center;
-padding:0 20px;
-}
-
-.input-box input{
-width:100%;
-background:none;
+padding:12px;
 border:none;
-outline:none;
+border-radius:10px;
+background:rgba(255,255,255,0.08);
 color:#fff;
-font-size:15px;
 }
 
-.send{
-width:60px;
-height:60px;
+.input button{
+width:50px;
 border:none;
-border-radius:22px;
-background:linear-gradient(135deg,#c41c1e,#700d0f);
+border-radius:10px;
+background:#c41c1e;
+color:#fff;
+}
+
+/* TYPING */
+.typing{
 display:flex;
-align-items:center;
-justify-content:center;
-cursor:pointer;
-transition:.35s;
-flex-shrink:0;
-box-shadow:
-0 0 20px #c41c1e,
-0 0 45px #c41c1e66;
+gap:5px;
+padding:10px;
 }
 
-.send:hover{
-transform:scale(1.08);
+.typing span{
+width:6px;height:6px;border-radius:50%;
+background:#fff;
+animation:bounce 1s infinite;
 }
 
-.send svg{
-width:24px;
-height:24px;
-fill:#fff;
-margin-left:2px;
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
+
+@keyframes bounce{
+0%,100%{transform:translateY(0);opacity:.3}
+50%{transform:translateY(-4px);opacity:1}
 }
 
 /* MOBILE */
-
-.mobile-nav{
-display:none;
-}
-
 @media(max-width:900px){
-
-.sidebar{
-display:none;
-}
-
-.chat-header{
-height:82px;
-padding:0 14px;
-}
-
-.chat-user-avatar{
-width:58px;
-height:58px;
-}
-
-.chat-user h2{
-font-size:18px;
-}
-
-.messages{
-padding:18px 14px 120px;
-}
-
-.msg{
-max-width:90%;
-padding:16px 18px;
-border-radius:24px;
-}
-
-.socials{
-padding:14px;
-}
-
-.input-area{
-position:fixed;
-bottom:82px;
-left:0;
-right:0;
-padding:12px;
-background:rgba(10,10,12,.92);
-z-index:20;
-}
-
-.attach{
-width:52px;
-height:52px;
-border-radius:18px;
-}
-
-.send{
-width:54px;
-height:54px;
-border-radius:20px;
-}
-
-.input-box{
-height:56px;
-border-radius:20px;
-}
-
-.mobile-nav{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-height:82px;
-display:flex;
-justify-content:space-around;
-align-items:center;
-background:rgba(10,10,12,.88);
-backdrop-filter:blur(40px);
-border-top:1px solid rgba(255,255,255,.08);
-z-index:100;
-}
-
-.mobile-btn{
-width:58px;
-height:58px;
-border-radius:22px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
-background:rgba(255,255,255,.06);
-}
-
-.mobile-btn.active{
-background:linear-gradient(135deg,#c41c1e,#700d0f);
-box-shadow:0 0 20px #c41c1e88;
-}
-
-}
-
-::-webkit-scrollbar{
-width:6px;
-}
-
-::-webkit-scrollbar-thumb{
-background:rgba(255,255,255,.15);
-border-radius:20px;
+.sidebar{display:none}
 }
 
 </style>
@@ -801,282 +173,139 @@ border-radius:20px;
 
 <body>
 
-<div class="bg">
-
-<div class="blur red"></div>
-<div class="blur blue"></div>
-
+<!-- LOGIN -->
+<div class="login" id="login">
+<div class="login-box">
+<h2>BorykNews</h2>
+<input id="name" placeholder="Введи ім'я">
+<button onclick="enter()">Увійти</button>
+</div>
 </div>
 
-<div class="app">
-
-<!-- SIDEBAR -->
+<!-- APP -->
+<div class="app" style="display:none" id="app">
 
 <div class="sidebar">
 
-<div class="top">
-
-<div class="logo">
-
-<div class="logo-icon">
-
-<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400">
-
-</div>
-
+<div class="chat" onclick="selectChat()">
+<img src="https://i.pravatar.cc/100?img=5">
 <div>
-<h1>BorykNews</h1>
-<p>Premium Telegram</p>
+<div class="name">BorykNews</div>
+<div style="font-size:12px;opacity:.7">Новини Київщини</div>
+</div>
+</div>
+
+<div class="chat">
+<img src="https://i.pravatar.cc/100?img=12">
+<div>
+<div class="name">Оголошення</div>
+<div style="font-size:12px;opacity:.7">Робота / Нерухомість</div>
+</div>
 </div>
 
 </div>
-
-<button class="plus">+</button>
-
-</div>
-
-<div class="search">
-
-<div class="search-box">
-🔍
-<input type="text" placeholder="Пошук">
-</div>
-
-</div>
-
-<div class="stories">
-
-<div class="story">
-<div class="story-avatar">
-<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400">
-</div>
-<span>BorykNews</span>
-</div>
-
-<div class="story">
-<div class="story-avatar">
-<img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400">
-</div>
-<span>Макс</span>
-</div>
-
-<div class="story">
-<div class="story-avatar">
-<img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400">
-</div>
-<span>Оля</span>
-</div>
-
-</div>
-
-<div class="chats">
-
-<div class="chat active">
-
-<div class="avatar">
-
-<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400">
-
-<div class="online"></div>
-
-</div>
-
-<div class="info">
-
-<div class="row">
-<div class="name">Анна</div>
-<div class="time">17:42</div>
-</div>
-
-<div class="preview">
-💬 друкує повідомлення...
-</div>
-
-</div>
-
-<div class="badge">
-3
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- CHAT -->
 
 <div class="chat-area">
 
-<div class="chat-header">
-
-<div class="chat-user">
-
-<div class="chat-user-avatar">
-
-<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400">
-
-</div>
-
+<div class="header">
+<img src="https://i.pravatar.cc/100?img=5">
 <div>
+<div id="chatName">BorykNews</div>
+<div style="font-size:12px;color:#00ff95">● онлайн</div>
+</div>
+</div>
 
-<h2>Анна</h2>
+<div class="messages" id="messages">
 
-<div class="typing-status">
+<div class="msg received">🚨 Новини Борисполя оновлено</div>
+<div class="msg sent">🔥 BorykNews працює в реальному часі</div>
 
-<span></span>
-<span></span>
-<span></span>
+</div>
 
-печатает...
+<div class="input">
+
+<input id="text" placeholder="Написати повідомлення...">
+<button onclick="send()">➤</button>
 
 </div>
 
 </div>
 
 </div>
-
-<div class="actions">
-
-<button class="tg-btn">
-
-<svg viewBox="0 0 24 24">
-<path d="M6.6 10.8c1.5 2.9 3.7 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.7 21 3 13.3 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1l-2.2 2.2z"/>
-</svg>
-
-</button>
-
-<button class="tg-btn">
-⋮
-</button>
-
-</div>
-
-</div>
-
-<!-- SOCIALS -->
-
-<div class="socials">
-
-<a href="#">
-<img src="https://cdn-icons-png.flaticon.com/512/733/733547.png">
-</a>
-
-<a href="#">
-<img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
-</a>
-
-<a href="#">
-<img src="https://cdn-icons-png.flaticon.com/512/733/733558.png">
-</a>
-
-<a href="#">
-<img src="https://cdn-icons-png.flaticon.com/512/5968/5968830.png">
-</a>
-
-<a href="#">
-<img src="https://cdn-icons-png.flaticon.com/512/2111/2111748.png">
-</a>
-
-</div>
-
-<!-- MESSAGES -->
-
-<div class="messages">
-
-<div class="pin">
-📌 Анна закріпила фото та новий premium дизайн
-</div>
-
-<div class="msg received">
-
-😍 Це реально виглядає як справжній Telegram Premium
-
-<div class="msg-time">
-17:31 ✓✓
-</div>
-
-</div>
-
-<div class="msg sent">
-
-🔥 Я повністю переробила мобільну версію та анімації
-
-<div class="msg-time">
-17:33 ✓✓
-</div>
-
-</div>
-
-<div class="msg received">
-
-📸 Дивись як тепер виглядають фото у чаті
-
-<img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200">
-
-<div class="msg-time">
-17:35 ✓✓
-</div>
-
-</div>
-
-<div class="msg sent">
-
-😳 Вау це вже рівень справжнього месенджера
-
-<div class="msg-time">
-17:36 ✓✓
-</div>
-
-</div>
-
-<div class="typing">
-
-<span></span>
-<span></span>
-<span></span>
-
-</div>
-
-</div>
-
-<!-- INPUT -->
-
-<div class="input-area">
-
-<button class="attach">
-+
-</button>
-
-<div class="input-box">
-
-<input type="text" placeholder="Написати повідомлення...">
-
-</div>
-
-<button class="send">
-
-<svg viewBox="0 0 24 24">
-<path d="M2 21L23 12 2 3v7l15 2-15 2z"/>
-</svg>
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- MOBILE NAV -->
-
-
 
 <script>
 
-Telegram.WebApp.expand();
+/* LOGIN */
+function enter(){
+document.getElementById("login").style.display="none";
+document.getElementById("app").style.display="flex";
+}
 
-navigator.vibrate?.(20);
+/* SOUND */
+function sound(){
+const a=new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a9d1b1.mp3");
+a.volume=0.3;
+a.play();
+}
+
+/* MESSAGE */
+function send(){
+
+let text=document.getElementById("text").value;
+if(!text)return;
+
+let msg=document.createElement("div");
+msg.className="msg sent";
+msg.innerText=text;
+
+document.getElementById("messages").appendChild(msg);
+
+document.getElementById("text").value="";
+
+sound();
+
+/* typing AI */
+setTimeout(()=>{
+let typing=document.createElement("div");
+typing.className="typing";
+typing.innerHTML="<span></span><span></span><span></span>";
+document.getElementById("messages").appendChild(typing);
+
+setTimeout(()=>{
+typing.remove();
+
+let ai=document.createElement("div");
+ai.className="msg received";
+
+const news=[
+"🚨 ДТП у центрі Борисполя",
+"🏠 Нові квартири на сайті",
+"🚌 Зміни маршрутів Київщини",
+"🔥 Погода зміниться завтра"
+];
+
+ai.innerText=news[Math.floor(Math.random()*news.length)];
+
+document.getElementById("messages").appendChild(ai);
+
+},2000);
+
+},500);
+
+}
+
+/* SWIPE CHAT (simple) */
+let startX=0;
+document.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
+document.addEventListener("touchmove",e=>{
+let diff=e.touches[0].clientX-startX;
+if(diff>80){
+document.querySelector(".sidebar").style.transform="translateX(0)";
+}
+});
+
+/* TELEGRAM INIT */
+Telegram.WebApp.expand();
 
 </script>
 
