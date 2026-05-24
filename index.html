@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>BorykNews AI Chat</title>
+<title>BorykNews AI</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
@@ -63,7 +63,7 @@ gap:10px;
 width:42px;height:42px;border-radius:12px;
 }
 
-/* SOCIALS */
+/* BUTTONS */
 .actions{
 display:flex;
 gap:8px;
@@ -75,10 +75,48 @@ border:none;
 border-radius:10px;
 background:rgba(255,255,255,0.08);
 cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
 .btn img{
-width:22px;height:22px;
+width:20px;
+height:20px;
+}
+
+/* SOCIAL PANEL */
+.social-panel{
+display:none;
+position:absolute;
+top:60px;
+right:10px;
+background:#111;
+border:1px solid rgba(255,255,255,0.1);
+border-radius:14px;
+padding:10px;
+z-index:999;
+width:200px;
+}
+
+.social-item{
+display:flex;
+align-items:center;
+gap:10px;
+padding:8px;
+color:#fff;
+text-decoration:none;
+font-size:14px;
+border-radius:10px;
+}
+
+.social-item:hover{
+background:rgba(255,255,255,0.08);
+}
+
+.social-item img{
+width:18px;
+height:18px;
 }
 
 /* MESSAGES */
@@ -119,6 +157,7 @@ border-radius:10px;
 border:none;
 background:rgba(255,255,255,0.08);
 color:#fff;
+outline:none;
 }
 
 .input button{
@@ -161,18 +200,16 @@ color:#fff;
 <img src="https://i.pravatar.cc/100?img=5">
 <div>
 <div><b>BorykNews AI</b></div>
-<div style="font-size:12px;color:#00ff95">● AI online</div>
+<div style="font-size:12px;color:#00ff95">● онлайн</div>
 </div>
 </div>
 
 <div class="actions">
 
-<!-- CALL -->
 <button class="btn" onclick="window.location.href='tel:+380975973256'">
 <img src="https://cdn-icons-png.flaticon.com/512/724/724664.png">
 </button>
 
-<!-- SOCIALS -->
 <button class="btn" onclick="toggleSocial()">
 <img src="https://cdn-icons-png.flaticon.com/512/545/545682.png">
 </button>
@@ -182,22 +219,22 @@ color:#fff;
 </div>
 
 <!-- SOCIAL PANEL -->
-<div class="social-panel" id="social" style="display:none;position:absolute;top:60px;right:10px;background:#111;padding:10px;border-radius:12px">
+<div class="social-panel" id="social">
 
-<a href="https://www.instagram.com/boryknews/" target="_blank">
-<img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="20"> Instagram
-</a><br>
+<a class="social-item" href="https://www.instagram.com/boryknews/" target="_blank">
+<img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"> Instagram
+</a>
 
-<a href="https://www.facebook.com/BorykNews/" target="_blank">
-<img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" width="20"> Facebook
-</a><br>
+<a class="social-item" href="https://www.facebook.com/BorykNews/" target="_blank">
+<img src="https://cdn-icons-png.flaticon.com/512/733/733547.png"> Facebook
+</a>
 
-<a href="https://x.com/BorykNews" target="_blank">
-<img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" width="20"> X
-</a><br>
+<a class="social-item" href="https://x.com/BorykNews" target="_blank">
+<img src="https://cdn-icons-png.flaticon.com/512/733/733579.png"> X (Twitter)
+</a>
 
-<a href="https://t.me/BorykNews" target="_blank">
-<img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" width="20"> Telegram
+<a class="social-item" href="https://t.me/BorykNews" target="_blank">
+<img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png"> Telegram
 </a>
 
 </div>
@@ -206,7 +243,7 @@ color:#fff;
 <div class="messages" id="messages">
 
 <div class="msg received">
-👋 Hi! I am BorykNews AI Assistant
+👋 Вітаємо! Я BorykNews AI
 </div>
 
 </div>
@@ -214,7 +251,7 @@ color:#fff;
 <!-- INPUT -->
 <div class="input">
 
-<input id="text" placeholder="Ask about news, ads, beauty, services..."
+<input id="text" placeholder="Напишіть повідомлення..."
 onkeydown="if(event.key==='Enter')send()">
 
 <button onclick="send()">➤</button>
@@ -233,8 +270,7 @@ let t=document.getElementById("text");
 if(!t.value)return;
 
 addMsg(t.value,"sent");
-
-setTimeout(()=>aiReply(t.value),600);
+setTimeout(()=>ai(t.value),600);
 
 t.value="";
 }
@@ -246,33 +282,33 @@ m.innerText=text;
 document.getElementById("messages").appendChild(m);
 }
 
-function aiReply(text){
+function ai(text){
 
 let t=text.toLowerCase();
-let reply="🤖 I don't understand";
+let reply="🤖 Не зрозумів запит";
 
-if(t.includes("новини") || t.includes("news")){
-reply="📰 News: Бориспіль – головні події, ДТП, транспорт, політика";
+if(t.includes("новин")){
+reply="📰 Новини Борисполя: головні події, транспорт, ДТП, міські новини";
 }
 
 else if(t.includes("оголош")){
-reply="📢 Ads: нерухомість, робота, авто, земля, оренда";
+reply="📢 Оголошення: нерухомість, авто, робота, оренда, земля";
 }
 
 else if(t.includes("нерух")){
-reply="🏠 Real Estate: квартири, будинки, земля, оренда";
+reply="🏠 Нерухомість: квартири, будинки, земля, оренда";
 }
 
 else if(t.includes("beauty") || t.includes("краса") || t.includes("салон")){
-reply="💇 Beauty: hair salons, barbershops, brows, nails, permanent makeup";
+reply="💇 Beauty: hair salons, barbers, brows, nails, permanent makeup";
 }
 
-else if(t.includes("services") || t.includes("послуг")){
-reply="🛠 Services: ремонт, клінінг, доставка, будівництво, техніка";
+else if(t.includes("послуг")){
+reply="🛠 Послуги: ремонт, клінінг, доставка, будівництво, техніка";
 }
 
 else if(t.includes("привіт")){
-reply="👋 Hello! Ask me about News, Ads, Beauty, Services";
+reply="👋 Привіт! Запитай про новини, оголошення, нерухомість, beauty або послуги";
 }
 
 addMsg(reply,"received");
