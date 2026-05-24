@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BorykNews LIVE PRO</title>
+<title>BorykNews VAU</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -54,20 +54,13 @@ body{
   color:#fff;
   cursor:pointer;
   font-size:20px;
+  transition:.3s;
 }
 
-.side-btn{
-  width:46px;
-  height:46px;
-  border-radius:14px;
-  background:rgba(255,255,255,0.04);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#fff;
+.menu-btn:hover{
+  background:#c31f20;
 }
 
-/* ADS */
 .left-content{
   flex:1;
   padding:14px;
@@ -80,7 +73,7 @@ body{
   margin-bottom:12px;
 }
 
-.ad-item{
+.ad{
   background:rgba(255,255,255,0.05);
   padding:12px;
   border-radius:12px;
@@ -95,7 +88,6 @@ body{
 .ad-text{
   color:#9fb3c8;
   font-size:13px;
-  margin-top:4px;
 }
 
 /* ================= CENTER ================= */
@@ -149,7 +141,7 @@ body{
   margin-top:8px;
 }
 
-/* ================= RIGHT (MAP) ================= */
+/* ================= RIGHT ================= */
 
 .right{
   width:380px;
@@ -163,7 +155,6 @@ body{
   padding:14px;
   color:#fff;
   font-weight:800;
-  border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
 iframe{
@@ -172,29 +163,62 @@ iframe{
   border:0;
 }
 
-.social{
-  display:flex;
-  gap:10px;
-  padding:12px;
-  border-top:1px solid rgba(255,255,255,0.08);
+/* SOCIAL MENU */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+  z-index:50;
 }
 
-.social a{
-  flex:1;
-  text-align:center;
-  padding:10px;
-  border-radius:10px;
-  background:rgba(255,255,255,0.05);
+.overlay.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.menu{
+  position:fixed;
+  top:0;
+  left:-300px;
+  width:300px;
+  height:100vh;
+  background:rgba(15,23,32,0.98);
+  backdrop-filter:blur(20px);
+  padding:18px;
+  transition:.35s;
+  z-index:60;
+}
+
+.menu.active{
+  left:0;
+}
+
+.menu-title{
+  color:#fff;
+  font-weight:800;
+  margin-bottom:20px;
+}
+
+.item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  border-radius:12px;
   color:#fff;
   text-decoration:none;
-  font-size:13px;
+  transition:.2s;
 }
 
-.social a:hover{
-  background:#c31f20;
+.item:hover{
+  background:rgba(255,255,255,0.06);
+  transform:translateX(4px);
 }
 
-/* ================= RESPONSIVE ================= */
+/* ================= MOBILE ================= */
 
 @media (max-width: 1100px){
 
@@ -205,7 +229,7 @@ iframe{
 
   .left{
     width:100%;
-    height:auto;
+    flex-direction:row;
   }
 
   .iconbar{
@@ -224,34 +248,20 @@ iframe{
 
   .right{
     width:100%;
-    height:420px;
-    border-left:none;
-    border-top:1px solid rgba(255,255,255,0.08);
+    height:380px;
   }
 }
 
-/* MOBILE */
 @media (max-width: 600px){
-
-  body{
-    flex-direction:column;
-  }
 
   .post{
     width:95%;
   }
 
-  .ad-item{
+  .ad{
     min-width:220px;
   }
 
-  .social a{
-    font-size:11px;
-  }
-
-  iframe{
-    height:320px;
-  }
 }
 
 </style>
@@ -263,29 +273,24 @@ iframe{
 <div class="left">
 
   <div class="iconbar">
-    <div class="menu-btn">☰</div>
-    <div class="side-btn">🏠</div>
-    <div class="side-btn">📰</div>
-    <div class="side-btn">📍</div>
+    <div class="menu-btn" id="menuBtn">☰</div>
+    <div class="menu-btn">🏠</div>
+    <div class="menu-btn">📰</div>
+    <div class="menu-btn">📍</div>
   </div>
 
   <div class="left-content">
 
-    <div class="ads-title">ОГОЛОШЕННЯ BORYK</div>
+    <div class="ads-title">ОГОЛОШЕННЯ</div>
 
-    <div class="ad-item">
+    <div class="ad">
       <div class="ad-title">🏠 Оренда</div>
       <div class="ad-text">Центр — 12 000 грн</div>
     </div>
 
-    <div class="ad-item">
+    <div class="ad">
       <div class="ad-title">💼 Робота</div>
-      <div class="ad-text">SMM / Дизайнер</div>
-    </div>
-
-    <div class="ad-item">
-      <div class="ad-title">🚕 Таксі</div>
-      <div class="ad-text">від 70 грн по місту</div>
+      <div class="ad-text">SMM / Дизайн</div>
     </div>
 
   </div>
@@ -296,13 +301,13 @@ iframe{
 <div class="center">
 
   <div class="header">
-    <div class="header-title">BorykNews LIVE</div>
+    <div class="header-title">BorykNews VAU</div>
   </div>
 
   <div class="post">
     <div class="post-img"></div>
     <div class="post-content">
-      <div class="post-title">🚍 Ціни на проїзд змінились</div>
+      <div class="post-title">🚍 Ціни на проїзд</div>
       <div class="post-text">Бориспіль → Баришівка — 150 грн</div>
     </div>
   </div>
@@ -314,19 +319,40 @@ iframe{
 
   <div class="map-title">📍 Live карта</div>
 
-  <iframe
-    src="https://www.openstreetmap.org/export/embed.html?bbox=30.8%2C50.3%2C31.2%2C50.5&layer=mapnik">
-  </iframe>
-
-  <div class="social">
-
-    <a href="https://instagram.com" target="_blank">Instagram</a>
-    <a href="https://t.me" target="_blank">Telegram</a>
-    <a href="https://youtube.com" target="_blank">YouTube</a>
-
-  </div>
+  <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=30.8%2C50.3%2C31.2%2C50.5&layer=mapnik"></iframe>
 
 </div>
+
+<!-- SOCIAL MENU -->
+<div class="overlay" id="overlay"></div>
+
+<div class="menu" id="menu">
+
+  <div class="menu-title">Соцмережі</div>
+
+  <a class="item" href="https://instagram.com" target="_blank">Instagram</a>
+  <a class="item" href="https://t.me" target="_blank">Telegram</a>
+  <a class="item" href="https://youtube.com" target="_blank">YouTube</a>
+
+</div>
+
+<script>
+
+const menu = document.getElementById('menu');
+const overlay = document.getElementById('overlay');
+const btn = document.getElementById('menuBtn');
+
+btn.onclick = () => {
+  menu.classList.add('active');
+  overlay.classList.add('active');
+}
+
+overlay.onclick = () => {
+  menu.classList.remove('active');
+  overlay.classList.remove('active');
+}
+
+</script>
 
 </body>
 </html>
