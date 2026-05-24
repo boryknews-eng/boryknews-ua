@@ -4,13 +4,11 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>BorykNews Premium Telegram</title>
+<title>BorykNews Telegram</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -21,79 +19,43 @@ margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Inter',sans-serif;
--webkit-tap-highlight-color:transparent;
 }
 
-body{
+html,body{
+width:100%;
 height:100vh;
 overflow:hidden;
-background:#09090d;
+background:#0b0b10;
 color:#fff;
 }
 
-/* BG */
+/* BACKGROUND */
 
 .bg{
 position:fixed;
 inset:0;
-overflow:hidden;
 background:
-radial-gradient(circle at top left,#c41c1e33,transparent 25%),
-radial-gradient(circle at bottom right,#2563eb33,transparent 25%),
-#09090d;
-}
-
-.blur{
-position:absolute;
-border-radius:50%;
-filter:blur(120px);
-opacity:.5;
-animation:float 8s infinite ease-in-out;
-}
-
-.blur.red{
-width:450px;
-height:450px;
-background:#c41c1e;
-top:-140px;
-left:-100px;
-}
-
-.blur.blue{
-width:400px;
-height:400px;
-background:#2563eb;
-bottom:-120px;
-right:-120px;
-animation-delay:2s;
-}
-
-@keyframes float{
-0%,100%{
-transform:translateY(0px);
-}
-50%{
-transform:translateY(30px);
-}
+radial-gradient(circle at top left,#c41c1e33,transparent 30%),
+radial-gradient(circle at bottom right,#2563eb33,transparent 30%),
+#0b0b10;
 }
 
 /* APP */
 
 .app{
-position:relative;
-z-index:2;
 display:flex;
 height:100vh;
-backdrop-filter:blur(20px);
+position:relative;
+z-index:2;
 }
 
 /* SIDEBAR */
 
 .sidebar{
-width:390px;
-background:rgba(255,255,255,.04);
-backdrop-filter:blur(40px) saturate(180%);
-border-right:1px solid rgba(255,255,255,.08);
+width:380px;
+background:rgba(255,255,255,0.04);
+backdrop-filter:blur(30px);
+border-right:1px solid rgba(255,255,255,0.08);
 display:flex;
 flex-direction:column;
 }
@@ -101,134 +63,76 @@ flex-direction:column;
 /* TOP */
 
 .top{
-padding:24px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-border-bottom:1px solid rgba(255,255,255,.08);
+padding:20px;
+border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
 .logo{
 display:flex;
-gap:14px;
+gap:12px;
 align-items:center;
 }
 
-.logo-icon{
-width:64px;
-height:64px;
-border-radius:24px;
-background:linear-gradient(135deg,#c41c1e,#700d0f);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:28px;
-font-weight:700;
-box-shadow:
-0 0 15px #c41c1e,
-0 0 45px #c41c1e88;
+.logo img{
+width:54px;
+height:54px;
+border-radius:18px;
 }
 
 .logo h1{
-font-size:24px;
+font-size:20px;
 font-weight:800;
 }
 
-.logo p{
-font-size:13px;
-color:#aaa;
-margin-top:3px;
-}
-
 .plus{
-width:56px;
-height:56px;
+width:48px;
+height:48px;
 border:none;
-border-radius:22px;
-background:linear-gradient(135deg,#c41c1e,#700d0f);
-font-size:28px;
+border-radius:16px;
+background:#c41c1e;
 color:#fff;
-cursor:pointer;
-transition:.35s;
-box-shadow:0 0 30px #c41c1e88;
-}
-
-.plus:hover{
-transform:rotate(90deg) scale(1.08);
+font-size:22px;
 }
 
 /* SEARCH */
 
 .search{
-padding:18px;
+padding:15px;
 }
 
-.search-box{
-height:58px;
-background:rgba(255,255,255,.05);
-border-radius:22px;
-display:flex;
-align-items:center;
-padding:0 18px;
-gap:12px;
-border:1px solid rgba(255,255,255,.08);
-}
-
-.search-box input{
-background:none;
+.search input{
+width:100%;
+height:46px;
+border-radius:14px;
 border:none;
 outline:none;
-width:100%;
+padding:0 14px;
+background:rgba(255,255,255,0.06);
 color:#fff;
-font-size:15px;
 }
 
 /* STORIES */
 
 .stories{
 display:flex;
-gap:16px;
-padding:0 18px 18px;
+gap:12px;
+padding:15px;
 overflow-x:auto;
 }
 
 .story{
-min-width:74px;
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:8px;
-}
-
-.story-avatar{
-width:70px;
-height:70px;
-border-radius:50%;
-padding:3px;
-background:linear-gradient(135deg,#ff3c3f,#c41c1e,#ff7d7f);
-animation:story 4s linear infinite;
-}
-
-@keyframes story{
-0%{
-transform:rotate(0deg);
-}
-100%{
-transform:rotate(360deg);
-}
-}
-
-.story-avatar img{
-width:100%;
-height:100%;
-object-fit:cover;
-border-radius:50%;
-border:3px solid #09090d;
-}
-
-.story span{
+text-align:center;
 font-size:12px;
-color:#ddd;
+}
+
+.story img{
+width:60px;
+height:60px;
+border-radius:50%;
+border:2px solid #c41c1e;
 }
 
 /* CHATS */
@@ -236,113 +140,34 @@ color:#ddd;
 .chats{
 flex:1;
 overflow-y:auto;
-padding:0 14px 20px;
+padding:10px;
 }
 
 .chat{
 display:flex;
-gap:15px;
-padding:16px;
-border-radius:28px;
+gap:12px;
+padding:12px;
+border-radius:14px;
 cursor:pointer;
-margin-bottom:12px;
-transition:.35s;
-background:rgba(255,255,255,.03);
-border:1px solid transparent;
 }
 
 .chat:hover{
-transform:
-perspective(1000px)
-rotateX(2deg)
-translateY(-3px)
-scale(1.02);
-
-background:rgba(255,255,255,.08);
-
-box-shadow:
-0 0 15px #c41c1e33,
-0 0 35px #c41c1e22;
-}
-
-.chat.active{
-background:linear-gradient(135deg,#c41c1e44,#2c2a30);
-border-color:#c41c1e55;
-}
-
-.avatar{
-width:70px;
-height:70px;
-border-radius:24px;
-overflow:hidden;
-position:relative;
-box-shadow:0 0 25px rgba(0,0,0,.3);
+background:rgba(255,255,255,0.05);
 }
 
 .avatar img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-.online{
-position:absolute;
-bottom:4px;
-right:4px;
-width:15px;
-height:15px;
-border-radius:50%;
-background:#00ff7b;
-border:2px solid #111;
-animation:online 2s infinite;
-}
-
-@keyframes online{
-0%,100%{
-transform:scale(1);
-}
-50%{
-transform:scale(1.2);
-}
-}
-
-.info{
-flex:1;
-}
-
-.row{
-display:flex;
-justify-content:space-between;
-margin-bottom:5px;
+width:50px;
+height:50px;
+border-radius:18px;
 }
 
 .name{
 font-weight:700;
-font-size:16px;
-}
-
-.time{
-font-size:12px;
-color:#aaa;
 }
 
 .preview{
-font-size:14px;
-color:#bbb;
-}
-
-.badge{
-min-width:28px;
-height:28px;
-padding:0 8px;
-border-radius:50px;
-background:#c41c1e;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:12px;
-font-weight:700;
-box-shadow:0 0 20px #c41c1e88;
+font-size:13px;
+opacity:0.7;
 }
 
 /* CHAT AREA */
@@ -355,126 +180,42 @@ flex-direction:column;
 
 /* HEADER */
 
-.chat-header{
-height:95px;
-padding:0 28px;
+.header{
 display:flex;
 justify-content:space-between;
 align-items:center;
-background:rgba(255,255,255,.04);
-backdrop-filter:blur(30px);
-border-bottom:1px solid rgba(255,255,255,.08);
+padding:15px;
+background:rgba(255,255,255,0.04);
 }
 
-.chat-user{
+.user{
 display:flex;
 align-items:center;
-gap:16px;
-}
-
-.chat-user-avatar{
-width:72px;
-height:72px;
-border-radius:24px;
-overflow:hidden;
-box-shadow:0 0 25px #c41c1e44;
-}
-
-.chat-user-avatar img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-.chat-user h2{
-font-size:22px;
-font-weight:700;
-}
-
-.status{
-display:flex;
-align-items:center;
-gap:8px;
-margin-top:5px;
-font-size:14px;
-color:#00ff7b;
-}
-
-.dot{
-width:10px;
-height:10px;
-background:#00ff7b;
-border-radius:50%;
-animation:online 2s infinite;
-}
-
-/* BUTTONS */
-
-.actions{
-display:flex;
 gap:12px;
 }
 
-.tg-btn{
-width:54px;
-height:54px;
-border:none;
-border-radius:20px;
-background:rgba(255,255,255,.08);
-backdrop-filter:blur(20px);
-display:flex;
-align-items:center;
-justify-content:center;
-cursor:pointer;
-transition:.35s;
-color:#fff;
-font-size:26px;
+.user img{
+width:50px;
+height:50px;
+border-radius:16px;
 }
 
-.tg-btn:hover{
-transform:translateY(-3px) scale(1.06);
-background:#c41c1e;
-box-shadow:
-0 0 15px #c41c1e,
-0 0 35px #c41c1e88;
-}
-
-.tg-btn svg{
-width:24px;
-height:24px;
-fill:#fff;
+.typing{
+font-size:12px;
+color:#00ff95;
 }
 
 /* SOCIALS */
 
 .socials{
 display:flex;
-gap:12px;
-padding:18px 28px;
-background:rgba(255,255,255,.03);
-border-bottom:1px solid rgba(255,255,255,.05);
-}
-
-.socials a{
-width:52px;
-height:52px;
-border-radius:18px;
-background:rgba(255,255,255,.06);
-display:flex;
-align-items:center;
-justify-content:center;
-transition:.35s;
-}
-
-.socials a:hover{
-transform:translateY(-3px) scale(1.08);
-background:#c41c1e;
-box-shadow:0 0 20px #c41c1e88;
+gap:10px;
+padding:10px 15px;
 }
 
 .socials img{
-width:26px;
-height:26px;
+width:24px;
+height:24px;
 }
 
 /* MESSAGES */
@@ -482,267 +223,67 @@ height:26px;
 .messages{
 flex:1;
 overflow-y:auto;
-padding:30px;
-background:
-linear-gradient(rgba(9,9,13,.82),rgba(9,9,13,.82)),
-url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2000');
-
-background-size:cover;
-background-position:center;
+padding:20px;
 }
-
-/* PIN */
-
-.pin{
-background:rgba(255,255,255,.08);
-border:1px solid rgba(255,255,255,.08);
-padding:14px 18px;
-border-radius:22px;
-margin-bottom:25px;
-display:flex;
-gap:12px;
-align-items:center;
-backdrop-filter:blur(20px);
-}
-
-/* MSG */
 
 .msg{
-max-width:72%;
-padding:18px 22px;
-border-radius:30px;
-margin-bottom:18px;
-position:relative;
-animation:show .4s ease;
-line-height:1.5;
-backdrop-filter:blur(20px);
+max-width:70%;
+padding:12px 16px;
+border-radius:18px;
+margin-bottom:12px;
 }
 
-@keyframes show{
-from{
-opacity:0;
-transform:translateY(20px);
-}
-to{
-opacity:1;
-transform:none;
-}
+.received{
+background:rgba(255,255,255,0.08);
 }
 
-.msg.received{
-background:rgba(255,255,255,.08);
-border:1px solid rgba(255,255,255,.08);
-}
-
-.msg.sent{
+.sent{
+background:#c41c1e;
 margin-left:auto;
-background:linear-gradient(135deg,#c41c1e,#7b1112);
-box-shadow:0 0 25px #c41c1e55;
-}
-
-.msg img{
-width:100%;
-border-radius:20px;
-margin-top:12px;
-}
-
-.msg-time{
-font-size:11px;
-opacity:.7;
-margin-top:10px;
-text-align:right;
-}
-
-/* TYPING */
-
-.typing{
-display:flex;
-gap:6px;
-padding:18px 22px;
-width:max-content;
-background:rgba(255,255,255,.08);
-border-radius:24px;
-}
-
-.typing span{
-width:8px;
-height:8px;
-border-radius:50%;
-background:#fff;
-animation:typing 1s infinite;
-}
-
-.typing span:nth-child(2){
-animation-delay:.2s;
-}
-
-.typing span:nth-child(3){
-animation-delay:.4s;
-}
-
-@keyframes typing{
-0%,100%{
-opacity:.3;
-transform:translateY(0);
-}
-50%{
-opacity:1;
-transform:translateY(-4px);
-}
 }
 
 /* INPUT */
 
-.input-area{
-padding:20px;
+.input{
 display:flex;
-gap:16px;
-align-items:center;
-background:rgba(255,255,255,.04);
-backdrop-filter:blur(30px);
-border-top:1px solid rgba(255,255,255,.08);
+gap:10px;
+padding:12px;
+background:rgba(255,255,255,0.04);
 }
 
-.attach{
-width:60px;
-height:60px;
-border:none;
-border-radius:22px;
-background:rgba(255,255,255,.08);
-color:#fff;
-font-size:24px;
-cursor:pointer;
-}
-
-.input-box{
+.input input{
 flex:1;
-height:64px;
-border-radius:24px;
-background:rgba(255,255,255,.08);
-display:flex;
-align-items:center;
-padding:0 22px;
-gap:14px;
-}
-
-.input-box input{
-flex:1;
-background:none;
+height:46px;
+border-radius:14px;
 border:none;
 outline:none;
+padding:0 12px;
+background:rgba(255,255,255,0.06);
 color:#fff;
-font-size:15px;
 }
 
 .send{
-width:66px;
-height:66px;
+width:46px;
+height:46px;
 border:none;
-border-radius:24px;
-background:linear-gradient(135deg,#c41c1e,#700d0f);
-font-size:28px;
+border-radius:14px;
+background:#c41c1e;
 color:#fff;
-cursor:pointer;
-transition:.35s;
-box-shadow:
-0 0 20px #c41c1e,
-0 0 45px #c41c1e66;
 }
 
-.send:hover{
-transform:scale(1.1);
-}
-
-/* MOBILE */
-
-.mobile-nav{
-display:none;
-}
+/* MOBILE FIX */
 
 @media(max-width:900px){
 
-.sidebar{
-display:none;
-}
+.sidebar{display:none;}
 
-.messages{
-padding:18px 14px 120px;
-}
-
-.msg{
-max-width:90%;
-padding:16px 18px;
-border-radius:24px;
-}
-
-.chat-header{
-height:82px;
-padding:0 16px;
-}
-
-.chat-user-avatar{
-width:58px;
-height:58px;
-}
-
-.chat-user h2{
-font-size:18px;
-}
-
-.socials{
-padding:14px 16px;
-overflow-x:auto;
-}
-
-.input-area{
-position:fixed;
-bottom:80px;
-left:0;
-right:0;
-padding:14px;
-background:rgba(10,10,12,.9);
-}
-
-.mobile-nav{
+.input{
 position:fixed;
 bottom:0;
 left:0;
 right:0;
-height:82px;
-display:flex;
-justify-content:space-around;
-align-items:center;
-background:rgba(10,10,12,.88);
-backdrop-filter:blur(40px);
-border-top:1px solid rgba(255,255,255,.08);
-z-index:100;
 }
 
-.mobile-btn{
-width:60px;
-height:60px;
-border-radius:24px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:25px;
-background:rgba(255,255,255,.06);
-}
-
-.mobile-btn.active{
-background:linear-gradient(135deg,#c41c1e,#700d0f);
-box-shadow:0 0 20px #c41c1e88;
-}
-
-}
-
-::-webkit-scrollbar{
-width:6px;
-}
-
-::-webkit-scrollbar-thumb{
-background:rgba(255,255,255,.15);
-border-radius:20px;
 }
 
 </style>
@@ -751,289 +292,121 @@ border-radius:20px;
 
 <body>
 
-<div class="bg">
-
-<div class="blur red"></div>
-<div class="blur blue"></div>
-
-</div>
+<div class="bg"></div>
 
 <div class="app">
 
 <!-- SIDEBAR -->
-
 <div class="sidebar">
 
 <div class="top">
-
 <div class="logo">
-
-<div class="logo-icon">
-📰
-</div>
-
+<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200">
 <div>
 <h1>BorykNews</h1>
-<p>Premium Messenger</p>
 </div>
-
 </div>
 
 <button class="plus">+</button>
-
 </div>
 
 <div class="search">
-
-<div class="search-box">
-🔍
-<input type="text" placeholder="Пошук">
-</div>
-
+<input placeholder="Пошук...">
 </div>
 
 <div class="stories">
-
 <div class="story">
-<div class="story-avatar">
-<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400">
-</div>
-<span>Анна</span>
+<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200">
+<div>BorykNews</div>
 </div>
 
 <div class="story">
-<div class="story-avatar">
-<img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400">
-</div>
-<span>Макс</span>
-</div>
-
-<div class="story">
-<div class="story-avatar">
-<img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400">
-</div>
-<span>News</span>
+<img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png">
+<div>Telegram</div>
 </div>
 
 </div>
 
 <div class="chats">
 
-<div class="chat active">
-
+<div class="chat">
 <div class="avatar">
-
-<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400">
-
-<div class="online"></div>
-
+<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200">
 </div>
-
-<div class="info">
-
-<div class="row">
-<div class="name">Анна</div>
-<div class="time">17:42</div>
+<div>
+<div class="name">BorykNews</div>
+<div class="preview">🚨 Останні новини Борисполя</div>
 </div>
-
-<div class="preview">
-😍 Це виглядає як справжній Telegram
-</div>
-
-</div>
-
-<div class="badge">
-3
-</div>
-
 </div>
 
 <div class="chat">
-
 <div class="avatar">
-
-<img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400">
-
+<img src="https://images.unsplash.com/photo-1500648767791?w=200">
 </div>
-
-<div class="info">
-
-<div class="row">
-<div class="name">Макс</div>
-<div class="time">16:20</div>
+<div>
+<div class="name">Оголошення</div>
+<div class="preview">🏠 Нерухомість та вакансії</div>
 </div>
-
-<div class="preview">
-🔥 Бачив новий дизайн BorykNews?
 </div>
 
 </div>
 
 </div>
 
-</div>
-
-</div>
-
-<!-- CHAT -->
+<!-- CHAT AREA -->
 
 <div class="chat-area">
 
-<div class="chat-header">
+<div class="header">
 
-<div class="chat-user">
-
-<div class="chat-user-avatar">
-
-<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400">
-
-</div>
-
+<div class="user">
+<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200">
 <div>
-
-<h2>Анна</h2>
-
-<div class="status">
-<div class="dot"></div>
-online
+<div><b>BorykNews</b></div>
+<div class="typing">● онлайн</div>
+</div>
 </div>
 
 </div>
-
-</div>
-
-<div class="actions">
-
-<button class="tg-btn">
-
-<svg viewBox="0 0 24 24">
-<path d="M6.6 10.8c1.5 2.9 3.7 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.7 21 3 13.3 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1l-2.2 2.2z"/>
-</svg>
-
-</button>
-
-<button class="tg-btn">
-⋮
-</button>
-
-</div>
-
-</div>
-
-<!-- SOCIALS -->
 
 <div class="socials">
 
-<a href="#">
 <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png">
-</a>
-
-<a href="#">
 <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
-</a>
-
-<a href="#">
-<img src="https://cdn-icons-png.flaticon.com/512/733/733558.png">
-</a>
-
-<a href="#">
-<img src="https://cdn-icons-png.flaticon.com/512/5968/5968830.png">
-</a>
+<img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png">
 
 </div>
-
-<!-- MESSAGES -->
 
 <div class="messages">
 
-<div class="pin">
-📌 Закріплене повідомлення: Новий wow дизайн BorykNews уже онлайн
-</div>
-
 <div class="msg received">
-
-😍 Це реально виглядає як Telegram Premium
-
-<div class="msg-time">
-17:31 ✓✓
-</div>
-
+🚨 У Борисполі затори через ремонт доріг
 </div>
 
 <div class="msg sent">
-
-🔥 Я ще додала glass ефекти та живі фото
-
-<div class="msg-time">
-17:33 ✓✓
-</div>
-
+📸 Читачі вже надсилають фото з місця подій
 </div>
 
 <div class="msg received">
-
-📸 Дивись як тепер виглядають повідомлення з фото
-
-<img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200">
-
-<div class="msg-time">
-17:35 ✓✓
+🏠 Нові оголошення вже на BorykNews
 </div>
 
 </div>
 
-<div class="msg sent">
+<div class="input">
 
-😳 Вау це вже як справжній месенджер
+<input placeholder="Написати повідомлення...">
 
-<div class="msg-time">
-17:36 ✓✓
-</div>
-
-</div>
-
-<div class="typing">
-
-<span></span>
-<span></span>
-<span></span>
+<button class="send">➤</button>
 
 </div>
 
 </div>
-
-<!-- INPUT -->
-
-<div class="input-area">
-
-<button class="attach">
-➕
-</button>
-
-<div class="input-box">
-
-😊
-
-<input type="text" placeholder="Написати повідомлення...">
-
-
-</div>
-
-<button class="send">
-🚀
-</button>
-
-
-
 
 </div>
 
 <script>
-
 Telegram.WebApp.expand();
-
-navigator.vibrate?.(20);
-
 </script>
 
 </body>
