@@ -5,11 +5,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BorykNews LIVE</title>
+<title>BorykNews</title>
 
-<script src="https://telegram.org/js/telegram-web-app.js" ></script>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
@@ -17,75 +17,27 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
 }
 
 body{
 
 font-family:'Inter',sans-serif;
 
-background:
-radial-gradient(circle at top left,#0f4fff 0%,transparent 35%),
-radial-gradient(circle at top right,#ff003c 0%,transparent 30%),
-linear-gradient(180deg,#050b16 0%,#071120 100%);
-
-min-height:100vh;
-
-overflow-x:hidden;
+background:#17212b;
 
 color:white;
-}
 
-/* GLOW */
-
-.glow1,
-.glow2{
-
-position:fixed;
-
-border-radius:50%;
-
-filter:blur(120px);
-
-z-index:0;
-}
-
-.glow1{
-
-width:320px;
-height:320px;
-
-background:#0066ff;
-
-top:-120px;
-left:-120px;
-
-opacity:.35;
-}
-
-.glow2{
-
-width:260px;
-height:260px;
-
-background:#ff003c;
-
-bottom:-100px;
-right:-100px;
-
-opacity:.25;
+overflow-x:hidden;
 }
 
 /* APP */
 
 .app{
 
-position:relative;
+padding:18px;
 
-z-index:2;
-
-padding:24px;
-
-padding-bottom:130px;
+padding-bottom:110px;
 }
 
 /* HEADER */
@@ -98,241 +50,156 @@ justify-content:space-between;
 
 align-items:center;
 
-margin-top:15px;
+margin-top:10px;
 }
 
 .logo{
 
-font-size:34px;
+font-size:28px;
 
-font-weight:900;
+font-weight:800;
 
-letter-spacing:2px;
+letter-spacing:.5px;
 }
 
 .live{
 
-background:linear-gradient(135deg,#ff003c,#ff4f7b);
+background:#2ea6ff;
 
-padding:10px 18px;
+padding:7px 14px;
 
-border-radius:18px;
+border-radius:14px;
 
-font-size:14px;
+font-size:13px;
 
-font-weight:800;
-
-box-shadow:
-0 0 25px rgba(255,0,60,.6);
+font-weight:700;
 }
 
 /* HERO */
 
 .hero{
 
-margin-top:45px;
+margin-top:28px;
 }
 
-.hero h1{
+.hero-title{
 
-font-size:52px;
+font-size:34px;
 
-line-height:1.05;
+font-weight:800;
 
-font-weight:900;
+line-height:1.15;
 }
 
-.hero p{
+.hero-sub{
 
-margin-top:18px;
+margin-top:14px;
 
-font-size:18px;
-
-opacity:.72;
+opacity:.65;
 
 line-height:1.5;
+
+font-size:15px;
 }
 
-/* LIVE STATUS */
+/* TG STYLE CARDS */
 
-.status{
+.cards{
 
-margin-top:30px;
-
-background:
-rgba(255,255,255,.06);
-
-backdrop-filter:blur(24px);
-
-border:
-1px solid rgba(255,255,255,.08);
-
-height:78px;
-
-border-radius:28px;
+margin-top:28px;
 
 display:flex;
 
-align-items:center;
-
-justify-content:space-between;
-
-padding:0 24px;
-}
-
-.left-status{
-
-display:flex;
-
-align-items:center;
+flex-direction:column;
 
 gap:14px;
 }
 
-.dot{
+.card{
 
-width:14px;
-height:14px;
+background:
+rgba(255,255,255,.05);
 
-background:#00ff88;
+border:
+1px solid rgba(255,255,255,.04);
 
-border-radius:50%;
+border-radius:24px;
 
-box-shadow:
-0 0 20px #00ff88;
+padding:18px;
+
+display:flex;
+
+align-items:center;
+
+gap:16px;
+
+backdrop-filter:blur(20px);
+
+transition:.2s;
 }
 
-.online{
+.card:active{
+
+transform:scale(.98);
+}
+
+.icon{
+
+width:58px;
+height:58px;
+
+border-radius:18px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:28px;
+
+background:
+linear-gradient(135deg,
+rgba(46,166,255,.22),
+rgba(46,166,255,.08));
+}
+
+.card-title{
 
 font-size:18px;
 
 font-weight:700;
 }
 
-.clock{
+.card-sub{
 
-font-size:26px;
+margin-top:4px;
 
-font-weight:800;
-
-color:#00cfff;
-}
-
-/* GRID */
-
-.grid{
-
-margin-top:32px;
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:18px;
-}
-
-.card{
-
-position:relative;
-
-height:190px;
-
-border-radius:34px;
-
-background:
-rgba(255,255,255,.06);
-
-border:
-1px solid rgba(255,255,255,.08);
-
-backdrop-filter:blur(24px);
-
-overflow:hidden;
-
-display:flex;
-
-flex-direction:column;
-
-justify-content:center;
-
-align-items:center;
-
-transition:.35s;
-}
-
-.card:hover{
-
-transform:
-translateY(-6px)
-scale(1.02);
-
-box-shadow:
-0 0 40px rgba(0,140,255,.3);
-}
-
-.card::before{
-
-content:"";
-
-position:absolute;
-
-width:180px;
-height:180px;
-
-background:
-radial-gradient(circle,
-rgba(255,255,255,.12),
-transparent 70%);
-
-top:-80px;
-right:-80px;
-}
-
-.icon{
-
-font-size:58px;
-}
-
-.card-title{
-
-margin-top:18px;
-
-font-size:24px;
-
-font-weight:800;
-}
-
-.card-desc{
-
-margin-top:8px;
-
-font-size:14px;
+font-size:13px;
 
 opacity:.6;
 }
 
-/* BREAKING */
+/* LIVE BLOCK */
 
-.breaking{
+.live-block{
 
-margin-top:30px;
-
-padding:22px;
-
-border-radius:30px;
+margin-top:24px;
 
 background:
 linear-gradient(135deg,
-rgba(255,0,60,.22),
+rgba(46,166,255,.15),
 rgba(255,255,255,.04));
 
-border:
-1px solid rgba(255,255,255,.08);
+border-radius:26px;
 
-backdrop-filter:blur(24px);
+padding:20px;
+
+border:
+1px solid rgba(255,255,255,.05);
 }
 
-.breaking-top{
+.live-top{
 
 display:flex;
 
@@ -343,38 +210,46 @@ align-items:center;
 
 .badge{
 
-background:#ff003c;
+background:#ff3b30;
 
-padding:8px 14px;
+padding:6px 12px;
 
-border-radius:14px;
+border-radius:12px;
 
-font-size:13px;
+font-size:12px;
 
-font-weight:800;
-
-box-shadow:
-0 0 20px rgba(255,0,60,.5);
+font-weight:700;
 }
 
-.breaking-title{
+.clock{
 
-margin-top:16px;
+font-size:18px;
 
-font-size:24px;
+font-weight:700;
+
+color:#2ea6ff;
+}
+
+.live-title{
+
+margin-top:18px;
+
+font-size:22px;
 
 font-weight:800;
 
 line-height:1.3;
 }
 
-.breaking-text{
+.live-text{
 
-margin-top:14px;
+margin-top:12px;
 
-opacity:.72;
+opacity:.65;
 
-line-height:1.6;
+line-height:1.5;
+
+font-size:14px;
 }
 
 /* BOTTOM NAV */
@@ -388,23 +263,21 @@ left:0;
 
 width:100%;
 
-height:95px;
+height:82px;
 
 background:
-rgba(6,10,20,.9);
+rgba(23,33,43,.96);
 
-backdrop-filter:blur(24px);
+backdrop-filter:blur(20px);
 
 border-top:
-1px solid rgba(255,255,255,.06);
+1px solid rgba(255,255,255,.05);
 
 display:flex;
 
 justify-content:space-around;
 
 align-items:center;
-
-z-index:10;
 }
 
 .nav{
@@ -415,28 +288,23 @@ flex-direction:column;
 
 align-items:center;
 
-gap:7px;
+gap:6px;
 
-font-size:13px;
+font-size:11px;
 
 opacity:.5;
-
-transition:.3s;
 }
 
-.nav span{
+.nav-icon{
 
-font-size:28px;
+font-size:23px;
 }
 
 .nav.active{
 
 opacity:1;
 
-color:#00aaff;
-
-text-shadow:
-0 0 20px rgba(0,170,255,.8);
+color:#2ea6ff;
 }
 
 </style>
@@ -445,15 +313,12 @@ text-shadow:
 
 <body>
 
-<div class="glow1"></div>
-<div class="glow2"></div>
-
 <div class="app">
 
 <div class="header">
 
 <div class="logo">
-BORYKNEWS
+BorykNews
 </div>
 
 <div class="live">
@@ -464,28 +329,107 @@ LIVE
 
 <div class="hero">
 
-<h1>
-Новини<br>
-майбутнього
-</h1>
+<div class="hero-title">
+Новини Борисполя<br>
+в Telegram
+</div>
 
-<p>
-Telegram Mini App для Борисполя.<br>
-Тривоги • Транспорт • LIVE новини • ЖКГ
-</p>
+<div class="hero-sub">
+Тривоги • Транспорт • Події • ЖКГ • LIVE оновлення
+</div>
 
 </div>
 
-<div class="status">
+<div class="cards">
 
-<div class="left-status">
+<div class="card">
 
-<div class="dot"></div>
-
-<div class="online">
-Система онлайн
+<div class="icon">
+🏙
 </div>
 
+<div>
+
+<div class="card-title">
+Новини міста
+</div>
+
+<div class="card-sub">
+Оперативні події Борисполя
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="icon">
+🚨
+</div>
+
+<div>
+
+<div class="card-title">
+Терміново
+</div>
+
+<div class="card-sub">
+Важливі повідомлення
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="icon">
+⚠️
+</div>
+
+<div>
+
+<div class="card-title">
+Повітряні тривоги
+</div>
+
+<div class="card-sub">
+Карта та сповіщення
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="icon">
+🚌
+</div>
+
+<div>
+
+<div class="card-title">
+Транспорт
+</div>
+
+<div class="card-sub">
+Маршрути та затримки
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="live-block">
+
+<div class="live-top">
+
+<div class="badge">
+LIVE
 </div>
 
 <div class="clock" id="clock">
@@ -494,54 +438,12 @@ Telegram Mini App для Борисполя.<br>
 
 </div>
 
-<div class="grid">
-
-<div class="card">
-<div class="icon">🏙</div>
-<div class="card-title">Новини</div>
-<div class="card-desc">Оперативно 24/7</div>
+<div class="live-title">
+BorykNews Mini App запущено
 </div>
 
-<div class="card">
-<div class="icon">🚨</div>
-<div class="card-title">Терміново</div>
-<div class="card-desc">Важливі події</div>
-</div>
-
-<div class="card">
-<div class="icon">⚠️</div>
-<div class="card-title">Тривоги</div>
-<div class="card-desc">Карта області</div>
-</div>
-
-<div class="card">
-<div class="icon">🚌</div>
-<div class="card-title">Транспорт</div>
-<div class="card-desc">LIVE маршрути</div>
-</div>
-
-</div>
-
-<div class="breaking">
-
-<div class="breaking-top">
-
-<div class="badge">
-BREAKING
-</div>
-
-<div>
-🔴 LIVE
-</div>
-
-</div>
-
-<div class="breaking-title">
-У Борисполі запущено новий Mini App BorykNews
-</div>
-
-<div class="breaking-text">
-Слідкуйте за подіями міста у реальному часі прямо всередині Telegram.
+<div class="live-text">
+Слідкуйте за подіями міста прямо всередині Telegram.
 </div>
 
 </div>
@@ -551,23 +453,51 @@ BREAKING
 <div class="bottom">
 
 <div class="nav active">
-<span>🏠</span>
+
+<div class="nav-icon">
+🏠
+</div>
+
+<div>
 Головна
 </div>
 
+</div>
+
 <div class="nav">
-<span>📰</span>
+
+<div class="nav-icon">
+📰
+</div>
+
+<div>
 Новини
 </div>
 
-<div class="nav">
-<span>🔔</span>
-LIVE
 </div>
 
 <div class="nav">
-<span>⚙️</span>
+
+<div class="nav-icon">
+🔔
+</div>
+
+<div>
+LIVE
+</div>
+
+</div>
+
+<div class="nav">
+
+<div class="nav-icon">
+⚙️
+</div>
+
+<div>
 Меню
+</div>
+
 </div>
 
 </div>
