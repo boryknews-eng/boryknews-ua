@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BorykNews LIVE</title>
+<title>BorykNews LIVE PRO</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -24,7 +24,8 @@ body{
   overflow:hidden;
 }
 
-/* LEFT */
+/* ================= LEFT ================= */
+
 .left{
   width:420px;
   display:flex;
@@ -32,14 +33,13 @@ body{
   border-right:1px solid rgba(255,255,255,0.08);
 }
 
-/* MENU */
 .iconbar{
   width:78px;
   display:flex;
   flex-direction:column;
   align-items:center;
   padding:14px 0;
-  gap:12px;
+  gap:10px;
   background:#0c131b;
 }
 
@@ -67,23 +67,17 @@ body{
   color:#fff;
 }
 
-/* LEFT CONTENT */
+/* ADS */
 .left-content{
   flex:1;
-  display:flex;
-  flex-direction:column;
-}
-
-/* ADS BLOCK */
-.ads{
   padding:14px;
-  color:#fff;
+  overflow:auto;
 }
 
 .ads-title{
-  font-weight:800;
-  margin-bottom:10px;
   color:#c31f20;
+  font-weight:800;
+  margin-bottom:12px;
 }
 
 .ad-item{
@@ -94,17 +88,18 @@ body{
 }
 
 .ad-title{
-  font-weight:700;
   color:#fff;
+  font-weight:700;
 }
 
 .ad-text{
-  font-size:13px;
   color:#9fb3c8;
+  font-size:13px;
   margin-top:4px;
 }
 
-/* CENTER */
+/* ================= CENTER ================= */
+
 .center{
   flex:1;
   display:flex;
@@ -126,10 +121,9 @@ body{
   font-weight:800;
 }
 
-/* POST */
 .post{
-  margin:20px auto;
   width:460px;
+  margin:20px auto;
   background:rgba(255,255,255,0.05);
   border-radius:16px;
   overflow:hidden;
@@ -147,7 +141,6 @@ body{
 
 .post-title{
   color:#fff;
-  font-size:18px;
   font-weight:800;
 }
 
@@ -156,13 +149,14 @@ body{
   margin-top:8px;
 }
 
-/* RIGHT MAP */
+/* ================= RIGHT (MAP) ================= */
+
 .right{
   width:380px;
-  background:#0f1720;
-  border-left:1px solid rgba(255,255,255,0.08);
   display:flex;
   flex-direction:column;
+  background:#0f1720;
+  border-left:1px solid rgba(255,255,255,0.08);
 }
 
 .map-title{
@@ -172,17 +166,12 @@ body{
   border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
-.map{
-  flex:1;
-}
-
 iframe{
   width:100%;
   height:100%;
   border:0;
 }
 
-/* SOCIAL */
 .social{
   display:flex;
   gap:10px;
@@ -205,6 +194,66 @@ iframe{
   background:#c31f20;
 }
 
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1100px){
+
+  body{
+    flex-direction:column;
+    overflow:auto;
+  }
+
+  .left{
+    width:100%;
+    height:auto;
+  }
+
+  .iconbar{
+    flex-direction:row;
+    width:100%;
+    justify-content:space-around;
+  }
+
+  .center{
+    width:100%;
+  }
+
+  .post{
+    width:92%;
+  }
+
+  .right{
+    width:100%;
+    height:420px;
+    border-left:none;
+    border-top:1px solid rgba(255,255,255,0.08);
+  }
+}
+
+/* MOBILE */
+@media (max-width: 600px){
+
+  body{
+    flex-direction:column;
+  }
+
+  .post{
+    width:95%;
+  }
+
+  .ad-item{
+    min-width:220px;
+  }
+
+  .social a{
+    font-size:11px;
+  }
+
+  iframe{
+    height:320px;
+  }
+}
+
 </style>
 </head>
 
@@ -217,32 +266,30 @@ iframe{
     <div class="menu-btn">☰</div>
     <div class="side-btn">🏠</div>
     <div class="side-btn">📰</div>
-    <div class="side-btn">📊</div>
+    <div class="side-btn">📍</div>
   </div>
 
   <div class="left-content">
 
-    <div class="ads">
-      <div class="ads-title">ОГОЛОШЕННЯ BORYK</div>
+    <div class="ads-title">ОГОЛОШЕННЯ BORYK</div>
 
-      <div class="ad-item">
-        <div class="ad-title">🏠 Оренда квартири</div>
-        <div class="ad-text">Бориспіль центр — 12 000 грн</div>
-      </div>
+    <div class="ad-item">
+      <div class="ad-title">🏠 Оренда</div>
+      <div class="ad-text">Центр — 12 000 грн</div>
+    </div>
 
-      <div class="ad-item">
-        <div class="ad-title">💼 Робота</div>
-        <div class="ad-text">Потрібен SMM спеціаліст</div>
-      </div>
+    <div class="ad-item">
+      <div class="ad-title">💼 Робота</div>
+      <div class="ad-text">SMM / Дизайнер</div>
+    </div>
 
-      <div class="ad-item">
-        <div class="ad-title">🚗 Таксі</div>
-        <div class="ad-text">По місту від 70 грн</div>
-      </div>
-
+    <div class="ad-item">
+      <div class="ad-title">🚕 Таксі</div>
+      <div class="ad-text">від 70 грн по місту</div>
     </div>
 
   </div>
+
 </div>
 
 <!-- CENTER -->
@@ -256,30 +303,27 @@ iframe{
     <div class="post-img"></div>
     <div class="post-content">
       <div class="post-title">🚍 Ціни на проїзд змінились</div>
-      <div class="post-text">
-        Бориспіль → Баришівка — 150 грн <br><br>
-        Оновлення від перевізників
-      </div>
+      <div class="post-text">Бориспіль → Баришівка — 150 грн</div>
     </div>
   </div>
 
 </div>
 
-<!-- RIGHT MAP -->
+<!-- RIGHT -->
 <div class="right">
 
-  <div class="map-title">📍 Карта (LIVE)</div>
+  <div class="map-title">📍 Live карта</div>
 
-  <div class="map">
-    <iframe 
-      src="https://www.openstreetmap.org/export/embed.html?bbox=30.8%2C50.3%2C31.2%2C50.5&layer=mapnik">
-    </iframe>
-  </div>
+  <iframe
+    src="https://www.openstreetmap.org/export/embed.html?bbox=30.8%2C50.3%2C31.2%2C50.5&layer=mapnik">
+  </iframe>
 
   <div class="social">
+
     <a href="https://instagram.com" target="_blank">Instagram</a>
     <a href="https://t.me" target="_blank">Telegram</a>
     <a href="https://youtube.com" target="_blank">YouTube</a>
+
   </div>
 
 </div>
