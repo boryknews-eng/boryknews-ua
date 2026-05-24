@@ -3,228 +3,125 @@
 
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>BorykNews Telegram Premium</title>
+<title>BorykNews Messenger</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
 
 /* RESET */
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Inter,sans-serif;
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
+body{background:#0b0b10;color:#fff;overflow:hidden;height:100vh}
+
+/* LOGIN */
+.login{
+position:fixed;inset:0;
+display:flex;align-items:center;justify-content:center;
+background:#0b0b10;
+z-index:999;
 }
 
-body{
-background:#0f0f13;
+.login-box{
+width:320px;
+padding:20px;
+border-radius:16px;
+background:rgba(255,255,255,0.06);
+text-align:center;
+}
+
+.login-box input{
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:10px;
+border:none;
+background:rgba(255,255,255,0.08);
 color:#fff;
-height:100vh;
-overflow:hidden;
+}
+
+.login-box button{
+margin-top:10px;
+width:100%;
+padding:12px;
+border:none;
+border-radius:10px;
+background:#c41c1e;
+color:#fff;
 }
 
 /* APP */
-.app{
-display:flex;
-height:100vh;
-}
+.app{display:flex;height:100vh}
 
 /* SIDEBAR */
 .sidebar{
-width:360px;
+width:320px;
 background:rgba(255,255,255,0.04);
-border-right:1px solid rgba(255,255,255,0.08);
-display:flex;
-flex-direction:column;
-backdrop-filter:blur(20px);
-}
-
-/* HEADER */
-.sidebar-header{
-padding:18px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-border-bottom:1px solid rgba(255,255,255,0.08);
-}
-
-.logo{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.logo img{
-width:50px;
-height:50px;
-border-radius:14px;
-}
-
-.logo h1{
-font-size:18px;
-}
-
-.logo p{
-font-size:12px;
-color:#aaa;
-}
-
-.plus{
-width:44px;
-height:44px;
-border:none;
-border-radius:12px;
-background:#c41c1e;
-color:#fff;
-font-size:22px;
-}
-
-/* STORIES */
-.stories{
-display:flex;
-gap:12px;
-padding:12px;
-overflow-x:auto;
-}
-
-.story{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:6px;
-}
-
-.story img{
-width:54px;
-height:54px;
-border-radius:50%;
-border:2px solid #c41c1e;
-}
-
-/* CHATS */
-.chats{
-flex:1;
-overflow:auto;
-padding:10px;
+border-right:1px solid rgba(255,255,255,0.1);
+display:flex;flex-direction:column;
 }
 
 .chat{
-display:flex;
-gap:12px;
 padding:12px;
-border-radius:14px;
+display:flex;
+gap:10px;
 cursor:pointer;
+transition:.3s;
 }
 
-.chat:hover{
-background:rgba(255,255,255,0.06);
-}
+.chat:hover{background:rgba(255,255,255,0.06)}
 
-.chat img{
-width:48px;
-height:48px;
-border-radius:12px;
-}
+.chat img{width:45px;height:45px;border-radius:12px}
 
-/* RIGHT */
+.name{font-weight:700}
+
+/* CHAT */
 .chat-area{
 flex:1;
 display:flex;
 flex-direction:column;
 }
 
-/* HEADER */
 .header{
-display:flex;
-justify-content:space-between;
-align-items:center;
 padding:14px;
-background:rgba(255,255,255,0.04);
-border-bottom:1px solid rgba(255,255,255,0.08);
-}
-
-.user{
 display:flex;
 align-items:center;
 gap:10px;
+background:rgba(255,255,255,0.04);
 }
 
-.user img{
-width:42px;
-height:42px;
-border-radius:12px;
-}
-
-/* ACTIONS */
-.actions{
-display:flex;
-gap:10px;
-}
-
-.btn{
-width:42px;
-height:42px;
-border:none;
-border-radius:10px;
-background:rgba(255,255,255,0.08);
-color:#fff;
-cursor:pointer;
-}
-
-/* SOCIAL */
-.social{
-display:none;
-position:absolute;
-top:60px;
-right:10px;
-background:#111;
-border-radius:12px;
-padding:10px;
-width:220px;
-z-index:999;
-}
-
-.social a{
-display:flex;
-gap:10px;
-padding:8px;
-color:#fff;
-text-decoration:none;
-}
+.header img{width:45px;height:45px;border-radius:12px}
 
 /* MESSAGES */
 .messages{
 flex:1;
-padding:14px;
+padding:15px;
 overflow:auto;
-padding-bottom:110px;
 }
 
 .msg{
 max-width:70%;
-padding:10px 12px;
-border-radius:12px;
+padding:12px;
+border-radius:14px;
 margin-bottom:10px;
-word-break:break-word;
+animation:fade .3s;
 }
 
 .sent{background:#c41c1e;margin-left:auto}
 .received{background:rgba(255,255,255,0.08)}
 
+@keyframes fade{
+from{opacity:0;transform:translateY(10px)}
+to{opacity:1}
+}
+
 /* INPUT */
 .input{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
 display:flex;
-gap:8px;
 padding:10px;
-background:rgba(10,10,12,0.95);
-border-top:1px solid rgba(255,255,255,0.08);
+background:rgba(255,255,255,0.04);
+gap:10px;
 }
 
 .input input{
@@ -234,49 +131,40 @@ border:none;
 border-radius:10px;
 background:rgba(255,255,255,0.08);
 color:#fff;
-outline:none;
 }
 
 .input button{
-width:46px;
+width:50px;
 border:none;
 border-radius:10px;
 background:#c41c1e;
 color:#fff;
-cursor:pointer;
 }
 
-/* MOBILE FIX (ВАУ АДАПТАЦІЯ) */
+/* TYPING */
+.typing{
+display:flex;
+gap:5px;
+padding:10px;
+}
+
+.typing span{
+width:6px;height:6px;border-radius:50%;
+background:#fff;
+animation:bounce 1s infinite;
+}
+
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
+
+@keyframes bounce{
+0%,100%{transform:translateY(0);opacity:.3}
+50%{transform:translateY(-4px);opacity:1}
+}
+
+/* MOBILE */
 @media(max-width:900px){
-
-.sidebar{
-display:none;
-}
-
-.chat-area{
-width:100%;
-}
-
-.messages{
-padding:12px;
-padding-bottom:120px;
-}
-
-.input{
-padding:8px;
-gap:6px;
-}
-
-}
-
-/* SCROLL */
-.messages::-webkit-scrollbar{
-width:6px;
-}
-
-.messages::-webkit-scrollbar-thumb{
-background:rgba(255,255,255,0.2);
-border-radius:10px;
+.sidebar{display:none}
 }
 
 </style>
@@ -285,105 +173,59 @@ border-radius:10px;
 
 <body>
 
-<div class="app">
+<!-- LOGIN -->
+<div class="login" id="login">
+<div class="login-box">
+<h2>BorykNews</h2>
+<input id="name" placeholder="Введи ім'я">
+<button onclick="enter()">Увійти</button>
+</div>
+</div>
 
-<!-- SIDEBAR -->
+<!-- APP -->
+<div class="app" style="display:none" id="app">
+
 <div class="sidebar">
 
-<div class="sidebar-header">
-
-<div class="logo">
+<div class="chat" onclick="selectChat()">
 <img src="https://i.pravatar.cc/100?img=5">
 <div>
-<h1>BorykNews</h1>
-<p>Telegram Premium</p>
+<div class="name">BorykNews</div>
+<div style="font-size:12px;opacity:.7">Новини Київщини</div>
 </div>
 </div>
 
-<button class="plus">+</button>
-
-</div>
-
-<div class="stories">
-
-<div class="story">
-<img src="https://i.pravatar.cc/100?img=11">
-<span>News</span>
-</div>
-
-<div class="story">
+<div class="chat">
 <img src="https://i.pravatar.cc/100?img=12">
-<span>Chat</span>
+<div>
+<div class="name">Оголошення</div>
+<div style="font-size:12px;opacity:.7">Робота / Нерухомість</div>
 </div>
-
-<div class="story">
-<img src="https://i.pravatar.cc/100?img=13">
-<span>AI</span>
-</div>
-
-</div>
-
-<div class="chats">
-
-<div class="chat">
-<img src="https://i.pravatar.cc/100?img=5">
-<div>BorykNews</div>
-</div>
-
-<div class="chat">
-<img src="https://i.pravatar.cc/100?img=15">
-<div>Оголошення</div>
 </div>
 
 </div>
 
-</div>
-
-<!-- CHAT -->
 <div class="chat-area">
 
 <div class="header">
-
-<div class="user">
 <img src="https://i.pravatar.cc/100?img=5">
 <div>
-<b>BorykNews</b>
-<div style="font-size:12px;color:#00ff95">● online</div>
+<div id="chatName">BorykNews</div>
+<div style="font-size:12px;color:#00ff95">● онлайн</div>
 </div>
 </div>
 
-<div class="actions">
+<div class="messages" id="messages">
 
-<button class="btn" onclick="window.location.href='tel:+380975973256'">📞</button>
-<button class="btn" onclick="toggle()">⋮</button>
-
-</div>
+<div class="msg received">🚨 Новини Борисполя оновлено</div>
+<div class="msg sent">🔥 BorykNews працює в реальному часі</div>
 
 </div>
 
-<!-- SOCIAL -->
-<div class="social" id="social">
-
-<a href="https://www.instagram.com/boryknews/">Instagram</a>
-<a href="https://www.facebook.com/BorykNews/">Facebook</a>
-<a href="https://x.com/BorykNews">X</a>
-<a href="https://t.me/BorykNews">Telegram</a>
-
-</div>
-
-<!-- MESSAGES -->
-<div class="messages">
-
-<div class="msg received">👋 Це відновлений Telegram Premium UI</div>
-<div class="msg sent">Тепер виглядає як треба 🔥</div>
-
-</div>
-
-<!-- INPUT -->
 <div class="input">
 
-<input placeholder="Написати...">
-<button>➤</button>
+<input id="text" placeholder="Написати повідомлення...">
+<button onclick="send()">➤</button>
 
 </div>
 
@@ -393,11 +235,76 @@ border-radius:10px;
 
 <script>
 
-function toggle(){
-let s=document.getElementById("social");
-s.style.display=s.style.display==="block"?"none":"block";
+/* LOGIN */
+function enter(){
+document.getElementById("login").style.display="none";
+document.getElementById("app").style.display="flex";
 }
 
+/* SOUND */
+function sound(){
+const a=new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a9d1b1.mp3");
+a.volume=0.3;
+a.play();
+}
+
+/* MESSAGE */
+function send(){
+
+let text=document.getElementById("text").value;
+if(!text)return;
+
+let msg=document.createElement("div");
+msg.className="msg sent";
+msg.innerText=text;
+
+document.getElementById("messages").appendChild(msg);
+
+document.getElementById("text").value="";
+
+sound();
+
+/* typing AI */
+setTimeout(()=>{
+let typing=document.createElement("div");
+typing.className="typing";
+typing.innerHTML="<span></span><span></span><span></span>";
+document.getElementById("messages").appendChild(typing);
+
+setTimeout(()=>{
+typing.remove();
+
+let ai=document.createElement("div");
+ai.className="msg received";
+
+const news=[
+"🚨 ДТП у центрі Борисполя",
+"🏠 Нові квартири на сайті",
+"🚌 Зміни маршрутів Київщини",
+"🔥 Погода зміниться завтра"
+];
+
+ai.innerText=news[Math.floor(Math.random()*news.length)];
+
+document.getElementById("messages").appendChild(ai);
+
+},2000);
+
+},500);
+
+}
+
+/* SWIPE CHAT (simple) */
+let startX=0;
+document.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
+document.addEventListener("touchmove",e=>{
+let diff=e.touches[0].clientX-startX;
+if(diff>80){
+document.querySelector(".sidebar").style.transform="translateX(0)";
+}
+});
+
+/* TELEGRAM INIT */
 Telegram.WebApp.expand();
 
 </script>
