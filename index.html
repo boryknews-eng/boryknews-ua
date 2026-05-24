@@ -1,244 +1,815 @@
-export default function TelegramWowUI() {
-  const chats = [
-    {
-      name: 'BorykNews',
-      msg: '🔥 Термінові новини Борисполя',
-      time: '17:42',
-      unread: 3,
-      avatar: 'BN'
-    },
-    {
-      name: 'Оголошення',
-      msg: '💼 Нові вакансії вже на сайті',
-      time: '16:11',
-      unread: 1,
-      avatar: 'OG'
-    },
-    {
-      name: 'Нерухомість',
-      msg: '🏠 Новий будинок у центрі',
-      time: '15:04',
-      unread: 0,
-      avatar: 'NR'
-    },
-    {
-      name: 'Транспорт',
-      msg: '🚌 Підвищення цін на маршрутки',
-      time: '13:55',
-      unread: 7,
-      avatar: 'TR'
-    }
-  ];
+<!DOCTYPE html>
+<html lang="uk">
 
-  const messages = [
-    {
-      type: 'received',
-      text: '🔥 Вітаємо у новому Telegram-дизайні BorykNews',
-      time: '17:38'
-    },
-    {
-      type: 'sent',
-      text: 'Вау 😍 Це виглядає як справжній Telegram',
-      time: '17:39'
-    },
-    {
-      type: 'received',
-      text: '✨ Адаптивний дизайн для ПК та мобільних пристроїв уже готовий.',
-      time: '17:40'
-    },
-    {
-      type: 'received',
-      text: '🚀 Анімації, скло-морфізм, сучасний стиль та ефекти світіння.',
-      time: '17:41'
-    }
-  ];
+<head>
 
-  return (
-    <div className="min-h-screen bg-[#0f172a] overflow-hidden relative text-white">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#c41c1e]/20 via-transparent to-[#2563eb]/20"></div>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-red-500/20 blur-3xl rounded-full animate-pulse"></div>
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-blue-500/20 blur-3xl rounded-full animate-pulse"></div>
+<title>BorykNews Telegram</title>
 
-      <div className="relative z-10 flex h-screen backdrop-blur-xl">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-        {/* Sidebar */}
-        <aside className="w-[350px] hidden md:flex flex-col border-r border-white/10 bg-white/5 backdrop-blur-2xl">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-          <div className="p-5 border-b border-white/10 flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold tracking-wide">Telegram</h1>
-              <p className="text-sm text-gray-400">BorykNews Edition</p>
-            </div>
+<style>
 
-            <button className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#c41c1e] to-red-700 shadow-2xl hover:scale-105 transition-all duration-300">
-              ✨
-            </button>
-          </div>
-
-          <div className="p-4">
-            <div className="bg-white/10 rounded-2xl px-4 py-3 flex items-center gap-3 border border-white/10 focus-within:border-red-500 transition-all">
-              <span className="text-gray-400">🔍</span>
-              <input
-                type="text"
-                placeholder="Пошук чатів..."
-                className="bg-transparent outline-none w-full placeholder:text-gray-400"
-              />
-            </div>
-          </div>
-
-          <div className="flex-1 overflow-y-auto px-3 pb-4 space-y-2">
-            {chats.map((chat, index) => (
-              <div
-                key={index}
-                className={`group rounded-3xl p-4 flex items-center gap-4 cursor-pointer transition-all duration-300 border ${
-                  index === 0
-                    ? 'bg-gradient-to-r from-[#c41c1e]/40 to-red-800/20 border-red-500/30 shadow-2xl'
-                    : 'bg-white/5 hover:bg-white/10 border-white/5'
-                } hover:scale-[1.02]`}
-              >
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-red-500 to-red-900 flex items-center justify-center font-bold text-lg shadow-xl">
-                  {chat.avatar}
-                </div>
-
-                <div className="flex-1 min-w-0">
-                  <div className="flex justify-between items-center mb-1">
-                    <h3 className="font-semibold truncate">{chat.name}</h3>
-                    <span className="text-xs text-gray-400">{chat.time}</span>
-                  </div>
-
-                  <p className="text-sm text-gray-300 truncate">{chat.msg}</p>
-                </div>
-
-                {chat.unread > 0 && (
-                  <div className="min-w-[28px] h-7 px-2 rounded-full bg-[#c41c1e] flex items-center justify-center text-xs font-bold shadow-lg animate-pulse">
-                    {chat.unread}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </aside>
-
-        {/* Main Chat */}
-        <main className="flex-1 flex flex-col relative">
-
-          <header className="h-24 border-b border-white/10 bg-white/5 backdrop-blur-xl flex items-center justify-between px-6">
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-[#c41c1e] to-red-900 flex items-center justify-center text-2xl shadow-2xl">
-                📰
-              </div>
-
-              <div>
-                <h2 className="text-xl font-bold">BorykNews</h2>
-                <p className="text-sm text-green-400">● online</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              {['📞', '🎥', '⚙️'].map((icon, index) => (
-                <button
-                  key={index}
-                  className="w-12 h-12 rounded-2xl bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-110 backdrop-blur-xl border border-white/10"
-                >
-                  {icon}
-                </button>
-              ))}
-            </div>
-          </header>
-
-          {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-5 bg-[url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1974&auto=format&fit=crop')] bg-cover bg-center relative">
-            <div className="absolute inset-0 bg-[#0f172a]/70 backdrop-blur-sm"></div>
-
-            <div className="relative z-10 space-y-5">
-              {messages.map((msg, index) => (
-                <div
-                  key={index}
-                  className={`flex ${msg.type === 'sent' ? 'justify-end' : 'justify-start'} animate-[fadeIn_.5s_ease]`}
-                >
-                  <div
-                    className={`max-w-[75%] rounded-[28px] px-5 py-4 shadow-2xl border backdrop-blur-2xl transition-all duration-300 hover:scale-[1.01] ${
-                      msg.type === 'sent'
-                        ? 'bg-gradient-to-r from-[#c41c1e] to-red-800 border-red-500/30'
-                        : 'bg-white/10 border-white/10'
-                    }`}
-                  >
-                    <p className="text-[15px] leading-relaxed">{msg.text}</p>
-                    <div className="text-right text-xs mt-2 opacity-70">
-                      {msg.time}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Input */}
-          <div className="p-5 border-t border-white/10 bg-white/5 backdrop-blur-2xl">
-            <div className="flex items-center gap-4">
-              <button className="w-14 h-14 rounded-2xl bg-white/10 hover:bg-white/20 transition-all text-xl border border-white/10">
-                ➕
-              </button>
-
-              <div className="flex-1 rounded-3xl bg-white/10 border border-white/10 flex items-center px-5 py-4 backdrop-blur-xl shadow-2xl">
-                <input
-                  type="text"
-                  placeholder="Написати повідомлення..."
-                  className="bg-transparent outline-none flex-1 placeholder:text-gray-400"
-                />
-
-                <div className="flex items-center gap-3 ml-3">
-                  <button className="text-xl hover:scale-110 transition-all">😊</button>
-                  <button className="text-xl hover:scale-110 transition-all">🎤</button>
-                </div>
-              </div>
-
-              <button className="w-16 h-16 rounded-3xl bg-gradient-to-br from-[#c41c1e] to-red-900 shadow-[0_0_35px_rgba(196,28,30,.6)] hover:scale-110 transition-all duration-300 text-2xl">
-                🚀
-              </button>
-            </div>
-          </div>
-        </main>
-      </div>
-
-      {/* Mobile Bottom Nav */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-black/40 backdrop-blur-3xl border-t border-white/10 px-4 py-3 flex justify-around">
-        {['💬', '📢', '🔔', '⚙️'].map((item, index) => (
-          <button
-            key={index}
-            className={`w-14 h-14 rounded-2xl text-2xl transition-all duration-300 ${
-              index === 0
-                ? 'bg-gradient-to-br from-[#c41c1e] to-red-900 shadow-2xl'
-                : 'bg-white/10'
-            }`}
-          >
-            {item}
-          </button>
-        ))}
-      </div>
-
-      <style>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0px);
-          }
-        }
-
-        ::-webkit-scrollbar {
-          width: 8px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-          background: rgba(255,255,255,.15);
-          border-radius: 20px;
-        }
-      `}</style>
-    </div>
-  );
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
 }
+
+body{
+background:#0f0f13;
+overflow:hidden;
+color:#fff;
+height:100vh;
+}
+
+/* BACKGROUND */
+
+.bg{
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at top left,#c41c1e33,transparent 30%),
+radial-gradient(circle at bottom right,#2563eb33,transparent 30%),
+#0f0f13;
+overflow:hidden;
+}
+
+.blur1,
+.blur2{
+position:absolute;
+border-radius:50%;
+filter:blur(100px);
+animation:float 8s infinite ease-in-out;
+}
+
+.blur1{
+width:400px;
+height:400px;
+background:#c41c1e55;
+top:-120px;
+left:-100px;
+}
+
+.blur2{
+width:350px;
+height:350px;
+background:#2563eb44;
+bottom:-120px;
+right:-100px;
+animation-delay:2s;
+}
+
+@keyframes float{
+0%,100%{
+transform:translateY(0px);
+}
+50%{
+transform:translateY(30px);
+}
+}
+
+/* APP */
+
+.app{
+position:relative;
+z-index:10;
+display:flex;
+height:100vh;
+backdrop-filter:blur(20px);
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:370px;
+background:rgba(255,255,255,.04);
+border-right:1px solid rgba(255,255,255,.08);
+display:flex;
+flex-direction:column;
+backdrop-filter:blur(30px);
+}
+
+.sidebar-header{
+padding:25px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.logo-icon{
+width:60px;
+height:60px;
+border-radius:22px;
+background:linear-gradient(135deg,#c41c1e,#6f0d0f);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+box-shadow:0 0 30px #c41c1e88;
+}
+
+.logo h1{
+font-size:24px;
+font-weight:800;
+}
+
+.logo p{
+font-size:13px;
+color:#999;
+margin-top:3px;
+}
+
+.new-btn{
+width:55px;
+height:55px;
+border:none;
+border-radius:20px;
+background:linear-gradient(135deg,#c41c1e,#7a1012);
+color:#fff;
+font-size:24px;
+cursor:pointer;
+transition:.3s;
+box-shadow:0 0 25px #c41c1e88;
+}
+
+.new-btn:hover{
+transform:scale(1.08);
+}
+
+/* SEARCH */
+
+.search{
+padding:18px;
+}
+
+.search-box{
+height:56px;
+border-radius:20px;
+background:rgba(255,255,255,.06);
+display:flex;
+align-items:center;
+padding:0 18px;
+gap:14px;
+border:1px solid rgba(255,255,255,.07);
+}
+
+.search-box input{
+background:none;
+border:none;
+outline:none;
+color:#fff;
+width:100%;
+font-size:15px;
+}
+
+/* STORIES */
+
+.stories{
+display:flex;
+gap:14px;
+padding:0 18px 18px;
+overflow-x:auto;
+}
+
+.story{
+min-width:72px;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:8px;
+}
+
+.story-avatar{
+width:64px;
+height:64px;
+border-radius:50%;
+background:linear-gradient(135deg,#c41c1e,#ff4b4d);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+border:3px solid rgba(255,255,255,.12);
+box-shadow:0 0 25px #c41c1e66;
+}
+
+.story span{
+font-size:12px;
+color:#ddd;
+}
+
+/* CHATS */
+
+.chats{
+flex:1;
+overflow-y:auto;
+padding:0 12px 20px;
+}
+
+.chat{
+display:flex;
+align-items:center;
+gap:15px;
+padding:16px;
+margin-bottom:10px;
+border-radius:26px;
+cursor:pointer;
+transition:.35s;
+background:rgba(255,255,255,.03);
+border:1px solid transparent;
+}
+
+.chat:hover{
+background:rgba(255,255,255,.08);
+transform:translateY(-2px);
+}
+
+.chat.active{
+background:linear-gradient(135deg,#c41c1e55,#2c2a30);
+border-color:#c41c1e66;
+box-shadow:0 0 30px #c41c1e33;
+}
+
+.avatar{
+width:64px;
+height:64px;
+border-radius:24px;
+background:linear-gradient(135deg,#c41c1e,#8d1113);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+font-weight:700;
+position:relative;
+}
+
+.online{
+position:absolute;
+bottom:4px;
+right:4px;
+width:14px;
+height:14px;
+background:#00ff7b;
+border-radius:50%;
+border:2px solid #111;
+}
+
+.chat-info{
+flex:1;
+}
+
+.chat-top{
+display:flex;
+justify-content:space-between;
+margin-bottom:5px;
+}
+
+.chat-name{
+font-weight:700;
+}
+
+.chat-time{
+font-size:12px;
+color:#aaa;
+}
+
+.chat-msg{
+font-size:14px;
+color:#bbb;
+}
+
+.badge{
+min-width:28px;
+height:28px;
+padding:0 8px;
+border-radius:50px;
+background:#c41c1e;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:12px;
+font-weight:700;
+box-shadow:0 0 15px #c41c1e88;
+}
+
+/* CHAT AREA */
+
+.chat-area{
+flex:1;
+display:flex;
+flex-direction:column;
+position:relative;
+}
+
+.chat-header{
+height:95px;
+padding:0 30px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+background:rgba(255,255,255,.04);
+border-bottom:1px solid rgba(255,255,255,.08);
+backdrop-filter:blur(30px);
+}
+
+.chat-user{
+display:flex;
+align-items:center;
+gap:16px;
+}
+
+.chat-user-avatar{
+width:68px;
+height:68px;
+border-radius:24px;
+background:linear-gradient(135deg,#c41c1e,#700f10);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+box-shadow:0 0 25px #c41c1e66;
+}
+
+.chat-user h2{
+font-size:22px;
+font-weight:700;
+}
+
+.chat-user p{
+color:#00ff7b;
+font-size:14px;
+margin-top:5px;
+}
+
+.actions{
+display:flex;
+gap:12px;
+}
+
+.action-btn{
+width:52px;
+height:52px;
+border:none;
+border-radius:18px;
+background:rgba(255,255,255,.08);
+color:#fff;
+font-size:22px;
+cursor:pointer;
+transition:.3s;
+}
+
+.action-btn:hover{
+background:#c41c1e;
+transform:scale(1.08);
+}
+
+/* MESSAGES */
+
+.messages{
+flex:1;
+overflow-y:auto;
+padding:30px;
+background:
+linear-gradient(rgba(15,15,19,.82),rgba(15,15,19,.82)),
+url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2000');
+background-size:cover;
+}
+
+.msg{
+max-width:70%;
+padding:18px 22px;
+border-radius:30px;
+margin-bottom:18px;
+position:relative;
+animation:show .4s ease;
+backdrop-filter:blur(25px);
+}
+
+.msg.received{
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.08);
+}
+
+.msg.sent{
+margin-left:auto;
+background:linear-gradient(135deg,#c41c1e,#7d1113);
+box-shadow:0 0 25px #c41c1e66;
+}
+
+.msg-time{
+font-size:11px;
+opacity:.7;
+margin-top:10px;
+text-align:right;
+}
+
+@keyframes show{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:none;
+}
+}
+
+/* INPUT */
+
+.input-area{
+padding:22px;
+background:rgba(255,255,255,.04);
+border-top:1px solid rgba(255,255,255,.08);
+display:flex;
+gap:16px;
+align-items:center;
+backdrop-filter:blur(30px);
+}
+
+.attach{
+width:58px;
+height:58px;
+border:none;
+border-radius:22px;
+background:rgba(255,255,255,.08);
+color:#fff;
+font-size:24px;
+cursor:pointer;
+}
+
+.input-box{
+flex:1;
+height:62px;
+border-radius:24px;
+background:rgba(255,255,255,.08);
+display:flex;
+align-items:center;
+padding:0 22px;
+gap:15px;
+}
+
+.input-box input{
+flex:1;
+background:none;
+border:none;
+outline:none;
+color:#fff;
+font-size:15px;
+}
+
+.send{
+width:64px;
+height:64px;
+border:none;
+border-radius:24px;
+background:linear-gradient(135deg,#c41c1e,#7d1113);
+font-size:26px;
+color:#fff;
+cursor:pointer;
+box-shadow:0 0 30px #c41c1e88;
+transition:.3s;
+}
+
+.send:hover{
+transform:scale(1.08);
+}
+
+/* MOBILE */
+
+.mobile-nav{
+display:none;
+}
+
+@media(max-width:900px){
+
+.sidebar{
+display:none;
+}
+
+.chat-header{
+padding:0 18px;
+height:80px;
+}
+
+.chat-user-avatar{
+width:54px;
+height:54px;
+font-size:22px;
+}
+
+.chat-user h2{
+font-size:18px;
+}
+
+.messages{
+padding:20px 14px 120px;
+}
+
+.msg{
+max-width:88%;
+padding:16px 18px;
+border-radius:24px;
+}
+
+.input-area{
+position:fixed;
+bottom:75px;
+left:0;
+right:0;
+padding:14px;
+background:rgba(10,10,12,.85);
+backdrop-filter:blur(30px);
+}
+
+.attach{
+width:52px;
+height:52px;
+border-radius:18px;
+}
+
+.send{
+width:56px;
+height:56px;
+border-radius:20px;
+}
+
+.mobile-nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+height:78px;
+display:flex;
+justify-content:space-around;
+align-items:center;
+background:rgba(10,10,12,.88);
+backdrop-filter:blur(30px);
+border-top:1px solid rgba(255,255,255,.08);
+z-index:100;
+}
+
+.mobile-btn{
+width:58px;
+height:58px;
+border-radius:22px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+background:rgba(255,255,255,.06);
+}
+
+.mobile-btn.active{
+background:linear-gradient(135deg,#c41c1e,#7d1113);
+box-shadow:0 0 20px #c41c1e88;
+}
+
+}
+
+::-webkit-scrollbar{
+width:6px;
+}
+
+::-webkit-scrollbar-thumb{
+background:rgba(255,255,255,.15);
+border-radius:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="bg">
+<div class="blur1"></div>
+<div class="blur2"></div>
+</div>
+
+<div class="app">
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="sidebar-header">
+
+<div class="logo">
+<div class="logo-icon">📰</div>
+
+<div>
+<h1>BorykNews</h1>
+<p>Telegram Edition</p>
+</div>
+</div>
+
+<button class="new-btn">✚</button>
+
+</div>
+
+<div class="search">
+
+<div class="search-box">
+🔍
+<input type="text" placeholder="Пошук чатів...">
+</div>
+
+</div>
+
+<div class="stories">
+
+<div class="story">
+<div class="story-avatar">🔥</div>
+<span>News</span>
+</div>
+
+<div class="story">
+<div class="story-avatar">💬</div>
+<span>Chat</span>
+</div>
+
+<div class="story">
+<div class="story-avatar">🎥</div>
+<span>Media</span>
+</div>
+
+<div class="story">
+<div class="story-avatar">🚀</div>
+<span>Wow</span>
+</div>
+
+</div>
+
+<div class="chats">
+
+<div class="chat active">
+
+<div class="avatar">
+BN
+<div class="online"></div>
+</div>
+
+<div class="chat-info">
+
+<div class="chat-top">
+<div class="chat-name">BorykNews</div>
+<div class="chat-time">17:42</div>
+</div>
+
+<div class="chat-msg">
+🔥 Термінові новини Борисполя
+</div>
+
+</div>
+
+<div class="badge">3</div>
+
+</div>
+
+<div class="chat">
+
+<div class="avatar">OG</div>
+
+<div class="chat-info">
+
+<div class="chat-top">
+<div class="chat-name">Оголошення</div>
+<div class="chat-time">16:11</div>
+</div>
+
+<div class="chat-msg">
+💼 Нові вакансії вже на сайті
+</div>
+
+</div>
+
+</div>
+
+<div class="chat">
+
+<div class="avatar">NR</div>
+
+<div class="chat-info">
+
+<div class="chat-top">
+<div class="chat-name">Нерухомість</div>
+<div class="chat-time">15:04</div>
+</div>
+
+<div class="chat-msg">
+🏠 Новий будинок у центрі
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CHAT -->
+
+<div class="chat-area">
+
+<div class="chat-header">
+
+<div class="chat-user">
+
+<div class="chat-user-avatar">
+📰
+</div>
+
+<div>
+<h2>BorykNews</h2>
+<p>● online</p>
+</div>
+
+</div>
+
+<div class="actions">
+
+<button class="action-btn">📞</button>
+<button class="action-btn">🎥</button>
+<button class="action-btn">⚙️</button>
+
+</div>
+
+</div>
+
+<div class="messages">
+
+<div class="msg received">
+🔥 Вітаємо у wow Telegram дизайні BorykNews
+<div class="msg-time">17:38</div>
+</div>
+
+<div class="msg sent">
+Виглядає як справжній Telegram 😍
+<div class="msg-time">17:39</div>
+</div>
+
+<div class="msg received">
+✨ Повна структура месенджера вже готова
+<div class="msg-time">17:40</div>
+</div>
+
+<div class="msg received">
+📱 Ultra premium mobile версія теж готова
+<div class="msg-time">17:41</div>
+</div>
+
+</div>
+
+<div class="input-area">
+
+<button class="attach">➕</button>
+
+<div class="input-box">
+
+<input type="text" placeholder="Написати повідомлення...">
+
+😊 🎤
+
+</div>
+
+<button class="send">🚀</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- MOBILE NAV -->
+
+<div class="mobile-nav">
+
+<div class="mobile-btn active">💬</div>
+<div class="mobile-btn">📢</div>
+<div class="mobile-btn">🔔</div>
+<div class="mobile-btn">⚙️</div>
+
+</div>
+
+<script>
+
+Telegram.WebApp.expand();
+
+</script>
+
+</body>
+</html>
