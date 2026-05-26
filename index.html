@@ -3,10 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BorykNews Messenger</title>
+
+<title>BorykNews Messenger PRO</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+<!-- PREMIUM FONTS -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+
+<!-- ICONS -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
 <style>
 
@@ -14,15 +21,86 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Inter',sans-serif;
 -webkit-tap-highlight-color:transparent;
 }
 
 html,body{
 height:100%;
-background:#0f1115;
 overflow:hidden;
+background:#090b10;
 color:white;
+font-family:'Manrope',sans-serif;
+}
+
+/* ===== ANIMATED BG ===== */
+
+.bg{
+position:fixed;
+inset:0;
+overflow:hidden;
+z-index:-5;
+background:
+linear-gradient(
+-45deg,
+#07090f,
+#101826,
+#1a1233,
+#09192e
+);
+background-size:400% 400%;
+animation:bg 18s ease infinite;
+}
+
+@keyframes bg{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.blur{
+position:absolute;
+border-radius:50%;
+filter:blur(110px);
+opacity:.45;
+animation:float 14s infinite ease-in-out;
+}
+
+.blur1{
+width:380px;
+height:380px;
+background:#ff2d55;
+top:-120px;
+left:-120px;
+}
+
+.blur2{
+width:420px;
+height:420px;
+background:#2563eb;
+bottom:-120px;
+right:-120px;
+animation-delay:4s;
+}
+
+.blur3{
+width:320px;
+height:320px;
+background:#9333ea;
+left:40%;
+top:35%;
+animation-delay:7s;
+}
+
+@keyframes float{
+0%{
+transform:translate(0,0);
+}
+50%{
+transform:translate(40px,-40px);
+}
+100%{
+transform:translate(0,0);
+}
 }
 
 /* ===== APP ===== */
@@ -30,15 +108,16 @@ color:white;
 .app{
 display:flex;
 height:100vh;
-overflow:hidden;
+backdrop-filter:blur(12px);
 }
 
 /* ===== SIDEBAR ===== */
 
 .sidebar{
-width:88px;
-background:#17191f;
-border-right:1px solid rgba(255,255,255,.05);
+width:94px;
+background:rgba(18,20,27,.72);
+backdrop-filter:blur(22px);
+border-right:1px solid rgba(255,255,255,.06);
 display:flex;
 flex-direction:column;
 align-items:center;
@@ -48,68 +127,69 @@ overflow:auto;
 }
 
 .logo{
-width:58px;
-height:58px;
+width:64px;
+height:64px;
+border-radius:26px;
+background:linear-gradient(135deg,#c41c1e,#ff4747);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+font-weight:800;
+font-family:'Sora',sans-serif;
+box-shadow:0 20px 45px rgba(196,28,30,.45);
+}
+
+.menu{
+width:62px;
+height:62px;
 border-radius:22px;
-background:linear-gradient(135deg,#c41c1e,#ff5252);
+background:rgba(255,255,255,.05);
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:24px;
-font-weight:900;
-box-shadow:0 15px 40px rgba(196,28,30,.45);
-flex-shrink:0;
-}
-
-.menu-btn{
-width:58px;
-height:58px;
-border-radius:20px;
-background:#232731;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
+font-size:25px;
 cursor:pointer;
-transition:.3s;
+transition:.35s;
 position:relative;
-flex-shrink:0;
+border:1px solid rgba(255,255,255,.05);
 }
 
-.menu-btn:hover{
+.menu:hover{
+transform:translateY(-4px) scale(1.06);
 background:#c41c1e;
-transform:translateY(-3px);
 }
 
-.menu-btn.active{
+.menu.active{
 background:#c41c1e;
-box-shadow:0 10px 25px rgba(196,28,30,.35);
+box-shadow:0 15px 35px rgba(196,28,30,.45);
 }
 
-.menu-btn span{
+.menu span{
 position:absolute;
-left:74px;
+left:82px;
 background:#20242d;
 padding:10px 14px;
 border-radius:14px;
+white-space:nowrap;
 font-size:13px;
 font-weight:700;
-white-space:nowrap;
 opacity:0;
 transition:.3s;
 pointer-events:none;
 }
 
-.menu-btn:hover span{
+.menu:hover span{
 opacity:1;
-left:82px;
+left:90px;
 }
 
 /* ===== CHATS ===== */
 
 .chats{
-width:360px;
-background:#16181d;
+width:380px;
+background:rgba(18,20,27,.72);
+backdrop-filter:blur(22px);
 border-right:1px solid rgba(255,255,255,.05);
 display:flex;
 flex-direction:column;
@@ -122,14 +202,16 @@ padding:18px;
 
 .search input{
 width:100%;
-height:55px;
+height:58px;
 border:none;
-border-radius:18px;
-background:#232731;
-padding:0 18px;
+outline:none;
+border-radius:22px;
+background:rgba(255,255,255,.05);
+padding:0 20px;
 color:white;
 font-size:15px;
-outline:none;
+border:1px solid rgba(255,255,255,.04);
+font-family:'Manrope',sans-serif;
 }
 
 .chat-list{
@@ -137,7 +219,7 @@ overflow:auto;
 padding-bottom:30px;
 }
 
-.chat-item{
+.chat{
 display:flex;
 gap:14px;
 padding:16px 18px;
@@ -146,21 +228,20 @@ transition:.3s;
 border-left:3px solid transparent;
 }
 
-.chat-item:hover{
-background:#20232b;
+.chat:hover{
+background:rgba(255,255,255,.04);
 }
 
-.chat-item.active{
-background:#222733;
-border-left:3px solid #c41c1e;
+.chat.active{
+background:rgba(255,255,255,.06);
+border-left:3px solid #ff3b3b;
 }
 
-.chat-item img{
-width:60px;
-height:60px;
-border-radius:20px;
+.chat img{
+width:64px;
+height:64px;
+border-radius:24px;
 object-fit:cover;
-flex-shrink:0;
 }
 
 .chat-name{
@@ -168,10 +249,10 @@ font-size:15px;
 font-weight:800;
 }
 
-.chat-last{
+.chat-text{
 font-size:13px;
 line-height:1.5;
-color:#9ca3af;
+color:#a9b0bc;
 margin-top:5px;
 }
 
@@ -181,27 +262,21 @@ margin-top:5px;
 flex:1;
 display:flex;
 flex-direction:column;
-background:
-linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),
-url('https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1600&auto=format&fit=crop');
-background-size:cover;
-background-position:center;
 overflow:hidden;
-position:relative;
 }
 
-.topbar{
-height:78px;
-background:rgba(0,0,0,.28);
-backdrop-filter:blur(15px);
+.top{
+height:84px;
+background:rgba(12,14,18,.55);
+backdrop-filter:blur(20px);
 border-bottom:1px solid rgba(255,255,255,.05);
 display:flex;
 align-items:center;
-padding:0 22px;
-gap:16px;
+padding:0 24px;
 font-size:18px;
-font-weight:900;
-flex-shrink:0;
+font-weight:800;
+font-family:'Sora',sans-serif;
+gap:16px;
 }
 
 .back{
@@ -211,28 +286,28 @@ cursor:pointer;
 }
 
 .messages{
-padding:26px;
+padding:30px;
 overflow:auto;
 flex:1;
 }
 
-/* ===== POSTS ===== */
+/* ===== POST ===== */
 
 .post{
-max-width:540px;
-background:white;
+max-width:580px;
+background:rgba(255,255,255,.98);
 color:black;
-border-radius:30px;
+border-radius:36px;
 overflow:hidden;
-box-shadow:0 25px 80px rgba(0,0,0,.45);
-margin-bottom:24px;
-animation:show .35s ease;
+box-shadow:0 35px 100px rgba(0,0,0,.45);
+margin-bottom:26px;
+animation:show .4s ease;
 }
 
 @keyframes show{
 from{
 opacity:0;
-transform:translateY(25px);
+transform:translateY(30px);
 }
 to{
 opacity:1;
@@ -241,8 +316,8 @@ transform:translateY(0);
 }
 
 .post-head{
-padding:16px 18px;
-font-weight:900;
+padding:18px 20px;
+font-weight:800;
 color:#4caf50;
 font-size:15px;
 }
@@ -253,20 +328,22 @@ display:block;
 }
 
 .post-body{
-padding:18px;
+padding:24px;
 font-size:15px;
-line-height:1.7;
+line-height:1.9;
 }
 
 .post-body b{
 color:#c41c1e;
+font-size:18px;
 }
 
 /* ===== RIGHT ===== */
 
 .right{
-width:370px;
-background:#17191f;
+width:400px;
+background:rgba(18,20,27,.72);
+backdrop-filter:blur(22px);
 border-left:1px solid rgba(255,255,255,.05);
 overflow:auto;
 padding:20px;
@@ -276,15 +353,17 @@ gap:18px;
 }
 
 .widget{
-background:#20242d;
-border-radius:30px;
-padding:20px;
+background:rgba(255,255,255,.05);
+border-radius:34px;
+padding:22px;
+border:1px solid rgba(255,255,255,.04);
 box-shadow:0 15px 40px rgba(0,0,0,.25);
 }
 
-.widget-title{
+.title{
 font-size:17px;
-font-weight:900;
+font-weight:800;
+font-family:'Sora',sans-serif;
 margin-bottom:18px;
 display:flex;
 align-items:center;
@@ -295,42 +374,43 @@ gap:10px;
 
 .weather{
 display:flex;
-align-items:center;
 justify-content:space-between;
+align-items:center;
 }
 
 .temp{
-font-size:48px;
-font-weight:900;
+font-size:54px;
+font-weight:800;
+font-family:'Sora',sans-serif;
 }
 
 .weather small{
 display:block;
 margin-top:8px;
-color:#9ca3af;
 font-size:14px;
+color:#9ca3af;
 }
 
 .weather-icon{
-font-size:54px;
+font-size:58px;
 }
 
 /* LIVE */
 
-.live-item{
-background:#2a2f39;
-padding:14px;
+.live{
+background:rgba(255,255,255,.05);
+padding:15px;
 border-radius:18px;
 margin-bottom:12px;
 font-size:14px;
-line-height:1.5;
+line-height:1.6;
 }
 
 /* MAP */
 
 .map{
-height:260px;
-border-radius:24px;
+height:250px;
+border-radius:26px;
 overflow:hidden;
 }
 
@@ -340,35 +420,40 @@ height:100%;
 border:none;
 }
 
-/* ===== SOCIAL ===== */
+/* ===== SOCIALS ===== */
 
 .socials{
 display:flex;
-gap:12px;
+gap:14px;
 flex-wrap:wrap;
 }
 
-.social-btn{
-width:58px;
-height:58px;
-border-radius:18px;
-background:#2a2f39;
+.social{
+width:62px;
+height:62px;
+border-radius:20px;
+background:rgba(255,255,255,.06);
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:24px;
+transition:.35s;
+border:1px solid rgba(255,255,255,.05);
 text-decoration:none;
-transition:.3s;
 }
 
-.social-btn:hover{
-transform:translateY(-3px);
+.social:hover{
 background:#c41c1e;
+transform:translateY(-4px) scale(1.06);
+}
+
+.social i{
+font-size:28px;
+color:white;
 }
 
 /* ===== MOBILE ===== */
 
-@media(max-width:1150px){
+@media(max-width:1250px){
 
 .app{
 flex-direction:column;
@@ -377,66 +462,44 @@ height:auto;
 min-height:100vh;
 }
 
-/* SIDEBAR */
+/* sidebar */
 
 .sidebar{
 width:100%;
-height:78px;
+height:84px;
 flex-direction:row;
 padding:0 12px;
-gap:10px;
 overflow-x:auto;
 overflow-y:hidden;
-border-right:none;
-border-bottom:1px solid rgba(255,255,255,.05);
 }
 
-.menu-btn span{
+.menu span{
 display:none;
 }
 
-/* CHATS */
+/* chats */
 
 .chats{
 width:100%;
-height:auto;
 min-height:320px;
-border-right:none;
 }
 
-/* CENTER */
-
-.center{
-min-height:100vh;
-}
-
-/* POSTS */
-
-.messages{
-padding:16px;
-}
-
-.post{
-max-width:100%;
-border-radius:24px;
-}
-
-/* RIGHT */
+/* right */
 
 .right{
 width:100%;
 border-left:none;
 border-top:1px solid rgba(255,255,255,.05);
-padding:16px;
-background:#111318;
 }
 
-.widget{
-border-radius:24px;
+/* post */
+
+.post{
+max-width:100%;
 }
 
-.map{
-height:220px;
+.messages{
+padding:18px;
 }
 
 }
@@ -444,10 +507,6 @@ height:220px;
 /* ===== PHONE ===== */
 
 @media(max-width:800px){
-
-.chats{
-height:auto;
-}
 
 .center{
 position:fixed;
@@ -458,6 +517,8 @@ height:100vh;
 z-index:100;
 transform:translateX(100%);
 transition:.35s;
+background:rgba(10,10,12,.92);
+backdrop-filter:blur(22px);
 }
 
 .center.active{
@@ -468,8 +529,38 @@ transform:translateX(0);
 display:block;
 }
 
+.top{
+height:76px;
+font-size:16px;
+}
+
+.post{
+border-radius:30px;
+}
+
+.post-body{
+padding:20px;
+}
+
 .right{
-padding-bottom:100px;
+padding-bottom:110px;
+}
+
+.widget{
+border-radius:28px;
+}
+
+.map{
+height:220px;
+}
+
+.social{
+width:58px;
+height:58px;
+}
+
+.social i{
+font-size:25px;
 }
 
 }
@@ -479,9 +570,17 @@ padding-bottom:100px;
 
 <body>
 
+<!-- BG -->
+
+<div class="bg">
+<div class="blur blur1"></div>
+<div class="blur blur2"></div>
+<div class="blur blur3"></div>
+</div>
+
 <div class="app">
 
-<!-- ===== SIDEBAR ===== -->
+<!-- SIDEBAR -->
 
 <div class="sidebar">
 
@@ -489,34 +588,34 @@ padding-bottom:100px;
 B
 </div>
 
-<div class="menu-btn active" onclick="loadCategory('transport',this)">
+<div class="menu active" onclick="loadCategory('transport',this)">
 🚌
 <span>Транспорт</span>
 </div>
 
-<div class="menu-btn" onclick="loadCategory('city',this)">
+<div class="menu" onclick="loadCategory('city',this)">
 📰
 <span>Новини міста</span>
 </div>
 
-<div class="menu-btn" onclick="loadCategory('urgent',this)">
+<div class="menu" onclick="loadCategory('urgent',this)">
 🚨
 <span>Терміново</span>
 </div>
 
-<div class="menu-btn" onclick="loadCategory('gkh',this)">
+<div class="menu" onclick="loadCategory('gkh',this)">
 💡
 <span>ЖКГ</span>
 </div>
 
-<div class="menu-btn" onclick="loadCategory('ads',this)">
+<div class="menu" onclick="loadCategory('ads',this)">
 📢
 <span>Оголошення</span>
 </div>
 
 </div>
 
-<!-- ===== CHATS ===== -->
+<!-- CHATS -->
 
 <div class="chats">
 
@@ -524,17 +623,15 @@ B
 <input type="text" placeholder="Пошук новин...">
 </div>
 
-<div class="chat-list" id="chatList">
+<div class="chat-list" id="chatList"></div>
 
 </div>
 
-</div>
-
-<!-- ===== CENTER ===== -->
+<!-- CENTER -->
 
 <div class="center" id="center">
 
-<div class="topbar">
+<div class="top">
 
 <div class="back" onclick="closeChat()">
 ←
@@ -552,7 +649,7 @@ BorykNews
 
 </div>
 
-<!-- ===== RIGHT ===== -->
+<!-- RIGHT -->
 
 <div class="right">
 
@@ -560,13 +657,14 @@ BorykNews
 
 <div class="widget">
 
-<div class="widget-title">
+<div class="title">
 🌤 Погода LIVE
 </div>
 
 <div class="weather">
 
 <div>
+
 <div class="temp" id="temp">
 +23°
 </div>
@@ -574,6 +672,7 @@ BorykNews
 <small>
 Бориспіль • Хмарно
 </small>
+
 </div>
 
 <div class="weather-icon">
@@ -588,7 +687,7 @@ BorykNews
 
 <div class="widget">
 
-<div class="widget-title">
+<div class="title">
 🗺 Карта тривог LIVE
 </div>
 
@@ -607,60 +706,60 @@ allowfullscreen>
 
 <div class="widget">
 
-<div class="widget-title">
+<div class="title">
 📡 LIVE повідомлення
 </div>
 
-<div class="live-item">
+<div class="live">
 🚨 Центр Борисполя частково перекритий
 </div>
 
-<div class="live-item">
+<div class="live">
 ⚠️ Повітряна тривога Київщина
 </div>
 
-<div class="live-item">
+<div class="live">
 💡 Відключення світла 19:00–22:00
 </div>
 
-<div class="live-item">
+<div class="live">
 🚌 Маршрутки курсують із затримкою
 </div>
 
 </div>
 
-<!-- SOCIAL -->
+<!-- SOCIALS -->
 
 <div class="widget">
 
-<div class="widget-title">
-🌐 Соцмережі
+<div class="title">
+Соцмережі
 </div>
 
 <div class="socials">
 
-<a href="#" class="social-btn">
-📷
+<a href="#" class="social">
+<i class="fa-brands fa-instagram"></i>
 </a>
 
-<a href="#" class="social-btn">
-📘
+<a href="#" class="social">
+<i class="fa-brands fa-facebook-f"></i>
 </a>
 
-<a href="#" class="social-btn">
-✈️
+<a href="#" class="social">
+<i class="fa-brands fa-telegram"></i>
 </a>
 
-<a href="#" class="social-btn">
-▶️
+<a href="#" class="social">
+<i class="fa-brands fa-youtube"></i>
 </a>
 
-<a href="#" class="social-btn">
-🎵
+<a href="#" class="social">
+<i class="fa-brands fa-tiktok"></i>
 </a>
 
-<a href="#" class="social-btn">
-𝕏
+<a href="#" class="social">
+<i class="fa-brands fa-x-twitter"></i>
 </a>
 
 </div>
@@ -672,8 +771,6 @@ allowfullscreen>
 </div>
 
 <script>
-
-/* ===== NEWS ===== */
 
 const news = {
 
@@ -744,11 +841,11 @@ img:'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1200&au
 
 };
 
-/* ===== CATEGORY ===== */
+/* CATEGORY */
 
 function loadCategory(category,btn){
 
-document.querySelectorAll('.menu-btn')
+document.querySelectorAll('.menu')
 .forEach(el=>el.classList.remove('active'));
 
 btn.classList.add('active');
@@ -761,11 +858,11 @@ list.innerHTML='';
 news[category].forEach((item,index)=>{
 
 list.innerHTML += `
-<div class="chat-item" onclick="openPost('${category}',${index},this)">
+<div class="chat" onclick="openPost('${category}',${index},this)">
 <img src="${item.img}">
 <div>
 <div class="chat-name">${item.title}</div>
-<div class="chat-last">${item.text}</div>
+<div class="chat-text">${item.text}</div>
 </div>
 </div>
 `;
@@ -776,13 +873,13 @@ openPost(category,0);
 
 }
 
-/* ===== OPEN POST ===== */
+/* OPEN */
 
 function openPost(category,index,el){
 
 if(el){
 
-document.querySelectorAll('.chat-item')
+document.querySelectorAll('.chat')
 .forEach(i=>i.classList.remove('active'));
 
 el.classList.add('active');
@@ -824,13 +921,15 @@ ${item.text}
 `;
 
 if(window.innerWidth < 800){
+
 document.getElementById('center')
 .classList.add('active');
-}
 
 }
 
-/* ===== CLOSE MOBILE ===== */
+}
+
+/* CLOSE */
 
 function closeChat(){
 
@@ -839,7 +938,7 @@ document.getElementById('center')
 
 }
 
-/* ===== WEATHER ===== */
+/* WEATHER */
 
 const temps = ['+22°','+23°','+24°','+25°'];
 const icons = ['☀️','⛅','🌤','🌥'];
@@ -856,11 +955,11 @@ icons[Math.floor(Math.random()*icons.length)];
 
 },4000);
 
-/* ===== INIT ===== */
+/* INIT */
 
 loadCategory(
 'transport',
-document.querySelector('.menu-btn')
+document.querySelector('.menu')
 );
 
 </script>
