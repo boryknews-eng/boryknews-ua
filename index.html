@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BorykNews PRO LIVE</title>
+<title>BorykNews LIVE</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
 
-/* ================= RESET ================= */
+/* RESET */
 *{
 margin:0;
 padding:0;
@@ -18,20 +18,23 @@ box-sizing:border-box;
 }
 
 body{
-font-family:'Manrope',sans-serif;
+font-family:Inter,sans-serif;
 background:#0b0d12;
 color:white;
 overflow:hidden;
 }
 
-/* ================= BACKGROUND ================= */
+/* BACKGROUND ANIMATION */
 .bg{
 position:fixed;
 inset:0;
-background:linear-gradient(-45deg,#0b0d12,#111a2e,#1a1233,#0a1b2b);
-background-size:400% 400%;
-animation:bg 15s infinite ease;
-z-index:-1;
+z-index:-2;
+background:radial-gradient(circle at 20% 20%, #c41c1e33, transparent 40%),
+           radial-gradient(circle at 80% 40%, #1f2a44aa, transparent 45%),
+           radial-gradient(circle at 40% 80%, #111a33aa, transparent 50%),
+           linear-gradient(120deg,#0b0d12,#0f1424);
+background-size:200% 200%;
+animation:bg 14s ease-in-out infinite;
 }
 
 @keyframes bg{
@@ -40,202 +43,168 @@ z-index:-1;
 100%{background-position:0% 50%}
 }
 
-/* ================= LAYOUT ================= */
+/* APP */
 .app{
 display:flex;
 height:100vh;
 }
 
-/* ================= LEFT ================= */
-.sidebar{
-width:90px;
-background:rgba(20,22,30,.8);
+/* LEFT ICON BAR */
+.left{
+width:80px;
+background:rgba(255,255,255,0.03);
 backdrop-filter:blur(20px);
 display:flex;
 flex-direction:column;
 align-items:center;
-padding:12px 0;
-gap:18px;
+padding:10px 0;
+gap:12px;
+border-right:1px solid rgba(255,255,255,0.05);
 }
 
-.menu{
-width:60px;
-height:60px;
-border-radius:18px;
-display:flex;
-align-items:center;
-justify-content:center;
+.icon{
+width:45px;
+height:45px;
+border-radius:14px;
+background-image:url("icons/ICON_HERE.png");
+background-size:cover;
+background-position:center;
 cursor:pointer;
-transition:.3s;
-background:rgba(255,255,255,.05);
 }
 
-.menu:hover{
-background:#c41c1e;
-transform:scale(1.05);
-}
-
-/* ================= CHATS ================= */
-.chats{
+/* CHAT LIST */
+.chat-list{
 width:300px;
-background:rgba(18,20,28,.75);
+background:rgba(255,255,255,0.03);
+backdrop-filter:blur(20px);
 overflow:auto;
-padding:10px;
+border-right:1px solid rgba(255,255,255,0.05);
 }
 
 .chat{
+display:block;
 padding:14px;
-border-radius:12px;
-margin-bottom:8px;
-background:rgba(255,255,255,0.04);
-cursor:pointer;
-transition:.3s;
+border-bottom:1px solid rgba(255,255,255,0.05);
+text-decoration:none;
+color:white;
+transition:.2s;
 }
 
 .chat:hover{
-background:rgba(255,255,255,0.1);
+background:rgba(255,255,255,0.06);
 }
 
-/* ================= CENTER ================= */
+/* CENTER */
 .center{
 flex:1;
 overflow:auto;
-padding:18px;
+padding:15px;
 }
 
-/* LIVE */
+/* LIVE HEADER */
 .live{
-padding:18px;
-border-radius:18px;
-background:rgba(255,255,255,0.06);
+padding:16px;
+border-radius:16px;
+background:rgba(255,255,255,0.04);
+border:1px solid rgba(255,255,255,0.06);
 text-align:center;
-border:1px solid rgba(255,255,255,0.08);
 animation:pulse 2s infinite;
 }
 
 @keyframes pulse{
 0%{box-shadow:0 0 0 rgba(196,28,30,0)}
-50%{box-shadow:0 0 25px rgba(196,28,30,0.4)}
+50%{box-shadow:0 0 20px rgba(196,28,30,0.35)}
 100%{box-shadow:0 0 0 rgba(196,28,30,0)}
 }
 
-.live h1{
-font-size:20px;
-font-weight:800;
-}
-
-.live p{
-font-size:13px;
-opacity:0.7;
-}
-
-/* ================= 4 BLOCKS ================= */
-.grid4{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:10px;
-margin-top:15px;
-}
-
-.block{
+/* NEWS CARD */
+.card{
+margin-top:12px;
 padding:14px;
 border-radius:14px;
-background:rgba(255,255,255,0.05);
-text-align:center;
-cursor:pointer;
-transition:.3s;
-font-size:13px;
+background:rgba(255,255,255,0.04);
+border:1px solid rgba(255,255,255,0.05);
 text-decoration:none;
 color:white;
 display:block;
 }
 
-.block:hover{
-transform:scale(1.05);
-background:rgba(255,255,255,0.12);
-}
-
-/* ================= POST ================= */
-.post{
-margin-top:15px;
-border-radius:18px;
-overflow:hidden;
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.08);
-}
-
-.post img{
+.card img{
 width:100%;
-}
-
-.post .text{
-padding:15px;
-}
-
-/* ================= RIGHT ================= */
-.right{
-width:320px;
-background:rgba(18,20,28,.75);
-padding:15px;
-overflow:auto;
-border-left:1px solid rgba(255,255,255,0.08);
-}
-
-.menu-list{
-display:flex;
-flex-direction:column;
-gap:10px;
+border-radius:10px;
 margin-top:10px;
 }
 
-.menu-list a{
-padding:10px;
-border-radius:10px;
-background:rgba(255,255,255,0.05);
-cursor:pointer;
-color:white;
-text-decoration:none;
-display:block;
-}
-
-/* ================= LIVE WIDGETS ================= */
+/* WIDGET GRID */
 .widgets{
-margin-top:15px;
-display:flex;
-flex-direction:column;
+display:grid;
+grid-template-columns:repeat(2,1fr);
 gap:10px;
+margin-top:12px;
 }
 
 .widget{
 padding:12px;
 border-radius:12px;
-background:rgba(255,255,255,0.05);
-font-size:13px;
+background:rgba(255,255,255,0.04);
+border:1px solid rgba(255,255,255,0.05);
 }
 
-/* ================= SOCIAL ================= */
+/* RIGHT PANEL */
+.right{
+width:320px;
+background:rgba(255,255,255,0.03);
+backdrop-filter:blur(20px);
+border-left:1px solid rgba(255,255,255,0.05);
+padding:12px;
+overflow:auto;
+}
+
+/* MENU */
+.menu a{
+display:block;
+padding:10px;
+border-radius:10px;
+background:rgba(255,255,255,0.04);
+text-decoration:none;
+color:white;
+margin-bottom:8px;
+}
+
+/* SOCIAL ICONS (PATHS FOR YOU) */
 .social{
-margin-top:20px;
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:10px;
+margin-top:12px;
 }
 
 .social a{
 height:40px;
 border-radius:10px;
-background:rgba(255,255,255,0.05);
 display:flex;
 align-items:center;
 justify-content:center;
+background:rgba(255,255,255,0.04);
 text-decoration:none;
 color:white;
-font-size:12px;
-/* сюди потім вставиш свої SVG/PNG лого */
 }
 
-/* ================= MOBILE ================= */
-.bottom-nav{
+.social img{
+width:20px;
+height:20px;
+}
+
+/* MAP SLOT */
+.map{
+width:100%;
+height:200px;
+border-radius:12px;
+border:1px solid rgba(255,255,255,0.1);
+}
+
+/* MOBILE */
+.bottom{
 position:fixed;
 bottom:0;
 left:0;
@@ -244,10 +213,10 @@ display:none;
 grid-template-columns:repeat(4,1fr);
 background:rgba(10,12,18,0.9);
 backdrop-filter:blur(20px);
-border-top:1px solid rgba(255,255,255,0.08);
+border-top:1px solid rgba(255,255,255,0.06);
 }
 
-.bottom-nav a{
+.bottom a{
 height:55px;
 display:flex;
 align-items:center;
@@ -256,26 +225,24 @@ text-decoration:none;
 color:white;
 }
 
-/* ================= RESPONSIVE ================= */
+/* RESPONSIVE */
 @media(max-width:900px){
 
-body{overflow:auto;}
+.left,.chat-list,.right{
+display:none;
+}
+
+.bottom{
+display:grid;
+}
+
+body{
+overflow:auto;
+}
 
 .app{
 flex-direction:column;
 height:auto;
-}
-
-.sidebar,.chats,.right{
-display:none;
-}
-
-.bottom-nav{
-display:grid;
-}
-
-.grid4{
-grid-template-columns:repeat(2,1fr);
 }
 
 }
@@ -290,54 +257,56 @@ grid-template-columns:repeat(2,1fr);
 <div class="app">
 
 <!-- LEFT -->
-<div class="sidebar">
-<div class="menu"></div>
-<div class="menu"></div>
-<div class="menu"></div>
-<div class="menu"></div>
+<div class="left">
+
+<div class="icon"></div>
+<div class="icon"></div>
+<div class="icon"></div>
+<div class="icon"></div>
+
 </div>
 
 <!-- CHATS -->
-<div class="chats">
-<a class="chat" href="#city">Новини міста</a>
-<a class="chat" href="#transport">Транспорт</a>
-<a class="chat" href="#urgent">Терміново</a>
-<a class="chat" href="#map">Карта тривог (LIVE)</a>
+<div class="chat-list">
+
+<a class="chat" href="#city">news/city</a>
+<a class="chat" href="#transport">news/transport</a>
+<a class="chat" href="#urgent">news/urgent</a>
+<a class="chat" href="#map">alerts/map</a>
+
 </div>
 
 <!-- CENTER -->
 <div class="center">
 
 <div class="live">
-<h1>BorykNews LIVE Бориспіль</h1>
-<p>інформує 24/7 онлайн</p>
+BorykNews LIVE Borispil
+<div style="opacity:0.7;font-size:12px;">24/7 system active</div>
 </div>
 
-<div class="grid4">
-<a class="block" href="#city">Місто</a>
-<a class="block" href="#transport">Транспорт</a>
-<a class="block" href="#urgent">Терміново</a>
-<a class="block" href="#map">Карта тривог</a>
-</div>
-
-<div class="post" id="city">
+<a class="card" id="city" href="#">
+City News Feed
 <img src="https://i.imgur.com/qj6F6Q4.jpeg">
-<div class="text">Новини міста</div>
-</div>
+</a>
 
-<!-- LIVE WIDGETS -->
 <div class="widgets">
 
 <div class="widget" id="transport">
-🚍 Транспорт: оновлення маршрутів в реальному часі
+Transport LIVE FEED SLOT
 </div>
 
 <div class="widget">
-🌦 Погода: +12°C, Бориспіль (LIVE)
+Weather LIVE SLOT (API HERE)
+<div id="weather-box">loading...</div>
+</div>
+
+<div class="widget" id="urgent">
+Urgent alerts system
 </div>
 
 <div class="widget" id="map">
-🚨 Карта тривог: активний моніторинг України (LIVE)
+Air Alert Map SLOT
+<iframe class="map" src="https://alerts.in.ua/" ></iframe>
 </div>
 
 </div>
@@ -347,23 +316,20 @@ grid-template-columns:repeat(2,1fr);
 <!-- RIGHT -->
 <div class="right">
 
-<h3>BorykNews</h3>
-<p>Бориспіль інформує</p>
-
-<div class="menu-list">
-<a href="#city">Головна</a>
-<a href="#city">Новини міста</a>
-<a href="#urgent">Терміново</a>
-<a href="#transport">Транспорт</a>
-<a href="#map">Карта тривог</a>
+<div class="menu">
+<a href="#city">main</a>
+<a href="#city">city news</a>
+<a href="#urgent">urgent</a>
+<a href="#transport">transport</a>
+<a href="#map">map</a>
 </div>
 
 <div class="social">
 
-<a href="#">FB</a>
-<a href="#">TG</a>
-<a href="#">IG</a>
-<a href="#">YT</a>
+<a href="#"><img src="icons/facebook.png"></a>
+<a href="#"><img src="icons/telegram.png"></a>
+<a href="#"><img src="icons/instagram.png"></a>
+<a href="#"><img src="icons/youtube.png"></a>
 
 </div>
 
@@ -372,11 +338,11 @@ grid-template-columns:repeat(2,1fr);
 </div>
 
 <!-- MOBILE -->
-<div class="bottom-nav">
-<a href="#city">Місто</a>
-<a href="#transport">Транспорт</a>
-<a href="#urgent">Терміново</a>
-<a href="#map">Карта</a>
+<div class="bottom">
+<a href="#city">home</a>
+<a href="#transport">transport</a>
+<a href="#urgent">alerts</a>
+<a href="#map">map</a>
 </div>
 
 </body>
