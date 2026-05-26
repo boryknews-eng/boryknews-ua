@@ -18,12 +18,19 @@ font-family:'Inter',sans-serif;
 -webkit-tap-highlight-color:transparent;
 }
 
-body{
+html,body{
+height:100%;
 background:#0f1115;
+overflow:hidden;
+color:white;
+}
+
+/* ===== APP ===== */
+
+.app{
+display:flex;
 height:100vh;
 overflow:hidden;
-display:flex;
-color:white;
 }
 
 /* ===== SIDEBAR ===== */
@@ -31,68 +38,71 @@ color:white;
 .sidebar{
 width:88px;
 background:#17191f;
+border-right:1px solid rgba(255,255,255,.05);
 display:flex;
 flex-direction:column;
 align-items:center;
 padding:14px 0;
 gap:14px;
-border-right:1px solid rgba(255,255,255,.05);
-z-index:20;
+overflow:auto;
 }
 
 .logo{
 width:58px;
 height:58px;
 border-radius:22px;
-background:linear-gradient(135deg,#c41c1e,#ff4747);
+background:linear-gradient(135deg,#c41c1e,#ff5252);
 display:flex;
 align-items:center;
 justify-content:center;
 font-size:24px;
 font-weight:900;
 box-shadow:0 15px 40px rgba(196,28,30,.45);
+flex-shrink:0;
 }
 
 .menu-btn{
 width:58px;
 height:58px;
-border-radius:22px;
+border-radius:20px;
 background:#232731;
 display:flex;
 align-items:center;
 justify-content:center;
-cursor:pointer;
 font-size:24px;
+cursor:pointer;
 transition:.3s;
 position:relative;
+flex-shrink:0;
 }
 
 .menu-btn:hover{
-transform:translateY(-3px);
 background:#c41c1e;
+transform:translateY(-3px);
 }
 
 .menu-btn.active{
 background:#c41c1e;
+box-shadow:0 10px 25px rgba(196,28,30,.35);
 }
 
 .menu-btn span{
 position:absolute;
-left:72px;
+left:74px;
 background:#20242d;
 padding:10px 14px;
 border-radius:14px;
 font-size:13px;
+font-weight:700;
 white-space:nowrap;
 opacity:0;
 transition:.3s;
 pointer-events:none;
-font-weight:700;
 }
 
 .menu-btn:hover span{
 opacity:1;
-left:80px;
+left:82px;
 }
 
 /* ===== CHATS ===== */
@@ -103,7 +113,7 @@ background:#16181d;
 border-right:1px solid rgba(255,255,255,.05);
 display:flex;
 flex-direction:column;
-overflow:auto;
+overflow:hidden;
 }
 
 .search{
@@ -112,10 +122,10 @@ padding:18px;
 
 .search input{
 width:100%;
-height:54px;
+height:55px;
 border:none;
-background:#232731;
 border-radius:18px;
+background:#232731;
 padding:0 18px;
 color:white;
 font-size:15px;
@@ -123,6 +133,7 @@ outline:none;
 }
 
 .chat-list{
+overflow:auto;
 padding-bottom:30px;
 }
 
@@ -149,18 +160,19 @@ width:60px;
 height:60px;
 border-radius:20px;
 object-fit:cover;
+flex-shrink:0;
 }
 
 .chat-name{
-font-weight:800;
 font-size:15px;
+font-weight:800;
 }
 
 .chat-last{
 font-size:13px;
+line-height:1.5;
 color:#9ca3af;
 margin-top:5px;
-line-height:1.4;
 }
 
 /* ===== CENTER ===== */
@@ -174,44 +186,47 @@ linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),
 url('https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1600&auto=format&fit=crop');
 background-size:cover;
 background-position:center;
-position:relative;
 overflow:hidden;
+position:relative;
 }
 
 .topbar{
 height:78px;
-background:rgba(0,0,0,.25);
-backdrop-filter:blur(14px);
+background:rgba(0,0,0,.28);
+backdrop-filter:blur(15px);
+border-bottom:1px solid rgba(255,255,255,.05);
 display:flex;
 align-items:center;
 padding:0 22px;
-font-weight:900;
-font-size:19px;
-border-bottom:1px solid rgba(255,255,255,.05);
 gap:16px;
+font-size:18px;
+font-weight:900;
+flex-shrink:0;
 }
 
 .back{
 display:none;
-font-size:25px;
+font-size:24px;
 cursor:pointer;
 }
 
 .messages{
-padding:28px;
+padding:26px;
 overflow:auto;
-height:100%;
+flex:1;
 }
 
+/* ===== POSTS ===== */
+
 .post{
-max-width:520px;
+max-width:540px;
 background:white;
 color:black;
 border-radius:30px;
 overflow:hidden;
-box-shadow:0 30px 80px rgba(0,0,0,.45);
+box-shadow:0 25px 80px rgba(0,0,0,.45);
+margin-bottom:24px;
 animation:show .35s ease;
-margin-bottom:20px;
 }
 
 @keyframes show{
@@ -226,7 +241,7 @@ transform:translateY(0);
 }
 
 .post-head{
-padding:15px 18px;
+padding:16px 18px;
 font-weight:900;
 color:#4caf50;
 font-size:15px;
@@ -239,8 +254,8 @@ display:block;
 
 .post-body{
 padding:18px;
-line-height:1.7;
 font-size:15px;
+line-height:1.7;
 }
 
 .post-body b{
@@ -253,8 +268,8 @@ color:#c41c1e;
 width:370px;
 background:#17191f;
 border-left:1px solid rgba(255,255,255,.05);
-padding:20px;
 overflow:auto;
+padding:20px;
 display:flex;
 flex-direction:column;
 gap:18px;
@@ -268,18 +283,20 @@ box-shadow:0 15px 40px rgba(0,0,0,.25);
 }
 
 .widget-title{
-font-weight:900;
 font-size:17px;
+font-weight:900;
 margin-bottom:18px;
 display:flex;
 align-items:center;
 gap:10px;
 }
 
+/* WEATHER */
+
 .weather{
 display:flex;
-justify-content:space-between;
 align-items:center;
+justify-content:space-between;
 }
 
 .temp{
@@ -295,21 +312,10 @@ font-size:14px;
 }
 
 .weather-icon{
-font-size:55px;
+font-size:54px;
 }
 
-.map{
-height:260px;
-border-radius:24px;
-overflow:hidden;
-margin-top:10px;
-}
-
-.map iframe{
-width:100%;
-height:100%;
-border:none;
-}
+/* LIVE */
 
 .live-item{
 background:#2a2f39;
@@ -320,42 +326,128 @@ font-size:14px;
 line-height:1.5;
 }
 
+/* MAP */
+
+.map{
+height:260px;
+border-radius:24px;
+overflow:hidden;
+}
+
+.map iframe{
+width:100%;
+height:100%;
+border:none;
+}
+
+/* ===== SOCIAL ===== */
+
+.socials{
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+}
+
+.social-btn{
+width:58px;
+height:58px;
+border-radius:18px;
+background:#2a2f39;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+text-decoration:none;
+transition:.3s;
+}
+
+.social-btn:hover{
+transform:translateY(-3px);
+background:#c41c1e;
+}
+
 /* ===== MOBILE ===== */
 
 @media(max-width:1150px){
 
-.right{
-display:none;
-}
-
-}
-
-@media(max-width:900px){
-
-body{
+.app{
 flex-direction:column;
+overflow:auto;
+height:auto;
+min-height:100vh;
 }
 
 /* SIDEBAR */
 
 .sidebar{
 width:100%;
-height:76px;
+height:78px;
 flex-direction:row;
-padding:0 10px;
+padding:0 12px;
+gap:10px;
 overflow-x:auto;
 overflow-y:hidden;
-gap:10px;
+border-right:none;
+border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.menu-btn span{
+display:none;
 }
 
 /* CHATS */
 
 .chats{
 width:100%;
-height:calc(100vh - 76px);
+height:auto;
+min-height:320px;
+border-right:none;
 }
 
-/* CENTER MOBILE */
+/* CENTER */
+
+.center{
+min-height:100vh;
+}
+
+/* POSTS */
+
+.messages{
+padding:16px;
+}
+
+.post{
+max-width:100%;
+border-radius:24px;
+}
+
+/* RIGHT */
+
+.right{
+width:100%;
+border-left:none;
+border-top:1px solid rgba(255,255,255,.05);
+padding:16px;
+background:#111318;
+}
+
+.widget{
+border-radius:24px;
+}
+
+.map{
+height:220px;
+}
+
+}
+
+/* ===== PHONE ===== */
+
+@media(max-width:800px){
+
+.chats{
+height:auto;
+}
 
 .center{
 position:fixed;
@@ -372,25 +464,12 @@ transition:.35s;
 transform:translateX(0);
 }
 
-/* BACK */
-
 .back{
 display:block;
 }
 
-/* POSTS */
-
-.messages{
-padding:18px;
-}
-
-.post{
-max-width:100%;
-border-radius:24px;
-}
-
-.menu-btn span{
-display:none;
+.right{
+padding-bottom:100px;
 }
 
 }
@@ -400,7 +479,9 @@ display:none;
 
 <body>
 
-<!-- SIDEBAR -->
+<div class="app">
+
+<!-- ===== SIDEBAR ===== -->
 
 <div class="sidebar">
 
@@ -435,7 +516,7 @@ B
 
 </div>
 
-<!-- CHATS -->
+<!-- ===== CHATS ===== -->
 
 <div class="chats">
 
@@ -449,7 +530,7 @@ B
 
 </div>
 
-<!-- CENTER -->
+<!-- ===== CENTER ===== -->
 
 <div class="center" id="center">
 
@@ -471,7 +552,7 @@ BorykNews
 
 </div>
 
-<!-- RIGHT -->
+<!-- ===== RIGHT ===== -->
 
 <div class="right">
 
@@ -527,7 +608,7 @@ allowfullscreen>
 <div class="widget">
 
 <div class="widget-title">
-📡 LIVE
+📡 LIVE повідомлення
 </div>
 
 <div class="live-item">
@@ -548,35 +629,75 @@ allowfullscreen>
 
 </div>
 
+<!-- SOCIAL -->
+
+<div class="widget">
+
+<div class="widget-title">
+🌐 Соцмережі
+</div>
+
+<div class="socials">
+
+<a href="#" class="social-btn">
+📷
+</a>
+
+<a href="#" class="social-btn">
+📘
+</a>
+
+<a href="#" class="social-btn">
+✈️
+</a>
+
+<a href="#" class="social-btn">
+▶️
+</a>
+
+<a href="#" class="social-btn">
+🎵
+</a>
+
+<a href="#" class="social-btn">
+𝕏
+</a>
+
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 <script>
 
-/* ===== DATA ===== */
+/* ===== NEWS ===== */
 
 const news = {
 
 transport:[
 {
 title:'🚌 Затримка маршруток',
-text:'Через затори маршрутки курсують із затримкою.',
+text:'Через затори маршрутки курсують із затримкою у центрі Борисполя.',
 img:'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop'
 },
 {
-title:'🚦 Рух біля центру ускладнений',
-text:'Поліція просить обирати об’їзні шляхи.',
+title:'🚦 Рух ускладнений',
+text:'Поліція просить водіїв обирати об’їзні шляхи.',
 img:'https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1200&auto=format&fit=crop'
 }
 ],
 
 city:[
 {
-title:'🏙 Новий сквер у Борисполі',
-text:'У місті планують оновлення центральної зони.',
+title:'🏙 Новий сквер',
+text:'У Борисполі планують масштабне оновлення центру.',
 img:'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=1200&auto=format&fit=crop'
 },
 {
-title:'🎉 Міський фестиваль',
+title:'🎉 Фестиваль міста',
 text:'На вихідних відбудеться святковий концерт.',
 img:'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1200&auto=format&fit=crop'
 }
@@ -585,7 +706,7 @@ img:'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1200&au
 urgent:[
 {
 title:'🚨 Термінове звернення',
-text:'Батьки повідомляють про ситуацію, яка потребує перевірки.',
+text:'Мешканці повідомляють про ситуацію, яка потребує перевірки.',
 img:'https://i.imgur.com/qj6F6Q4.jpeg'
 },
 {
@@ -598,12 +719,12 @@ img:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&au
 gkh:[
 {
 title:'💡 Відключення світла',
-text:'Планові роботи 19:00–22:00.',
+text:'Планові роботи сьогодні з 19:00 до 22:00.',
 img:'https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?q=80&w=1200&auto=format&fit=crop'
 },
 {
 title:'🚰 Ремонт водопроводу',
-text:'Можливе зниження тиску води.',
+text:'Можливе зниження тиску води у місті.',
 img:'https://images.unsplash.com/photo-1516937941344-00b4e0337589?q=80&w=1200&auto=format&fit=crop'
 }
 ],
@@ -623,7 +744,7 @@ img:'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1200&au
 
 };
 
-/* ===== LOAD CATEGORY ===== */
+/* ===== CATEGORY ===== */
 
 function loadCategory(category,btn){
 
@@ -632,18 +753,14 @@ document.querySelectorAll('.menu-btn')
 
 btn.classList.add('active');
 
-const chatList =
+const list =
 document.getElementById('chatList');
 
-const messages =
-document.getElementById('messages');
-
-chatList.innerHTML='';
-messages.innerHTML='';
+list.innerHTML='';
 
 news[category].forEach((item,index)=>{
 
-chatList.innerHTML += `
+list.innerHTML += `
 <div class="chat-item" onclick="openPost('${category}',${index},this)">
 <img src="${item.img}">
 <div>
@@ -706,7 +823,7 @@ ${item.text}
 
 `;
 
-if(window.innerWidth < 900){
+if(window.innerWidth < 800){
 document.getElementById('center')
 .classList.add('active');
 }
@@ -716,25 +833,35 @@ document.getElementById('center')
 /* ===== CLOSE MOBILE ===== */
 
 function closeChat(){
+
 document.getElementById('center')
 .classList.remove('active');
+
 }
 
 /* ===== WEATHER ===== */
 
-const temp = document.getElementById('temp');
-
-const arr = ['+22°','+23°','+24°','+25°'];
+const temps = ['+22°','+23°','+24°','+25°'];
+const icons = ['☀️','⛅','🌤','🌥'];
 
 setInterval(()=>{
-temp.innerHTML =
-arr[Math.floor(Math.random()*arr.length)];
+
+document.getElementById('temp')
+.innerHTML =
+temps[Math.floor(Math.random()*temps.length)];
+
+document.querySelector('.weather-icon')
+.innerHTML =
+icons[Math.floor(Math.random()*icons.length)];
+
 },4000);
 
 /* ===== INIT ===== */
 
-loadCategory('transport',
-document.querySelector('.menu-btn'));
+loadCategory(
+'transport',
+document.querySelector('.menu-btn')
+);
 
 </script>
 
