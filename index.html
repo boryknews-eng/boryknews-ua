@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BorykNews PRO</title>
+<title>BorykNews PRO LIVE</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
 
-/* ===== RESET ===== */
+/* ================= RESET ================= */
 *{
 margin:0;
 padding:0;
@@ -18,137 +18,245 @@ box-sizing:border-box;
 }
 
 body{
+font-family:'Manrope',sans-serif;
 background:#0b0d12;
 color:white;
-font-family:'Manrope',sans-serif;
-overflow:hidden;
+overflow-x:hidden;
 }
 
-/* ===== BACKGROUND ===== */
+/* ================= BACKGROUND ================= */
 .bg{
 position:fixed;
 inset:0;
-background:linear-gradient(-45deg,#0b0d12,#111a2e,#1a1233,#0a1b2b);
-background-size:400% 400%;
-animation:bg 15s infinite ease;
+background-image:url("YOUR_BG.jpg");
+background-size:cover;
+background-position:center;
+filter:brightness(0.35) saturate(1.2);
+z-index:-2;
+animation:zoom 20s infinite alternate;
+}
+
+@keyframes zoom{
+from{transform:scale(1)}
+to{transform:scale(1.08)}
+}
+
+/* dark overlay */
+.overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.55);
 z-index:-1;
 }
 
-@keyframes bg{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
-}
-
-/* ===== LAYOUT ===== */
+/* ================= LAYOUT ================= */
 .app{
-display:flex;
+display:grid;
+grid-template-columns:260px 1fr 300px;
 height:100vh;
 }
 
-/* ===== ICON SPRITE ===== */
-.icon{
-width:34px;
-height:34px;
-background-image:url("/mnt/data/a_set_of_five_digital_icons_is_displayed_on_a_dark.png");
-background-repeat:no-repeat;
-background-size:1536px 1024px;
+/* ================= LEFT ================= */
+.left{
+padding:20px;
+border-right:1px solid rgba(255,255,255,0.08);
+backdrop-filter:blur(20px);
 }
 
-/* 5 іконок (1 ряд) */
-.i1{background-position:0px 0px;}
-.i2{background-position:-307px 0px;}
-.i3{background-position:-614px 0px;}
-.i4{background-position:-921px 0px;}
-.i5{background-position:-1228px 0px;}
+.brand{
+font-size:20px;
+font-weight:800;
+margin-bottom:10px;
+}
 
-/* ===== SIDEBAR ===== */
-.sidebar{
-width:90px;
-background:rgba(20,22,30,.8);
-backdrop-filter:blur(20px);
+.sub{
+font-size:12px;
+opacity:0.6;
+margin-bottom:20px;
+}
+
+/* news list */
+.left-news{
 display:flex;
 flex-direction:column;
-align-items:center;
-padding:12px 0;
-gap:18px;
+gap:12px;
+}
+
+.left-item{
+padding:10px;
+background:rgba(255,255,255,0.05);
+border-radius:12px;
+cursor:pointer;
+transition:.3s;
+}
+
+.left-item:hover{
+background:rgba(255,255,255,0.12);
+transform:translateX(5px);
+}
+
+/* ================= CENTER ================= */
+.center{
+padding:20px;
+overflow:auto;
+}
+
+/* LIVE HEADER */
+.live-box{
+text-align:center;
+padding:20px;
+border-radius:20px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(20px);
+animation:pulse 1.8s infinite;
+border:1px solid rgba(255,255,255,0.1);
+}
+
+@keyframes pulse{
+0%{box-shadow:0 0 0 rgba(255,0,0,0)}
+50%{box-shadow:0 0 25px rgba(255,0,0,0.3)}
+100%{box-shadow:0 0 0 rgba(255,0,0,0)}
+}
+
+.live-title{
+font-size:22px;
+font-weight:800;
+}
+
+.live-sub{
+font-size:13px;
+opacity:0.7;
+margin-top:5px;
+}
+
+/* 4 BLOCKS */
+.grid4{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+margin-top:20px;
+}
+
+.card{
+padding:18px;
+border-radius:16px;
+background:rgba(255,255,255,0.06);
+backdrop-filter:blur(20px);
+cursor:pointer;
+transition:.3s;
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.card:hover{
+transform:scale(1.03);
+background:rgba(255,255,255,0.1);
+}
+
+/* news columns */
+.columns{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+margin-top:20px;
+}
+
+.col{
+background:rgba(255,255,255,0.04);
+border-radius:16px;
+padding:10px;
+min-height:200px;
+}
+
+.col h3{
+font-size:14px;
+margin-bottom:10px;
+opacity:0.8;
+}
+
+.item{
+padding:8px;
+border-bottom:1px solid rgba(255,255,255,0.06);
+font-size:13px;
+}
+
+/* ================= RIGHT ================= */
+.right{
+padding:20px;
+border-left:1px solid rgba(255,255,255,0.08);
+backdrop-filter:blur(20px);
 }
 
 .menu{
-width:60px;
-height:60px;
-border-radius:18px;
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.menu a{
+padding:10px;
+border-radius:12px;
+background:rgba(255,255,255,0.05);
+text-decoration:none;
+color:white;
+transition:.3s;
+}
+
+.menu a:hover{
+background:rgba(255,255,255,0.12);
+}
+
+/* social */
+.social{
+margin-top:20px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+}
+
+.social div{
+height:40px;
+background:rgba(255,255,255,0.05);
+/* тут вставиш свої іконки */
+border-radius:10px;
+}
+
+/* ================= MOBILE ================= */
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+display:none;
+grid-template-columns:repeat(4,1fr);
+background:rgba(10,12,18,0.8);
+backdrop-filter:blur(20px);
+border-top:1px solid rgba(255,255,255,0.08);
+}
+
+.bottom-nav div{
+height:55px;
 display:flex;
 align-items:center;
 justify-content:center;
-cursor:pointer;
-transition:.3s;
-background:rgba(255,255,255,.05);
 }
 
-.menu:hover{
-background:#c41c1e;
-transform:scale(1.05);
-}
-
-/* ===== CHAT ===== */
-.chats{
-width:320px;
-background:rgba(18,20,28,.75);
-overflow:auto;
-}
-
-.chat{
-padding:15px;
-border-bottom:1px solid rgba(255,255,255,.05);
-cursor:pointer;
-}
-
-.chat:hover{
-background:rgba(255,255,255,.05);
-}
-
-/* ===== CENTER ===== */
-.center{
-flex:1;
-overflow:auto;
-padding:20px;
-}
-
-.post{
-background:white;
-color:black;
-border-radius:20px;
-overflow:hidden;
-max-width:600px;
-}
-
-/* ===== RIGHT ===== */
-.right{
-width:340px;
-background:rgba(18,20,28,.75);
-overflow:auto;
-padding:15px;
-}
-
-/* ===== MOBILE ===== */
+/* ================= RESPONSIVE ================= */
 @media(max-width:900px){
 
-body{overflow:auto;}
-
 .app{
-flex-direction:column;
-height:auto;
+grid-template-columns:1fr;
 }
 
-.sidebar{
-flex-direction:row;
-width:100%;
-justify-content:space-around;
+.left,.right{
+display:none;
 }
 
-.chats,.right{
-width:100%;
+.columns{
+grid-template-columns:repeat(2,1fr);
+}
+
+.bottom-nav{
+display:grid;
 }
 
 }
@@ -159,46 +267,96 @@ width:100%;
 <body>
 
 <div class="bg"></div>
+<div class="overlay"></div>
 
 <div class="app">
 
-<!-- SIDEBAR ICONS (YOUR PACK) -->
-<div class="sidebar">
+<!-- LEFT -->
+<div class="left">
+<div class="brand">BorykNews | Бориспіль</div>
+<div class="sub">стрічка новин міста</div>
 
-<div class="menu"><div class="icon i1"></div></div>
-<div class="menu"><div class="icon i2"></div></div>
-<div class="menu"><div class="icon i3"></div></div>
-<div class="menu"><div class="icon i4"></div></div>
-<div class="menu"><div class="icon i5"></div></div>
-
+<div class="left-news">
+<div class="left-item">Новини міста</div>
+<div class="left-item">Транспорт</div>
+<div class="left-item">Терміново</div>
+<div class="left-item">Карта тривог</div>
 </div>
-
-<!-- CHATS -->
-<div class="chats">
-<div class="chat">🚨 Термінові новини</div>
-<div class="chat">🚌 Транспорт</div>
-<div class="chat">🏙 Місто</div>
 </div>
 
 <!-- CENTER -->
 <div class="center">
-<div class="post">
-<div style="padding:15px;font-weight:800;">BorykNews LIVE</div>
-<img src="https://i.imgur.com/qj6F6Q4.jpeg" style="width:100%">
-<div style="padding:15px;">
-Тут твоя новина буде виглядати як Telegram стиль 🚀
+
+<div class="live-box">
+<div class="live-title">BorykNews LIVE Бориспіль</div>
+<div class="live-sub">інформує 24/7 онлайн</div>
 </div>
+
+<div class="grid4">
+<div class="card">Новини міста</div>
+<div class="card">Транспорт</div>
+<div class="card">Терміново</div>
+<div class="card">Карта тривог</div>
 </div>
+
+<div class="columns">
+
+<div class="col">
+<h3>Місто</h3>
+<div class="item">Новина 1</div>
+<div class="item">Новина 2</div>
+</div>
+
+<div class="col">
+<h3>Транспорт</h3>
+<div class="item">Маршрут 1</div>
+<div class="item">Маршрут 2</div>
+</div>
+
+<div class="col">
+<h3>Погода</h3>
+<div class="item">+12°C зараз</div>
+<div class="item">оновлення в реальному часі</div>
+</div>
+
+<div class="col">
+<h3>Карта</h3>
+<div class="item">тривоги онлайн</div>
+<div class="item">live режим</div>
+</div>
+
+</div>
+
 </div>
 
 <!-- RIGHT -->
 <div class="right">
-<h3>LIVE</h3>
-<p>⚠️ Оновлення міста</p>
-<p>💡 Світло</p>
-<p>🚨 Тривога</p>
+
+<div class="menu">
+<a href="#">Головна</a>
+<a href="#">Новини міста</a>
+<a href="#">Терміново</a>
+<a href="#">Транспорт</a>
+<a href="#">Карта тривог</a>
 </div>
 
+<div class="social">
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+</div>
+
+</div>
+
+</div>
+
+<!-- MOBILE BOTTOM NAV -->
+<div class="bottom-nav">
+<div></div>
+<div></div>
+<div></div>
+<div></div>
 </div>
 
 </body>
