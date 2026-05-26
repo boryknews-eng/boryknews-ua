@@ -26,87 +26,73 @@ color:white;
 }
 
 /* ===== SIDEBAR ===== */
+
 .sidebar{
-width:78px;
-background:#1b1d22;
+width:85px;
+background:#17191f;
 display:flex;
 flex-direction:column;
 align-items:center;
 padding:15px 0;
 border-right:1px solid rgba(255,255,255,.05);
+gap:14px;
 }
 
-.burger{
-width:52px;
-height:52px;
-border-radius:18px;
+.logo{
+width:55px;
+height:55px;
+border-radius:20px;
+background:linear-gradient(135deg,#c41c1e,#ff5252);
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:900;
+font-size:22px;
+box-shadow:0 10px 30px rgba(196,28,30,.4);
+}
+
+.menu-item{
+width:58px;
+height:58px;
+border-radius:20px;
+background:#22252d;
 display:flex;
 align-items:center;
 justify-content:center;
 font-size:24px;
 cursor:pointer;
-background:#252831;
 transition:.3s;
+position:relative;
 }
 
-.burger:hover{
+.menu-item:hover{
 background:#c41c1e;
-transform:scale(1.05);
+transform:translateY(-3px);
 }
 
-/* SOCIAL MENU */
-.social-menu{
+.menu-item span{
 position:absolute;
-left:90px;
-top:20px;
-width:250px;
-background:#1a1c21;
-border-radius:25px;
-padding:20px;
-display:none;
-flex-direction:column;
-gap:15px;
-box-shadow:0 20px 60px rgba(0,0,0,.5);
-z-index:100;
-border:1px solid rgba(255,255,255,.06);
-}
-
-.social-menu.active{
-display:flex;
-animation:menu .35s ease;
-}
-
-@keyframes menu{
-from{opacity:0;transform:translateY(-15px);}
-to{opacity:1;transform:translateY(0);}
-}
-
-.social-btn{
-display:flex;
-align-items:center;
-gap:15px;
-padding:14px;
-border-radius:18px;
-text-decoration:none;
-color:white;
-background:#242730;
+left:70px;
+background:#20242d;
+padding:10px 14px;
+border-radius:14px;
+font-size:13px;
+white-space:nowrap;
+opacity:0;
+pointer-events:none;
 transition:.3s;
 font-weight:700;
 }
 
-.social-btn:hover{
-transform:translateX(5px);
-background:#c41c1e;
-}
-
-.social-btn img{
-width:32px;
-height:32px;
+.menu-item:hover span{
+opacity:1;
+left:78px;
 }
 
 /* ===== CHATS ===== */
+
 .chats{
-width:350px;
+width:340px;
 background:#16181d;
 border-right:1px solid rgba(255,255,255,.05);
 display:flex;
@@ -119,20 +105,21 @@ padding:18px;
 
 .search input{
 width:100%;
-height:50px;
+height:52px;
 border:none;
 border-radius:18px;
 background:#22252d;
 padding:0 18px;
 color:white;
 outline:none;
+font-size:15px;
 }
 
 .chat-item{
 display:flex;
 align-items:center;
 gap:14px;
-padding:15px 18px;
+padding:16px 18px;
 cursor:pointer;
 transition:.3s;
 border-left:3px solid transparent;
@@ -151,64 +138,99 @@ border-left:3px solid #c41c1e;
 width:58px;
 height:58px;
 border-radius:18px;
+object-fit:cover;
+}
+
+.chat-name{
+font-weight:800;
+font-size:15px;
+}
+
+.chat-last{
+font-size:13px;
+color:#9ea4af;
+margin-top:4px;
 }
 
 /* ===== CENTER ===== */
+
 .center{
 flex:1;
 display:flex;
 flex-direction:column;
-background:linear-gradient(135deg,#ff2d55,#9333ea,#2563eb);
+background:
+linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.35)),
+url('https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1600&auto=format&fit=crop');
+background-size:cover;
+background-position:center;
 overflow:hidden;
+position:relative;
 }
 
 .topbar{
-height:75px;
-background:rgba(0,0,0,.18);
-backdrop-filter:blur(12px);
+height:76px;
+background:rgba(0,0,0,.28);
+backdrop-filter:blur(15px);
 display:flex;
 align-items:center;
-padding:0 20px;
-font-weight:800;
-font-size:18px;
+padding:0 22px;
+font-weight:900;
+font-size:19px;
 border-bottom:1px solid rgba(255,255,255,.06);
 gap:15px;
 }
 
 .back-btn{
 display:none;
+font-size:22px;
 cursor:pointer;
-font-weight:900;
 }
 
 .messages{
-padding:25px;
+padding:28px;
 overflow:auto;
 height:100%;
 }
 
+/* ===== NEWS POST ===== */
+
 .post{
-width:460px;
+width:470px;
 background:white;
 color:black;
-border-radius:28px;
+border-radius:30px;
 overflow:hidden;
-box-shadow:0 20px 60px rgba(0,0,0,.35);
+box-shadow:0 25px 80px rgba(0,0,0,.45);
+animation:show .4s ease;
+}
+
+@keyframes show{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
 }
 
 .post-header{
-padding:14px 18px;
-font-weight:800;
+padding:15px 18px;
+font-weight:900;
+font-size:16px;
 color:#4caf50;
 }
 
 .post img{
 width:100%;
+display:block;
 }
 
 .post-content{
 padding:18px;
-line-height:1.6;
+line-height:1.7;
+font-size:15px;
 }
 
 .post-content b{
@@ -216,29 +238,41 @@ color:#c41c1e;
 }
 
 /* ===== RIGHT ===== */
+
 .right{
-width:330px;
+width:360px;
 background:#17191f;
 border-left:1px solid rgba(255,255,255,.05);
+padding:20px;
+overflow:auto;
 display:flex;
 flex-direction:column;
-padding:20px;
 gap:18px;
-overflow:auto;
 }
 
 .widget{
 background:#20242d;
-border-radius:24px;
-padding:18px;
+border-radius:28px;
+padding:20px;
+box-shadow:0 10px 35px rgba(0,0,0,.25);
+}
+
+.widget-title{
+font-weight:900;
+font-size:17px;
+margin-bottom:16px;
+display:flex;
+align-items:center;
+gap:10px;
 }
 
 .live{
 display:flex;
 align-items:center;
 gap:10px;
-font-weight:700;
-color:#ff4b4b;
+font-weight:800;
+color:#ff5d5d;
+margin-bottom:15px;
 }
 
 .dot{
@@ -251,12 +285,64 @@ animation:pulse 1s infinite;
 
 @keyframes pulse{
 0%{transform:scale(1);}
-50%{transform:scale(1.7);}
+50%{transform:scale(1.8);}
 100%{transform:scale(1);}
 }
 
+.mini{
+background:#2a2f39;
+padding:14px;
+border-radius:18px;
+margin-bottom:12px;
+line-height:1.5;
+font-size:14px;
+}
+
+.weather{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.temp{
+font-size:42px;
+font-weight:900;
+}
+
+.city{
+font-size:14px;
+color:#9ca3af;
+margin-top:5px;
+}
+
+.weather-icon{
+font-size:48px;
+}
+
+.map{
+height:240px;
+border-radius:22px;
+overflow:hidden;
+margin-top:15px;
+}
+
+.map iframe{
+width:100%;
+height:100%;
+border:none;
+}
+
 /* ===== MOBILE ===== */
-@media (max-width:900px){
+
+@media(max-width:1100px){
+
+.right{
+display:none;
+}
+
+}
+
+@media(max-width:900px){
 
 body{
 flex-direction:column;
@@ -265,18 +351,20 @@ flex-direction:column;
 /* sidebar */
 .sidebar{
 width:100%;
-height:60px;
+height:72px;
 flex-direction:row;
-justify-content:flex-start;
+padding:0 12px;
+overflow-x:auto;
+overflow-y:hidden;
 }
 
-/* chats full */
+/* chats */
 .chats{
 width:100%;
-height:calc(100vh - 60px);
+height:calc(100vh - 72px);
 }
 
-/* center hidden */
+/* center */
 .center{
 position:fixed;
 top:0;
@@ -284,29 +372,27 @@ left:0;
 width:100%;
 height:100vh;
 transform:translateX(100%);
-transition:.3s;
-z-index:50;
+transition:.35s;
+z-index:100;
 }
 
-/* open chat */
 .center.active{
 transform:translateX(0);
 }
 
-/* right hide */
-.right{
-display:none;
+/* back */
+.back-btn{
+display:block;
 }
 
 /* post */
 .post{
 width:100%;
-border-radius:18px;
+border-radius:24px;
 }
 
-/* back button */
-.back-btn{
-display:block;
+.menu-item span{
+display:none;
 }
 
 }
@@ -317,39 +403,95 @@ display:block;
 <body>
 
 <!-- SIDEBAR -->
+
 <div class="sidebar">
-<div class="burger" onclick="toggleMenu()">☰</div>
+
+<div class="logo">
+B
 </div>
 
-<!-- SOCIAL -->
-<div class="social-menu" id="socialMenu">
-<a class="social-btn" href="#">Instagram</a>
-<a class="social-btn" href="#">Facebook</a>
-<a class="social-btn" href="#">X</a>
-<a class="social-btn" href="#">Telegram</a>
+<div class="menu-item">
+🚌
+<span>Транспорт</span>
+</div>
+
+<div class="menu-item">
+📰
+<span>Новини міста</span>
+</div>
+
+<div class="menu-item">
+🚨
+<span>Терміново</span>
+</div>
+
+<div class="menu-item">
+💡
+<span>ЖКГ</span>
+</div>
+
+<div class="menu-item">
+📢
+<span>Оголошення</span>
+</div>
+
 </div>
 
 <!-- CHATS -->
+
 <div class="chats">
+
 <div class="search">
-<input placeholder="Пошук">
+<input type="text" placeholder="Пошук новин...">
 </div>
 
 <div class="chat-item active">
+
 <img src="https://i.imgur.com/3QZQZ9S.jpeg">
+
 <div>
-<div><b>BorykNews</b></div>
-<div style="font-size:12px;color:#aaa">🚨 Термінове звернення...</div>
+<div class="chat-name">BorykNews LIVE</div>
+<div class="chat-last">🚨 Термінове звернення...</div>
 </div>
+
 </div>
+
+<div class="chat-item">
+
+<img src="https://i.imgur.com/3QZQZ9S.jpeg">
+
+<div>
+<div class="chat-name">Тривоги Київщина</div>
+<div class="chat-last">⚠️ Повітряна тривога</div>
+</div>
+
+</div>
+
+<div class="chat-item">
+
+<img src="https://i.imgur.com/3QZQZ9S.jpeg">
+
+<div>
+<div class="chat-name">ЖКГ Бориспіль</div>
+<div class="chat-last">💡 Відключення світла</div>
+</div>
+
+</div>
+
 </div>
 
 <!-- CENTER -->
+
 <div class="center">
 
 <div class="topbar">
-<div class="back-btn" onclick="closeChat()">← Назад</div>
+
+<div class="back-btn" onclick="closeChat()">
+←
+</div>
+
 Новини Борисполя | BorykNews 🇺🇦
+
 </div>
 
 <div class="messages">
@@ -357,38 +499,110 @@ display:block;
 <div class="post">
 
 <div class="post-header">
-BorykNews 🇺🇦
+BorykNews LIVE 🇺🇦
 </div>
 
 <img src="https://i.imgur.com/qj6F6Q4.jpeg">
 
 <div class="post-content">
 
-<b>🚨 Бориспіль | Термінове звернення</b>
+<b>🚨 Бориспіль | Термінове звернення батьків</b>
+
 <br><br>
-Батьки повідомляють про ситуацію, яка потребує перевірки.
+
+Батьки повідомляють про ситуацію, яка потребує офіційної перевірки.
+
 <br><br>
+
 ⚠️ Можливий тиск щодо переведення класу.
 
-</div>
+<br><br>
+
+📡 Оперативні новини BorykNews LIVE
 
 </div>
 
 </div>
+
+</div>
+
 </div>
 
 <!-- RIGHT -->
+
 <div class="right">
 
+<!-- WEATHER -->
+
 <div class="widget">
-<div class="live">
-<div class="dot"></div>
-LIVE
+
+<div class="widget-title">
+🌤 Погода LIVE
 </div>
 
-<div>🚨 Рух перекрито</div>
-<div>⚠️ Тривога Київщина</div>
-<div>💡 Світло 19:00–22:00</div>
+<div class="weather">
+
+<div>
+<div class="temp" id="temp">
++23°
+</div>
+
+<div class="city">
+Бориспіль
+</div>
+</div>
+
+<div class="weather-icon">
+☀️
+</div>
+
+</div>
+
+</div>
+
+<!-- LIVE -->
+
+<div class="widget">
+
+<div class="live">
+<div class="dot"></div>
+LIVE повідомлення
+</div>
+
+<div class="mini">
+🚨 У центрі Борисполя перекрито рух
+</div>
+
+<div class="mini">
+⚠️ Повітряна тривога Київщина
+</div>
+
+<div class="mini">
+💡 Відключення світла 19:00–22:00
+</div>
+
+<div class="mini">
+🚌 Маршрутки працюють із затримкою
+</div>
+
+</div>
+
+<!-- MAP -->
+
+<div class="widget">
+
+<div class="widget-title">
+🗺 Карта тривог LIVE
+</div>
+
+<div class="map">
+
+<iframe
+src="https://alerts.in.ua"
+allowfullscreen>
+</iframe>
+
+</div>
 
 </div>
 
@@ -396,21 +610,35 @@ LIVE
 
 <script>
 
-function toggleMenu(){
-document.getElementById('socialMenu').classList.toggle('active');
+/* MOBILE CHAT OPEN */
+
+document.querySelectorAll('.chat-item').forEach(el=>{
+
+el.addEventListener('click',()=>{
+
+if(window.innerWidth < 900){
+document.querySelector('.center').classList.add('active');
 }
 
-/* open chat */
-document.querySelectorAll('.chat-item').forEach(el=>{
-el.addEventListener('click',()=>{
-document.querySelector('.center').classList.add('active');
-});
 });
 
-/* close */
+});
+
+/* CLOSE CHAT */
+
 function closeChat(){
 document.querySelector('.center').classList.remove('active');
 }
+
+/* WEATHER RANDOM */
+
+const temps = ['+22°','+23°','+24°','+25°'];
+const weather = document.getElementById('temp');
+
+setInterval(()=>{
+weather.innerHTML =
+temps[Math.floor(Math.random()*temps.length)];
+},4000);
 
 </script>
 
