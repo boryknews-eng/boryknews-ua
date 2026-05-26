@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BoryNews TELEGRAM LIVE</title>
+<title>BoryNews Premium UI</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
@@ -18,166 +18,186 @@ padding:0;
 box-sizing:border-box;
 }
 
-html{
-scroll-behavior:smooth;
-}
-
 body{
-font-family:'Inter',sans-serif;
-background:#07111d;
+font-family:'Manrope',sans-serif;
+background:#161616;
 height:100vh;
 overflow:hidden;
-color:white;
+color:#f1f1f1;
 }
 
-/* ================= BG ================= */
+/* ================= BACKGROUND ================= */
 
 .bg{
 position:fixed;
 inset:0;
 
 background:
-linear-gradient(rgba(3,8,20,.82),rgba(3,8,20,.92)),
-url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1800&auto=format&fit=crop");
+linear-gradient(rgba(15,15,15,.92),rgba(15,15,15,.95)),
+url("https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=1800&auto=format&fit=crop");
 
 background-size:cover;
 background-position:center;
 
-animation:bgzoom 25s infinite alternate;
+animation:bg 24s infinite alternate;
+
 z-index:-5;
 }
 
-@keyframes bgzoom{
+@keyframes bg{
+
 from{
 transform:scale(1);
 }
+
 to{
-transform:scale(1.12);
-}
+transform:scale(1.06);
 }
 
-/* ================= LIGHTS ================= */
+}
 
-.light1{
+/* ================= LIGHT ================= */
+
+.red{
 position:fixed;
-width:600px;
-height:600px;
-background:#0077ff;
-filter:blur(170px);
-top:-200px;
-right:-150px;
-opacity:.18;
-z-index:-2;
-animation:move1 10s infinite alternate;
-}
 
-.light2{
-position:fixed;
 width:500px;
 height:500px;
-background:#ff00b7;
-filter:blur(160px);
-bottom:-180px;
-left:-120px;
-opacity:.15;
+
+background:#6e3a3a;
+
+filter:blur(180px);
+
+top:-150px;
+right:-120px;
+
+opacity:.16;
+
 z-index:-2;
-animation:move2 12s infinite alternate;
 }
 
-@keyframes move1{
-from{transform:translateY(0)}
-to{transform:translateY(60px)}
-}
+.gray{
+position:fixed;
 
-@keyframes move2{
-from{transform:translateX(0)}
-to{transform:translateX(80px)}
+width:450px;
+height:450px;
+
+background:#777;
+
+filter:blur(160px);
+
+bottom:-150px;
+left:-100px;
+
+opacity:.08;
+
+z-index:-2;
 }
 
 /* ================= APP ================= */
 
-.telegram{
+.app{
 display:grid;
-grid-template-columns:80px 340px 1fr 360px;
+grid-template-columns:78px 340px 1fr 350px;
 height:100vh;
 }
 
-/* ================= LEFT BAR ================= */
+/* ================= MINI BAR ================= */
 
 .mini{
-background:#17212b;
-border-right:1px solid rgba(255,255,255,.05);
+background:#202020;
+
+border-right:1px solid rgba(255,255,255,.04);
 
 display:flex;
 flex-direction:column;
 align-items:center;
+
 padding-top:18px;
+
 gap:18px;
 }
 
 .mini-btn{
 width:54px;
 height:54px;
+
 border-radius:18px;
 
 display:flex;
 align-items:center;
 justify-content:center;
 
-background:rgba(255,255,255,.04);
+background:#2a2a2a;
 
 cursor:pointer;
-transition:.25s;
 
-font-size:22px;
+transition:.25s;
+}
+
+.mini-btn svg{
+width:22px;
+height:22px;
+fill:#f1f1f1;
+opacity:.8;
 }
 
 .mini-btn:hover{
-transform:scale(1.07);
-background:#2b5278;
+background:#383838;
+transform:translateY(-3px);
 }
 
 .mini-btn.active{
-background:linear-gradient(145deg,#00a2ff,#005eff);
+
+background:
+linear-gradient(145deg,#5a3030,#3b2323);
 
 box-shadow:
-0 0 30px rgba(0,119,255,.45);
+0 0 25px rgba(120,60,60,.35);
+
 }
 
 /* ================= SIDEBAR ================= */
 
 .sidebar{
-background:rgba(25,35,48,.96);
-backdrop-filter:blur(25px);
+background:#252525;
 
-border-right:1px solid rgba(255,255,255,.05);
+border-right:1px solid rgba(255,255,255,.04);
 
 display:flex;
 flex-direction:column;
 
-transition:.35s;
 overflow:hidden;
 }
 
 .search{
-padding:15px;
+padding:16px;
 }
 
 .search input{
 width:100%;
-height:48px;
+height:50px;
 
 border:none;
 outline:none;
 
-background:#2a3645;
+background:#323232;
+
 border-radius:16px;
 
 padding:0 18px;
 
-color:white;
-font-size:15px;
+font-size:14px;
+font-weight:600;
+
+color:#f1f1f1;
 }
+
+.search input::placeholder{
+color:#8c8c8c;
+}
+
+/* ================= CHAT ================= */
 
 .chat-list{
 overflow:auto;
@@ -187,28 +207,35 @@ overflow:auto;
 display:flex;
 gap:14px;
 
-padding:15px;
+padding:16px;
 
 cursor:pointer;
 
-transition:.22s;
+transition:.25s;
 
-border-bottom:1px solid rgba(255,255,255,.04);
+border-bottom:1px solid rgba(255,255,255,.03);
 }
 
 .chat:hover{
-background:#243140;
+background:#303030;
 }
 
 .chat.active{
-background:linear-gradient(90deg,#2b5278,#204061);
+
+background:
+linear-gradient(90deg,#452929,#2f2f2f);
+
+border-left:4px solid #8e5050;
 }
 
 .avatar{
 width:56px;
 height:56px;
+
 border-radius:50%;
+
 overflow:hidden;
+
 flex-shrink:0;
 }
 
@@ -224,13 +251,14 @@ flex:1;
 
 .chat-info h4{
 font-size:15px;
-font-weight:700;
+font-weight:800;
 margin-bottom:6px;
 }
 
 .chat-info p{
 font-size:13px;
-opacity:.65;
+opacity:.58;
+
 white-space:nowrap;
 overflow:hidden;
 text-overflow:ellipsis;
@@ -241,7 +269,6 @@ text-overflow:ellipsis;
 .center{
 display:flex;
 flex-direction:column;
-position:relative;
 overflow:hidden;
 }
 
@@ -250,18 +277,17 @@ overflow:hidden;
 .topbar{
 height:74px;
 
-background:rgba(8,14,26,.82);
-backdrop-filter:blur(30px);
+background:rgba(28,28,28,.9);
 
-border-bottom:1px solid rgba(255,255,255,.05);
+backdrop-filter:blur(25px);
+
+border-bottom:1px solid rgba(255,255,255,.04);
 
 display:flex;
 align-items:center;
 justify-content:space-between;
 
-padding:0 22px;
-
-z-index:10;
+padding:0 24px;
 }
 
 .top-left{
@@ -273,7 +299,9 @@ gap:14px;
 .top-avatar{
 width:48px;
 height:48px;
+
 border-radius:50%;
+
 overflow:hidden;
 }
 
@@ -290,12 +318,7 @@ font-weight:800;
 
 .top-title span{
 font-size:13px;
-opacity:.6;
-}
-
-.menu-btn{
-font-size:28px;
-cursor:pointer;
+opacity:.55;
 }
 
 /* ================= CONTENT ================= */
@@ -303,45 +326,55 @@ cursor:pointer;
 .content{
 flex:1;
 overflow:auto;
-padding:30px;
-position:relative;
+
+padding:28px;
 }
 
 /* ================= POST ================= */
 
 .post{
-width:560px;
+width:580px;
 max-width:100%;
 
-background:white;
-color:#111;
+background:#efefef;
 
-border-radius:28px;
+border-radius:30px;
 
 overflow:hidden;
 
-box-shadow:
-0 30px 80px rgba(0,0,0,.45);
+color:#1c1c1c;
 
-animation:show .45s ease;
+box-shadow:
+0 20px 60px rgba(0,0,0,.4);
+
+animation:show .4s ease;
 }
 
 @keyframes show{
+
 from{
 opacity:0;
 transform:translateY(25px);
 }
+
 to{
 opacity:1;
 transform:translateY(0);
 }
+
 }
 
 .post-head{
-padding:18px;
-font-size:18px;
+padding:18px 22px;
+
+font-size:17px;
 font-weight:800;
-color:#46a520;
+
+color:#6e3a3a;
+
+background:#f6f6f6;
+
+border-bottom:1px solid rgba(0,0,0,.05);
 }
 
 .post img{
@@ -351,41 +384,55 @@ object-fit:cover;
 }
 
 .post-body{
-padding:22px;
+padding:24px;
 }
 
 .post-body h1{
 font-size:34px;
-line-height:1.05;
+line-height:1.1;
+font-weight:800;
+
 margin-bottom:16px;
-font-weight:900;
+
+color:#232323;
 }
 
 .post-body p{
 font-size:16px;
-line-height:1.65;
+line-height:1.7;
+
 margin-bottom:16px;
+
+font-weight:600;
+
+color:#444;
 }
 
 .tags{
-color:#3390ec;
-font-weight:700;
+font-size:14px;
+font-weight:800;
+
+color:#6e3a3a;
 }
 
-/* ================= REACT ================= */
+/* ================= REACTIONS ================= */
 
-.reacts{
+.reactions{
 display:flex;
-gap:12px;
-margin-top:18px;
+gap:10px;
+
+margin-top:20px;
 }
 
 .react{
-padding:10px 15px;
+padding:10px 14px;
+
 border-radius:999px;
-background:#eef5ff;
-font-weight:700;
-font-size:14px;
+
+background:#d8d8d8;
+
+font-size:13px;
+font-weight:800;
 }
 
 /* ================= INPUT ================= */
@@ -393,10 +440,9 @@ font-size:14px;
 .input{
 height:82px;
 
-background:rgba(8,14,26,.85);
-backdrop-filter:blur(30px);
+background:#202020;
 
-border-top:1px solid rgba(255,255,255,.05);
+border-top:1px solid rgba(255,255,255,.04);
 
 display:flex;
 align-items:center;
@@ -407,175 +453,197 @@ padding:0 20px;
 
 .input input{
 flex:1;
-height:54px;
 
-background:#1d2a3a;
+height:54px;
 
 border:none;
 outline:none;
 
-border-radius:18px;
+background:#323232;
 
-padding:0 20px;
+border-radius:16px;
+
+padding:0 18px;
+
+font-size:15px;
+font-weight:600;
 
 color:white;
-font-size:15px;
 }
 
 .send{
 width:54px;
 height:54px;
 
-border-radius:18px;
+border-radius:16px;
 
-background:linear-gradient(145deg,#00a2ff,#005eff);
+background:
+linear-gradient(145deg,#6e3a3a,#402222);
 
 display:flex;
 align-items:center;
 justify-content:center;
 
-font-size:24px;
-
 cursor:pointer;
 
 transition:.25s;
-
-box-shadow:
-0 0 30px rgba(0,119,255,.45);
 }
 
 .send:hover{
-transform:scale(1.08);
+transform:scale(1.06);
 }
 
-/* ================= RIGHT PANEL ================= */
+.send svg{
+width:22px;
+fill:white;
+}
+
+/* ================= RIGHT ================= */
 
 .right{
-background:rgba(255,255,255,.96);
+background:#ececec;
 
-backdrop-filter:blur(30px);
-
-border-left:1px solid rgba(0,0,0,.08);
+border-left:1px solid rgba(0,0,0,.06);
 
 padding:20px;
 
 overflow:auto;
 }
 
-/* ================= WEATHER ================= */
+/* ================= CARD ================= */
 
-.widget{
-background:white;
+.card{
+background:#f7f7f7;
 
-border-radius:26px;
+border-radius:28px;
 
 padding:24px;
 
-margin-bottom:20px;
+margin-bottom:22px;
 
 box-shadow:
-0 15px 40px rgba(0,0,0,.08);
+0 10px 35px rgba(0,0,0,.07);
 }
 
-.widget h2{
-color:#111;
+.card h2{
 font-size:24px;
-font-weight:900;
+font-weight:800;
+
 margin-bottom:20px;
+
+color:#232323;
 }
+
+/* ================= WEATHER ================= */
 
 .weather{
-background:
-linear-gradient(145deg,#0077ff,#00a2ff);
+height:210px;
 
 border-radius:24px;
 
-padding:24px;
+padding:28px;
+
+background:
+linear-gradient(145deg,#3c3c3c,#242424);
 
 position:relative;
-overflow:hidden;
 
-box-shadow:
-0 0 35px rgba(0,119,255,.35);
+overflow:hidden;
 }
 
 .weather::before{
 content:"";
+
 position:absolute;
-width:180px;
-height:180px;
-background:white;
-filter:blur(80px);
-opacity:.16;
-top:-70px;
+
+width:200px;
+height:200px;
+
+background:#6e3a3a;
+
+filter:blur(90px);
+
+top:-80px;
 right:-70px;
+
+opacity:.25;
 }
 
 .temp{
-font-size:64px;
-font-weight:900;
+font-size:68px;
+font-weight:800;
+position:relative;
+z-index:2;
 }
 
 .weather p{
-font-size:18px;
-opacity:.95;
+margin-top:8px;
+
+font-size:17px;
+font-weight:700;
+
+opacity:.8;
+
+position:relative;
+z-index:2;
 }
 
 /* ================= MAP ================= */
 
 .map{
-height:260px;
+height:250px;
 
 border-radius:24px;
 
 overflow:hidden;
 
 position:relative;
-
-background:
-url("https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1200&auto=format&fit=crop");
-
-background-size:cover;
-background-position:center;
 }
 
-.map::before{
-content:"";
-position:absolute;
-inset:0;
-background:rgba(0,0,0,.4);
+.map img{
+width:100%;
+height:100%;
+object-fit:cover;
+filter:brightness(.7);
 }
 
 .alert{
 position:absolute;
+
 top:50%;
 left:50%;
-transform:translate(-50%,-50%);
 
-background:red;
+transform:translate(-50%,-50%);
 
 padding:14px 24px;
 
+background:#6e3a3a;
+
 border-radius:18px;
 
+font-size:16px;
 font-weight:800;
 
 box-shadow:
-0 0 35px rgba(255,0,0,.55);
+0 0 25px rgba(110,58,58,.4);
 
-animation:alarm 1s infinite;
+animation:alert 1.5s infinite;
 }
 
-@keyframes alarm{
+@keyframes alert{
+
 0%{
 transform:translate(-50%,-50%) scale(1);
 }
+
 50%{
-transform:translate(-50%,-50%) scale(1.08);
+transform:translate(-50%,-50%) scale(1.06);
 }
+
 100%{
 transform:translate(-50%,-50%) scale(1);
 }
+
 }
 
 /* ================= SOCIAL ================= */
@@ -584,11 +652,10 @@ transform:translate(-50%,-50%) scale(1);
 display:grid;
 grid-template-columns:repeat(3,1fr);
 gap:14px;
-margin-top:20px;
 }
 
 .social{
-height:72px;
+height:74px;
 
 border-radius:22px;
 
@@ -596,114 +663,37 @@ display:flex;
 align-items:center;
 justify-content:center;
 
-font-size:30px;
-
 cursor:pointer;
 
 transition:.25s;
-
-color:white;
-font-weight:800;
 }
 
 .social:hover{
-transform:translateY(-5px) scale(1.05);
+transform:translateY(-4px);
+}
+
+.social svg{
+width:28px;
+fill:white;
 }
 
 .tg{
-background:linear-gradient(145deg,#0088cc,#005eff);
+background:#3d3d3d;
 }
 
-.insta{
-background:linear-gradient(145deg,#ff006a,#ff7b00);
+.inst{
+background:#6e3a3a;
 }
 
 .yt{
-background:linear-gradient(145deg,#ff0000,#d90000);
+background:#4a4a4a;
 }
 
-/* ================= MOBILE MENU ================= */
-
-.mobile-menu{
-position:fixed;
-
-top:0;
-left:-100%;
-
-width:300px;
-height:100vh;
-
-background:#101a28;
-
-z-index:9999;
-
-transition:.35s;
-
-padding:24px;
-
-box-shadow:
-0 0 60px rgba(0,0,0,.45);
-}
-
-.mobile-menu.active{
-left:0;
-}
-
-.mobile-menu h2{
-margin-bottom:25px;
-font-size:28px;
-}
-
-.mobile-link{
-padding:16px;
-border-radius:18px;
-
-background:#17212b;
-
-margin-bottom:14px;
-
-font-weight:700;
-
-cursor:pointer;
-transition:.25s;
-}
-
-.mobile-link:hover{
-background:#2b5278;
-}
-
-/* ================= MOBILE NAV ================= */
+/* ================= MOBILE ================= */
 
 .mobile-nav{
 display:none;
-
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-
-height:74px;
-
-background:rgba(8,14,26,.92);
-
-backdrop-filter:blur(25px);
-
-border-top:1px solid rgba(255,255,255,.05);
-
-z-index:999;
-
-grid-template-columns:repeat(5,1fr);
 }
-
-.mobile-nav div{
-display:flex;
-align-items:center;
-justify-content:center;
-
-font-size:24px;
-}
-
-/* ================= RESPONSIVE ================= */
 
 @media(max-width:1300px){
 
@@ -711,8 +701,8 @@ font-size:24px;
 display:none;
 }
 
-.telegram{
-grid-template-columns:80px 320px 1fr;
+.app{
+grid-template-columns:78px 320px 1fr;
 }
 
 }
@@ -720,25 +710,16 @@ grid-template-columns:80px 320px 1fr;
 @media(max-width:900px){
 
 .sidebar{
-position:fixed;
-left:-100%;
-top:0;
-height:100vh;
-width:320px;
-z-index:9999;
+display:none;
 }
 
-.sidebar.active{
-left:80px;
-}
-
-.telegram{
-grid-template-columns:80px 1fr;
+.app{
+grid-template-columns:70px 1fr;
 }
 
 .content{
-padding:20px;
-padding-bottom:100px;
+padding:18px;
+padding-bottom:90px;
 }
 
 .post{
@@ -747,6 +728,32 @@ width:100%;
 
 .mobile-nav{
 display:grid;
+
+position:fixed;
+
+bottom:0;
+left:0;
+right:0;
+
+height:72px;
+
+background:#202020;
+
+border-top:1px solid rgba(255,255,255,.04);
+
+grid-template-columns:repeat(4,1fr);
+}
+
+.mobile-nav div{
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.mobile-nav svg{
+width:24px;
+fill:white;
+opacity:.75;
 }
 
 }
@@ -758,45 +765,57 @@ display:grid;
 
 <div class="bg"></div>
 
-<div class="light1"></div>
-<div class="light2"></div>
+<div class="red"></div>
+<div class="gray"></div>
 
-<!-- MOBILE MENU -->
+<div class="app">
 
-<div class="mobile-menu" id="mobileMenu">
-
-<h2>BoryNews</h2>
-
-<div class="mobile-link">🏠 Головна</div>
-<div class="mobile-link">📰 Новини</div>
-<div class="mobile-link">⚡ Терміново</div>
-<div class="mobile-link">🚌 Транспорт</div>
-<div class="mobile-link">🗺 Карта тривог</div>
-<div class="mobile-link">⚙ Налаштування</div>
-
-</div>
-
-<!-- APP -->
-
-<div class="telegram">
-
-<!-- LEFT MINI -->
+<!-- LEFT -->
 
 <div class="mini">
 
-<div class="mini-btn active">💬</div>
-<div class="mini-btn">📢</div>
-<div class="mini-btn">📁</div>
-<div class="mini-btn">⚙️</div>
+<div class="mini-btn active">
+
+<svg viewBox="0 0 24 24">
+<path d="M4 4h16v12H5.17L4 17.17V4z"/>
+</svg>
+
+</div>
+
+<div class="mini-btn">
+
+<svg viewBox="0 0 24 24">
+<path d="M3 5h18v14H3z"/>
+</svg>
+
+</div>
+
+<div class="mini-btn">
+
+<svg viewBox="0 0 24 24">
+<path d="M12 8a4 4 0 100 8 4 4 0 000-8zm8 4a8 8 0 11-16 0 8 8 0 0116 0z"/>
+</svg>
+
+</div>
+
+<div class="mini-btn">
+
+<svg viewBox="0 0 24 24">
+<path d="M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+</svg>
+
+</div>
 
 </div>
 
 <!-- SIDEBAR -->
 
-<div class="sidebar" id="sidebar">
+<div class="sidebar">
 
 <div class="search">
+
 <input type="text" placeholder="Пошук">
+
 </div>
 
 <div class="chat-list">
@@ -808,8 +827,8 @@ display:grid;
 </div>
 
 <div class="chat-info">
-<h4>BorykNews 🇺🇦</h4>
-<p>🚨 ЦІНИ НА ПРОЇЗД ПІДВИЩИЛИСЯ</p>
+<h4>BoryNews</h4>
+<p>ЦІНИ НА ПРОЇЗД ПІДВИЩИЛИСЯ</p>
 </div>
 
 </div>
@@ -817,12 +836,12 @@ display:grid;
 <div class="chat">
 
 <div class="avatar">
-<img src="https://i.pravatar.cc/100?img=12">
+<img src="https://i.pravatar.cc/100?img=15">
 </div>
 
 <div class="chat-info">
 <h4>Транспорт LIVE</h4>
-<p>🚌 Маршрут 316 затримується</p>
+<p>Маршрут 316 затримується</p>
 </div>
 
 </div>
@@ -830,12 +849,12 @@ display:grid;
 <div class="chat">
 
 <div class="avatar">
-<img src="https://i.pravatar.cc/100?img=25">
+<img src="https://i.pravatar.cc/100?img=22">
 </div>
 
 <div class="chat-info">
 <h4>Карта тривог</h4>
-<p>⚡ Повітряна тривога</p>
+<p>Повітряна тривога</p>
 </div>
 
 </div>
@@ -859,14 +878,15 @@ display:grid;
 </div>
 
 <div class="top-title">
+
 <h3>BoryNews | Бориспіль</h3>
-<span>65 підписників онлайн</span>
-</div>
+
+<span>
+65 підписників онлайн
+</span>
 
 </div>
 
-<div class="menu-btn" id="menuBtn">
-☰
 </div>
 
 </div>
@@ -878,37 +898,48 @@ display:grid;
 <div class="post">
 
 <div class="post-head">
-Новини Борисполя | BorykNews 🇺🇦
+Новини Борисполя | BoryNews
 </div>
 
 <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop">
 
 <div class="post-body">
 
-<h1>ЦІНИ НА ПРОЇЗД ПІДВИЩИЛИСЯ!</h1>
+<h1>
+ЦІНИ НА ПРОЇЗД ПІДВИЩИЛИСЯ
+</h1>
 
 <p>
-📍 Бориспіль — Баришівка
+Бориспіль — Баришівка
 </p>
 
 <p>
-Вартість квитка зросла до
-<b>150 грн</b>.
+Вартість квитка
+зросла до 150 грн.
 </p>
 
 <p>
-Пасажири масово обговорюють ситуацію.
+Пасажири активно
+обговорюють ситуацію.
 </p>
 
 <div class="tags">
 #Бориспіль #транспорт #новини
 </div>
 
-<div class="reacts">
+<div class="reactions">
 
-<div class="react">👍 4</div>
-<div class="react">😡 2</div>
-<div class="react">🔥 1</div>
+<div class="react">
+124
+</div>
+
+<div class="react">
+38
+</div>
+
+<div class="react">
+12
+</div>
 
 </div>
 
@@ -925,7 +956,11 @@ display:grid;
 <input placeholder="Публікація...">
 
 <div class="send">
-➤
+
+<svg viewBox="0 0 24 24">
+<path d="M2 21l21-9L2 3v7l15 2-15 2z"/>
+</svg>
+
 </div>
 
 </div>
@@ -938,9 +973,11 @@ display:grid;
 
 <!-- WEATHER -->
 
-<div class="widget">
+<div class="card">
 
-<h2>Погода LIVE</h2>
+<h2>
+Погода LIVE
+</h2>
 
 <div class="weather">
 
@@ -956,16 +993,20 @@ display:grid;
 
 </div>
 
-<!-- ALERT MAP -->
+<!-- MAP -->
 
-<div class="widget">
+<div class="card">
 
-<h2>Карта тривог</h2>
+<h2>
+Карта тривог
+</h2>
 
 <div class="map">
 
+<img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1200&auto=format&fit=crop">
+
 <div class="alert">
-⚡ ТРИВОГА
+ТРИВОГА
 </div>
 
 </div>
@@ -974,23 +1015,35 @@ display:grid;
 
 <!-- SOCIAL -->
 
-<div class="widget">
+<div class="card">
 
-<h2>Соц мережі</h2>
+<h2>
+Соц мережі
+</h2>
 
 <div class="socials">
 
 <div class="social tg">
-✈
+
+<svg viewBox="0 0 24 24">
+<path d="M9.04 15.47l-.39 5.49c.56 0 .8-.24 1.09-.53l2.61-2.5 5.41 3.96c.99.55 1.69.26 1.96-.92l3.55-16.64h.01c.32-1.5-.54-2.09-1.5-1.73L1.64 10.34c-1.45.56-1.43 1.37-.25 1.73l5.39 1.68L19.3 5.9c.59-.39 1.13-.17.69.22"/>
+</svg>
+
 </div>
 
-<div class="social insta">
-◎
+<div class="social inst">
+
+<svg viewBox="0 0 24 24">
+<path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3.5A5.5 5.5 0 1112 18.5 5.5 5.5 0 0112 7.5zm0 2A3.5 3.5 0 1015.5 13 3.5 3.5 0 0012 9.5zm6.25-3.25a1.25 1.25 0 11-1.25 1.25 1.25 1.25 0 011.25-1.25z"/>
+</svg>
+
 </div>
 
 <div class="social yt">
-▶
-</div>
+
+<svg viewBox="0 0 24 24">
+<path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2 31.6 31.6 0 000 12a31.6 31.6 0 00.5 5.8 3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1A31.6 31.6 0 0024 12a31.6 31.6 0 00-.5-5.8zM9.6 15.5v-7l6.2 3.5-6.2 3.5z"/>
+</svg>
 
 </div>
 
@@ -1000,30 +1053,68 @@ display:grid;
 
 </div>
 
-<!-- MOBILE NAV -->
+</div>
+
+<!-- MOBILE -->
 
 <div class="mobile-nav">
 
-<div>🏠</div>
-<div>📰</div>
-<div>⚡</div>
-<div>🚌</div>
-<div>⚙️</div>
+<div>
+<svg viewBox="0 0 24 24">
+<path d="M4 4h16v12H5.17L4 17.17V4z"/>
+</svg>
+</div>
+
+<div>
+<svg viewBox="0 0 24 24">
+<path d="M3 5h18v14H3z"/>
+</svg>
+</div>
+
+<div>
+<svg viewBox="0 0 24 24">
+<path d="M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+</svg>
+</div>
+
+<div>
+<svg viewBox="0 0 24 24">
+<path d="M2 21l21-9L2 3v7l15 2-15 2z"/>
+</svg>
+</div>
 
 </div>
 
 <script>
 
-/* ================= MENU ================= */
+/* ================= WEATHER ================= */
 
-const menuBtn = document.getElementById('menuBtn');
-const mobileMenu = document.getElementById('mobileMenu');
+const temp = document.getElementById('temp');
+const text = document.getElementById('weatherText');
 
-menuBtn.onclick = ()=>{
+const weather = [
 
-mobileMenu.classList.toggle('active');
+{t:'+18°',d:'Хмарно'},
+{t:'+16°',d:'Дощ'},
+{t:'+20°',d:'Сонячно'},
+{t:'+14°',d:'Вітер'}
 
-};
+];
+
+let i = 0;
+
+setInterval(()=>{
+
+i++;
+
+if(i>=weather.length){
+i=0;
+}
+
+temp.innerHTML = weather[i].t;
+text.innerHTML = weather[i].d;
+
+},4000);
 
 /* ================= CHAT EFFECT ================= */
 
@@ -1038,60 +1129,23 @@ const y = e.clientY - rect.top;
 
 card.style.background =
 `radial-gradient(circle at ${x}px ${y}px,
-rgba(0,119,255,.35),
-rgba(36,49,64,1))`;
+rgba(110,58,58,.28),
+rgba(48,48,48,1))`;
 
 });
 
 card.addEventListener('mouseleave',()=>{
 
 if(card.classList.contains('active')){
+
 card.style.background =
-'linear-gradient(90deg,#2b5278,#204061)';
+'linear-gradient(90deg,#452929,#2f2f2f)';
+
 }else{
+
 card.style.background='';
+
 }
-
-});
-
-});
-
-/* ================= WEATHER FAKE LIVE ================= */
-
-const temp = document.getElementById('temp');
-const text = document.getElementById('weatherText');
-
-const weatherData = [
-
-{t:'+18°',d:'Хмарно у Борисполі'},
-{t:'+20°',d:'Сонячно'},
-{t:'+17°',d:'Можливий дощ'},
-{t:'+16°',d:'Сильний вітер'}
-
-];
-
-let i = 0;
-
-setInterval(()=>{
-
-i++;
-
-if(i>=weatherData.length){
-i=0;
-}
-
-temp.innerHTML = weatherData[i].t;
-text.innerHTML = weatherData[i].d;
-
-},4000);
-
-/* ================= MOBILE CATEGORY OPEN ================= */
-
-document.querySelectorAll('.mobile-link').forEach(link=>{
-
-link.addEventListener('click',()=>{
-
-mobileMenu.classList.remove('active');
 
 });
 
