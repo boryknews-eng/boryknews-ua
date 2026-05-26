@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BorykNews LIVE</title>
+<title>BorykNews PRO</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
-/* ================= RESET ================= */
+/* ================= BASE ================= */
 *{
 margin:0;
 padding:0;
@@ -19,7 +19,7 @@ box-sizing:border-box;
 
 body{
 font-family:Inter,sans-serif;
-background:#0b0d12;
+background:#070A10;
 color:white;
 overflow:hidden;
 }
@@ -29,15 +29,16 @@ overflow:hidden;
 position:fixed;
 inset:0;
 z-index:-2;
-background:radial-gradient(circle at 20% 20%, #c41c1e33, transparent 40%),
-           radial-gradient(circle at 80% 40%, #1f2a44aa, transparent 45%),
-           radial-gradient(circle at 40% 80%, #111a33aa, transparent 50%),
-           linear-gradient(120deg,#0b0d12,#0f1424);
+background:
+radial-gradient(circle at 20% 20%, #ff2d5520, transparent 35%),
+radial-gradient(circle at 80% 40%, #2d7dff20, transparent 40%),
+radial-gradient(circle at 40% 80%, #00ffb320, transparent 45%),
+linear-gradient(120deg,#070A10,#0b1220);
 background-size:200% 200%;
-animation:bg 14s ease-in-out infinite;
+animation:move 14s ease infinite;
 }
 
-@keyframes bg{
+@keyframes move{
 0%{background-position:0% 50%}
 50%{background-position:100% 50%}
 100%{background-position:0% 50%}
@@ -49,11 +50,11 @@ display:flex;
 height:100vh;
 }
 
-/* ================= LEFT ================= */
+/* ================= LEFT BAR ================= */
 .left{
 width:80px;
 background:rgba(255,255,255,0.03);
-backdrop-filter:blur(20px);
+backdrop-filter:blur(25px);
 border-right:1px solid rgba(255,255,255,0.05);
 display:flex;
 flex-direction:column;
@@ -63,28 +64,31 @@ gap:12px;
 }
 
 .logo{
-width:50px;
-height:50px;
-border-radius:12px;
-background:rgba(255,255,255,0.05);
-background-image:url("YOUR_LOGO.png");
-background-size:cover;
-background-position:center;
+width:48px;
+height:48px;
+border-radius:14px;
+background:linear-gradient(135deg,#ff2d55,#2d7dff);
 }
 
 .icon{
 width:42px;
 height:42px;
-border-radius:10px;
+border-radius:12px;
 background:rgba(255,255,255,0.05);
+transition:.2s;
 cursor:pointer;
+}
+
+.icon:hover{
+transform:scale(1.1);
+background:rgba(255,255,255,0.1);
 }
 
 /* ================= LIST ================= */
 .list{
 width:320px;
 background:rgba(255,255,255,0.03);
-backdrop-filter:blur(20px);
+backdrop-filter:blur(25px);
 border-right:1px solid rgba(255,255,255,0.05);
 overflow:auto;
 }
@@ -93,17 +97,18 @@ overflow:auto;
 padding:14px;
 border-bottom:1px solid rgba(255,255,255,0.05);
 cursor:pointer;
+transition:.2s;
 }
 
 .item:hover{
-background:rgba(255,255,255,0.06);
+background:rgba(255,255,255,0.08);
 }
 
 /* ================= CENTER ================= */
 .center{
 flex:1;
 overflow:auto;
-padding:15px;
+padding:16px;
 }
 
 /* HEADER */
@@ -111,17 +116,18 @@ padding:15px;
 display:flex;
 align-items:center;
 gap:12px;
+padding:10px 0;
 position:sticky;
 top:0;
-background:#0b0d12;
+backdrop-filter:blur(20px);
+background:rgba(7,10,16,0.7);
 z-index:5;
-padding:10px 0;
 }
 
 .title{
-font-family:Montserrat,sans-serif;
-font-weight:800;
+font-family:Montserrat;
 font-size:18px;
+font-weight:800;
 }
 
 .status{
@@ -130,10 +136,10 @@ opacity:0.7;
 }
 
 .dot{
-width:6px;
-height:6px;
-background:#00ff88;
+width:7px;
+height:7px;
 border-radius:50%;
+background:#00ff88;
 display:inline-block;
 margin-right:6px;
 animation:blink 1s infinite;
@@ -144,26 +150,33 @@ animation:blink 1s infinite;
 50%{opacity:0.2}
 }
 
-/* LIVE */
+/* ================= LIVE ================= */
 .live{
 margin-top:12px;
 padding:16px;
 border-radius:16px;
-background:rgba(255,255,255,0.04);
-border:1px solid rgba(255,255,255,0.06);
+background:linear-gradient(135deg,rgba(255,45,85,0.15),rgba(45,125,255,0.1));
+border:1px solid rgba(255,255,255,0.08);
+box-shadow:0 10px 40px rgba(0,0,0,0.4);
 }
 
-/* CARD */
+/* ================= CARDS ================= */
 .card{
 margin-top:10px;
 padding:14px;
-border-radius:12px;
+border-radius:14px;
 background:rgba(255,255,255,0.04);
 border:1px solid rgba(255,255,255,0.05);
+transition:.2s;
 cursor:pointer;
 }
 
-/* GRID */
+.card:hover{
+transform:translateY(-2px);
+background:rgba(255,255,255,0.07);
+}
+
+/* ================= GRID ================= */
 .grid{
 display:grid;
 grid-template-columns:repeat(2,1fr);
@@ -173,16 +186,17 @@ margin-top:12px;
 
 .box{
 padding:12px;
-border-radius:12px;
+border-radius:14px;
 background:rgba(255,255,255,0.04);
-min-height:110px;
+border:1px solid rgba(255,255,255,0.05);
+min-height:120px;
 }
 
-/* MAP */
+/* ================= MAP ================= */
 iframe{
 width:100%;
 height:180px;
-border-radius:12px;
+border-radius:14px;
 border:none;
 }
 
@@ -190,13 +204,12 @@ border:none;
 .right{
 width:320px;
 background:rgba(255,255,255,0.03);
-backdrop-filter:blur(20px);
+backdrop-filter:blur(25px);
 border-left:1px solid rgba(255,255,255,0.05);
 padding:12px;
-overflow:auto;
 }
 
-/* SOCIAL */
+/* ================= SOCIAL ================= */
 .social{
 display:grid;
 grid-template-columns:repeat(2,1fr);
@@ -205,12 +218,20 @@ margin-top:12px;
 }
 
 .social a{
-height:40px;
-border-radius:10px;
+height:44px;
+border-radius:12px;
 background:rgba(255,255,255,0.04);
+display:flex;
+align-items:center;
+justify-content:center;
+transition:.2s;
 }
 
-/* ================= MOBILE BOTTOM ================= */
+.social a:hover{
+background:rgba(255,255,255,0.1);
+}
+
+/* ================= MOBILE ================= */
 .bottom{
 position:fixed;
 bottom:0;
@@ -219,9 +240,9 @@ right:0;
 height:60px;
 display:none;
 grid-template-columns:repeat(4,1fr);
-background:rgba(10,12,18,0.95);
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(25px);
 border-top:1px solid rgba(255,255,255,0.08);
-z-index:999;
 }
 
 .bottom div{
@@ -229,70 +250,34 @@ display:flex;
 align-items:center;
 justify-content:center;
 font-size:12px;
-cursor:pointer;
 }
 
-/* ================= MOBILE FIX (ВАЖЛИВО) ================= */
+/* ================= MOBILE FIX ================= */
 @media(max-width:900px){
 
-body{
-overflow:auto;
+.left,.list,.right{
+display:none;
 }
 
-/* НІЧОГО НЕ ХОВАЄМО */
-.left,
-.list,
-.right{
-display:flex;
-width:100%;
-}
-
-/* вертикальний режим */
 .app{
 flex-direction:column;
 height:auto;
 }
 
-/* LEFT як верхня панель */
-.left{
-flex-direction:row;
-justify-content:space-around;
-padding:10px 0;
-border-right:none;
-border-bottom:1px solid rgba(255,255,255,0.05);
-}
-
-/* LIST повна ширина */
-.list{
-width:100%;
-}
-
-/* CENTER */
 .center{
-width:100%;
-padding:10px;
+padding:12px;
 }
 
-/* RIGHT вниз */
-.right{
-width:100%;
-border-left:none;
-border-top:1px solid rgba(255,255,255,0.05);
-}
-
-/* GRID в 1 колонку */
 .grid{
 grid-template-columns:1fr;
 }
 
-/* MAP більше */
-iframe{
-height:220px;
-}
-
-/* bottom bar включаємо */
 .bottom{
 display:grid;
+}
+
+iframe{
+height:220px;
 }
 
 }
@@ -317,11 +302,11 @@ display:grid;
 
 <!-- LIST -->
 <div class="list">
-<div class="item">Новини</div>
+<div class="item">Новини міста</div>
 <div class="item">Транспорт</div>
-<div class="item">Тривоги</div>
+<div class="item">Терміново</div>
 <div class="item">Погода</div>
-<div class="item">Карта</div>
+<div class="item">Карта тривог</div>
 </div>
 
 <!-- CENTER -->
@@ -331,15 +316,17 @@ display:grid;
 <div class="logo"></div>
 <div>
 <div class="title">BorykNews</div>
-<div class="status"><span class="dot"></span>online • live</div>
+<div class="status"><span class="dot"></span>live • online</div>
 </div>
 </div>
 
-<div class="live">LIVE Бориспіль інформує 24/7</div>
+<div class="live">
+BorykNews LIVE • Бориспіль інформує 24/7
+</div>
 
-<div class="card">Новина міста: транспорт оновлено</div>
+<div class="card">Новини: оновлення транспорту</div>
 <div class="card">Терміново: повітряна тривога</div>
-<div class="card">Погода: +12°C</div>
+<div class="card">Погода: +12°C, хмарно</div>
 
 <div class="grid">
 
@@ -360,10 +347,27 @@ display:grid;
 <h3>Соцмережі</h3>
 
 <div class="social">
-<a></a>
-<a></a>
-<a></a>
-<a></a>
+
+<!-- Telegram -->
+<a>
+<svg width="18" viewBox="0 0 24 24" fill="white"><path d="M9 16l-3 5 5-3 9-9-2-2-9 9z"/></svg>
+</a>
+
+<!-- Facebook -->
+<a>
+<svg width="18" viewBox="0 0 24 24" fill="white"><path d="M22 12a10 10 0 1 0-10 10v-7h-2v-3h2v-2c0-2 1-3 3-3h2v3h-2c-1 0-1 .5-1 1v1h3l-1 3h-2v7a10 10 0 0 0 7-9z"/></svg>
+</a>
+
+<!-- Instagram -->
+<a>
+<svg width="18" viewBox="0 0 24 24" fill="white"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 6a5 5 0 1 0 0 10 5 5 0 0 0 0-10z"/></svg>
+</a>
+
+<!-- YouTube -->
+<a>
+<svg width="18" viewBox="0 0 24 24" fill="white"><path d="M10 15l5-3-5-3v6zm12-3c0-2-.2-4-.5-5.5a2 2 0 0 0-2-1.5C17 4 12 4 12 4s-5 0-7.5.5a2 2 0 0 0-2 1.5C2.2 8 2 10 2 12s.2 4 .5 5.5a2 2 0 0 0 2 1.5C7 20 12 20 12 20s5 0 7.5-.5a2 2 0 0 0 2-1.5c.3-1.5.5-3.5.5-5.5z"/></svg>
+</a>
+
 </div>
 
 </div>
