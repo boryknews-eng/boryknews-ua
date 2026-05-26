@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BorykNews LIVE</title>
+<title>BorykNews Telegram Style</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
 
@@ -49,9 +49,9 @@ display:flex;
 height:100vh;
 }
 
-/* LEFT MENU */
+/* LEFT ICON BAR */
 .left{
-width:90px;
+width:80px;
 background:rgba(255,255,255,0.03);
 backdrop-filter:blur(20px);
 border-right:1px solid rgba(255,255,255,0.05);
@@ -62,49 +62,31 @@ padding:10px 0;
 gap:12px;
 }
 
-/* LOGO */
-.logo{
-width:60px;
-height:60px;
-border-radius:14px;
-background:rgba(255,255,255,0.05);
-background-image:url("YOUR_LOGO.png");
-background-size:cover;
-background-position:center;
-}
-
-/* ICONS */
 .icon{
 width:44px;
 height:44px;
 border-radius:12px;
 background:rgba(255,255,255,0.05);
 cursor:pointer;
-transition:.2s;
-}
-
-.icon:hover{
-background:#c41c1e;
 }
 
 /* CHAT LIST */
-.chat-list{
-width:300px;
+.list{
+width:320px;
 background:rgba(255,255,255,0.03);
 backdrop-filter:blur(20px);
 border-right:1px solid rgba(255,255,255,0.05);
 overflow:auto;
 }
 
-.chat{
-display:block;
+.item{
 padding:14px;
-text-decoration:none;
-color:white;
 border-bottom:1px solid rgba(255,255,255,0.05);
+cursor:pointer;
+transition:.2s;
 }
 
-.chat:hover{
+.item:hover{
 background:rgba(255,255,255,0.06);
 }
 
@@ -122,33 +104,31 @@ align-items:center;
 gap:12px;
 }
 
-/* TITLE AREA */
-.title-wrap{
-display:flex;
-flex-direction:column;
+.logo{
+width:48px;
+height:48px;
+border-radius:12px;
+background:rgba(255,255,255,0.05);
 }
 
-/* TELEGRAM STYLE FONT */
 .title{
-font-family:Montserrat,sans-serif;
-font-size:18px;
 font-weight:800;
+font-size:18px;
 }
 
-/* LIVE STATUS */
 .status{
 font-size:12px;
 opacity:0.7;
 }
 
 .dot{
-display:inline-block;
 width:6px;
 height:6px;
+background:#00ff88;
 border-radius:50%;
-background:#00ff7f;
+display:inline-block;
 margin-right:6px;
-animation:blink 1.2s infinite;
+animation:blink 1s infinite;
 }
 
 @keyframes blink{
@@ -156,86 +136,60 @@ animation:blink 1.2s infinite;
 50%{opacity:0.2}
 }
 
-/* LIVE BLOCK */
-.live{
+/* VIEW BLOCKS */
+.view{
 margin-top:12px;
-padding:16px;
-border-radius:16px;
-background:rgba(255,255,255,0.04);
-border:1px solid rgba(255,255,255,0.06);
-animation:pulse 2s infinite;
+display:none;
 }
 
-@keyframes pulse{
-0%{box-shadow:0 0 0 rgba(196,28,30,0)}
-50%{box-shadow:0 0 25px rgba(196,28,30,0.35)}
-100%{box-shadow:0 0 0 rgba(196,28,30,0)}
+.view.active{
+display:block;
 }
 
 /* NEWS */
 .card{
-margin-top:12px;
 padding:14px;
-border-radius:14px;
+margin-top:10px;
+border-radius:12px;
 background:rgba(255,255,255,0.04);
 border:1px solid rgba(255,255,255,0.05);
-color:white;
-text-decoration:none;
-display:block;
+cursor:pointer;
 }
 
-/* WIDGETS */
-.widgets{
+/* GRID */
+.grid{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:10px;
 margin-top:12px;
 }
 
-.widget{
+.box{
 padding:12px;
 border-radius:12px;
 background:rgba(255,255,255,0.04);
-border:1px solid rgba(255,255,255,0.05);
+min-height:120px;
 }
 
-/* RIGHT */
+/* MAP */
+iframe{
+width:100%;
+height:200px;
+border-radius:12px;
+border:none;
+}
+
+/* RIGHT PANEL */
 .right{
 width:320px;
 background:rgba(255,255,255,0.03);
 backdrop-filter:blur(20px);
 border-left:1px solid rgba(255,255,255,0.05);
 padding:12px;
+overflow:auto;
 }
 
-/* MENU (TOGGLE) */
-.menu-btn{
-padding:10px;
-background:rgba(255,255,255,0.04);
-border-radius:10px;
-cursor:pointer;
-margin-bottom:10px;
-}
-
-.menu{
-display:none;
-flex-direction:column;
-gap:8px;
-}
-
-.menu.active{
-display:flex;
-}
-
-.menu a{
-padding:10px;
-background:rgba(255,255,255,0.04);
-border-radius:10px;
-color:white;
-text-decoration:none;
-}
-
-/* SOCIAL */
+/* SOCIAL REAL ICONS (SVG INLINE) */
 .social{
 display:grid;
 grid-template-columns:repeat(2,1fr);
@@ -244,12 +198,19 @@ margin-top:12px;
 }
 
 .social a{
-height:40px;
+height:42px;
 border-radius:10px;
 background:rgba(255,255,255,0.04);
 display:flex;
 align-items:center;
 justify-content:center;
+}
+
+.social svg{
+width:20px;
+height:20px;
+fill:white;
+opacity:0.9;
 }
 
 /* MOBILE */
@@ -260,32 +221,27 @@ left:0;
 right:0;
 display:none;
 grid-template-columns:repeat(4,1fr);
-background:rgba(10,12,18,0.9);
+background:rgba(10,12,18,0.95);
 border-top:1px solid rgba(255,255,255,0.06);
 }
 
-.bottom a{
+.bottom div{
 height:55px;
 display:flex;
 align-items:center;
 justify-content:center;
-color:white;
-text-decoration:none;
+font-size:12px;
 }
 
 /* RESPONSIVE */
 @media(max-width:900px){
 
-.left,.chat-list,.right{
+.left,.list,.right{
 display:none;
 }
 
 .bottom{
 display:grid;
-}
-
-body{
-overflow:auto;
 }
 
 .app{
@@ -313,55 +269,64 @@ height:auto;
 <div class="icon"></div>
 </div>
 
-<!-- CHAT LIST -->
-<div class="chat-list">
+<!-- LIST -->
+<div class="list">
 
-<a class="chat" href="#city">Новини міста</a>
-<a class="chat" href="#transport">Транспорт</a>
-<a class="chat" href="#urgent">Терміново</a>
-<a class="chat" href="#map">Карта тривог</a>
+<div class="item" onclick="openView('news')">Новини</div>
+<div class="item" onclick="openView('transport')">Транспорт</div>
+<div class="item" onclick="openView('urgent')">Тривоги</div>
+<div class="item" onclick="openView('weather')">Погода</div>
+<div class="item" onclick="openView('map')">Карта</div>
 
 </div>
 
 <!-- CENTER -->
 <div class="center">
 
-<!-- HEADER -->
 <div class="header">
-
-<div class="logo" style="width:50px;height:50px;"></div>
-
-<div class="title-wrap">
+<div class="logo"></div>
+<div>
 <div class="title">BorykNews</div>
-<div class="status">
-<span class="dot"></span>online • live updates
+<div class="status"><span class="dot"></span>online • live system</div>
 </div>
-</div>
-
-</div>
-
-<!-- LIVE -->
-<div class="live">
-BorykNews LIVE Бориспіль
 </div>
 
 <!-- NEWS -->
-<a class="card" href="#">Новина міста</a>
-<a class="card" href="#">Термінове повідомлення</a>
-<a class="card" href="#">Погода +12°C</a>
+<div id="news" class="view active">
 
-<!-- WIDGETS -->
-<div class="widgets">
+<div class="card">Новина міста: оновлено транспорт</div>
+<div class="card">Терміново: повітряна тривога</div>
+<div class="card">Економіка: нові зміни в тарифах</div>
 
-<div class="widget">Transport LIVE</div>
-
-<div class="widget">Weather SLOT</div>
-
-<div class="widget">Urgent alerts</div>
-
-<div class="widget">
-<iframe width="100%" height="120" src="https://alerts.in.ua/"></iframe>
 </div>
+
+<!-- TRANSPORT -->
+<div id="transport" class="view">
+
+<div class="box">LIVE транспортний блок</div>
+
+</div>
+
+<!-- URGENT -->
+<div id="urgent" class="view">
+
+<div class="box">Повітряні тривоги (LIVE)</div>
+
+</div>
+
+<!-- WEATHER -->
+<div id="weather" class="view">
+
+<div class="box">
+Weather LIVE SLOT (API OpenWeather тут)
+</div>
+
+</div>
+
+<!-- MAP -->
+<div id="map" class="view">
+
+<iframe src="https://alerts.in.ua/"></iframe>
 
 </div>
 
@@ -370,23 +335,29 @@ BorykNews LIVE Бориспіль
 <!-- RIGHT -->
 <div class="right">
 
-<div class="menu-btn" onclick="toggleMenu()">Menu</div>
-
-<div class="menu" id="menu">
-
-<a href="#city">Home</a>
-<a href="#transport">Transport</a>
-<a href="#urgent">Urgent</a>
-<a href="#map">Map</a>
-
-</div>
+<h3>Навігація</h3>
 
 <div class="social">
 
-<a href="#"><img src="icons/fb.png"></a>
-<a href="#"><img src="icons/tg.png"></a>
-<a href="#"><img src="icons/ig.png"></a>
-<a href="#"><img src="icons/yt.png"></a>
+<!-- Telegram -->
+<a href="#">
+<svg viewBox="0 0 24 24"><path d="M9.04 15.47l-.39 5.5c.56 0 .8-.24 1.09-.53l2.6-2.48 5.4 3.96c.99.55 1.7.26 1.95-.92l3.52-16.46h0c.31-1.44-.52-2.01-1.49-1.65L1.6 9.37C.2 9.94.21 10.77 1.3 11.1l5.47 1.7L18.8 5.64c.62-.39 1.19-.18.72.22"/></svg>
+</a>
+
+<!-- Facebook -->
+<a href="#">
+<svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.5 9.95v-7.05H8v-3h2.5V9.5A3.5 3.5 0 0 1 14 6h2v3h-2c-.55 0-1 .45-1 1v2h3l-.5 3H13v7A10 10 0 0 0 22 12"/></svg>
+</a>
+
+<!-- Instagram -->
+<a href="#">
+<svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 6a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm6-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>
+</a>
+
+<!-- YouTube -->
+<a href="#">
+<svg viewBox="0 0 24 24"><path d="M10 15l5.19-3L10 9v6zm12-3c0-2.21-.18-3.89-.5-5.5-.2-1-1-1.7-2-1.9C17.3 4 12 4 12 4s-5.3 0-7.5.6c-1 .2-1.8.9-2 1.9C2.18 8.11 2 9.79 2 12s.18 3.89.5 5.5c.2 1 1 1.7 2 1.9C6.7 20 12 20 12 20s5.3 0 7.5-.6c1-.2 1.8-.9 2-1.9.32-1.61.5-3.29.5-5.5z"/></svg>
+</a>
 
 </div>
 
@@ -396,15 +367,16 @@ BorykNews LIVE Бориспіль
 
 <!-- MOBILE -->
 <div class="bottom">
-<a href="#city">Home</a>
-<a href="#transport">Transport</a>
-<a href="#urgent">Alerts</a>
-<a href="#map">Map</a>
+<div onclick="openView('news')">News</div>
+<div onclick="openView('transport')">Transport</div>
+<div onclick="openView('urgent')">Alerts</div>
+<div onclick="openView('map')">Map</div>
 </div>
 
 <script>
-function toggleMenu(){
-document.getElementById("menu").classList.toggle("active");
+function openView(id){
+document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+document.getElementById(id).classList.add('active');
 }
 </script>
 
