@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BorykNews PRO</title>
+<title>BorykNews Telegram Style</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
 
-/* ===== RESET ===== */
+/* ================= RESET ================= */
 *{
 margin:0;
 padding:0;
@@ -18,137 +18,254 @@ box-sizing:border-box;
 }
 
 body{
-background:#0b0d12;
-color:white;
 font-family:'Manrope',sans-serif;
+color:white;
+background:#0b0d12;
 overflow:hidden;
 }
 
-/* ===== BACKGROUND ===== */
+/* ================= ANIMATED BACKGROUND ================= */
 .bg{
 position:fixed;
 inset:0;
-background:linear-gradient(-45deg,#0b0d12,#111a2e,#1a1233,#0a1b2b);
-background-size:400% 400%;
-animation:bg 15s infinite ease;
-z-index:-1;
+z-index:-2;
+background:radial-gradient(circle at 20% 20%, #c41c1e33, transparent 40%),
+           radial-gradient(circle at 80% 30%, #2c2a3088, transparent 45%),
+           radial-gradient(circle at 40% 80%, #1a1a3a88, transparent 50%),
+           linear-gradient(120deg,#0b0d12,#111a2e,#0a0f1f);
+background-size:200% 200%;
+animation:moveBG 12s ease-in-out infinite;
+filter:blur(0px);
 }
 
-@keyframes bg{
+@keyframes moveBG{
 0%{background-position:0% 50%}
 50%{background-position:100% 50%}
 100%{background-position:0% 50%}
 }
 
-/* ===== LAYOUT ===== */
+/* glow overlay */
+.overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.55);
+z-index:-1;
+}
+
+/* ================= APP ================= */
 .app{
 display:flex;
 height:100vh;
 }
 
-/* ===== ICON SPRITE ===== */
-.icon{
-width:34px;
-height:34px;
-background-image:url("/mnt/data/a_set_of_five_digital_icons_is_displayed_on_a_dark.png");
-background-repeat:no-repeat;
-background-size:1536px 1024px;
-}
-
-/* 5 іконок (1 ряд) */
-.i1{background-position:0px 0px;}
-.i2{background-position:-307px 0px;}
-.i3{background-position:-614px 0px;}
-.i4{background-position:-921px 0px;}
-.i5{background-position:-1228px 0px;}
-
-/* ===== SIDEBAR ===== */
-.sidebar{
-width:90px;
-background:rgba(20,22,30,.8);
+/* ================= LEFT (Telegram style) ================= */
+.left{
+width:80px;
+background:rgba(20,22,30,0.6);
 backdrop-filter:blur(20px);
 display:flex;
 flex-direction:column;
 align-items:center;
-padding:12px 0;
-gap:18px;
+padding:10px 0;
+gap:14px;
+border-right:1px solid rgba(255,255,255,0.06);
 }
 
-.menu{
-width:60px;
-height:60px;
-border-radius:18px;
-display:flex;
-align-items:center;
-justify-content:center;
-cursor:pointer;
+.icon{
+width:45px;
+height:45px;
+border-radius:14px;
+background:rgba(255,255,255,0.05);
 transition:.3s;
-background:rgba(255,255,255,.05);
+cursor:pointer;
 }
 
-.menu:hover{
+.icon:hover{
 background:#c41c1e;
 transform:scale(1.05);
 }
 
-/* ===== CHAT ===== */
+/* ================= CHAT LIST ================= */
 .chats{
-width:320px;
-background:rgba(18,20,28,.75);
+width:300px;
+background:rgba(18,20,28,0.6);
+backdrop-filter:blur(20px);
 overflow:auto;
+border-right:1px solid rgba(255,255,255,0.06);
 }
 
 .chat{
-padding:15px;
-border-bottom:1px solid rgba(255,255,255,.05);
+padding:14px;
+border-bottom:1px solid rgba(255,255,255,0.05);
 cursor:pointer;
+transition:.2s;
 }
 
 .chat:hover{
-background:rgba(255,255,255,.05);
+background:rgba(255,255,255,0.06);
 }
 
-/* ===== CENTER ===== */
+/* ================= CENTER ================= */
 .center{
 flex:1;
 overflow:auto;
-padding:20px;
+padding:18px;
 }
 
+/* LIVE HEADER */
+.live{
+padding:18px;
+border-radius:18px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(20px);
+text-align:center;
+border:1px solid rgba(255,255,255,0.08);
+animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+0%{box-shadow:0 0 0 rgba(196,28,30,0)}
+50%{box-shadow:0 0 25px rgba(196,28,30,0.4)}
+100%{box-shadow:0 0 0 rgba(196,28,30,0)}
+}
+
+.live h1{
+font-size:20px;
+font-weight:800;
+}
+
+.live p{
+font-size:13px;
+opacity:0.7;
+}
+
+/* ================= 4 MAIN BLOCKS ================= */
+.grid4{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+margin-top:15px;
+}
+
+.block{
+padding:14px;
+border-radius:14px;
+background:rgba(255,255,255,0.04);
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,0.06);
+cursor:pointer;
+text-align:center;
+transition:.3s;
+font-size:13px;
+}
+
+.block:hover{
+transform:scale(1.05);
+background:rgba(255,255,255,0.09);
+}
+
+/* ================= NEWS CARD ================= */
 .post{
-background:white;
-color:black;
-border-radius:20px;
+margin-top:15px;
+border-radius:18px;
 overflow:hidden;
-max-width:600px;
+background:rgba(255,255,255,0.04);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,0.06);
 }
 
-/* ===== RIGHT ===== */
-.right{
-width:340px;
-background:rgba(18,20,28,.75);
-overflow:auto;
+.post img{
+width:100%;
+display:block;
+}
+
+.post .text{
 padding:15px;
 }
 
-/* ===== MOBILE ===== */
+/* ================= RIGHT PANEL ================= */
+.right{
+width:320px;
+background:rgba(18,20,28,0.6);
+backdrop-filter:blur(20px);
+padding:15px;
+border-left:1px solid rgba(255,255,255,0.06);
+}
+
+.right h3{
+margin-bottom:5px;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:10px;
+margin-top:10px;
+}
+
+.menu div{
+padding:10px;
+border-radius:10px;
+background:rgba(255,255,255,0.04);
+cursor:pointer;
+}
+
+/* ================= SOCIAL ================= */
+.social{
+margin-top:20px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+}
+
+.social div{
+height:40px;
+border-radius:10px;
+background:rgba(255,255,255,0.04);
+}
+
+/* ================= MOBILE ================= */
+.bottom{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+display:none;
+grid-template-columns:repeat(4,1fr);
+background:rgba(10,12,18,0.85);
+backdrop-filter:blur(20px);
+border-top:1px solid rgba(255,255,255,0.06);
+}
+
+.bottom div{
+height:55px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+/* ================= RESPONSIVE ================= */
 @media(max-width:900px){
 
-body{overflow:auto;}
+.left,.chats,.right{
+display:none;
+}
+
+.bottom{
+display:grid;
+}
+
+.grid4{
+grid-template-columns:repeat(2,1fr);
+}
+
+body{
+overflow:auto;
+}
 
 .app{
 flex-direction:column;
 height:auto;
-}
-
-.sidebar{
-flex-direction:row;
-width:100%;
-justify-content:space-around;
-}
-
-.chats,.right{
-width:100%;
 }
 
 }
@@ -159,46 +276,79 @@ width:100%;
 <body>
 
 <div class="bg"></div>
+<div class="overlay"></div>
 
 <div class="app">
 
-<!-- SIDEBAR ICONS (YOUR PACK) -->
-<div class="sidebar">
-
-<div class="menu"><div class="icon i1"></div></div>
-<div class="menu"><div class="icon i2"></div></div>
-<div class="menu"><div class="icon i3"></div></div>
-<div class="menu"><div class="icon i4"></div></div>
-<div class="menu"><div class="icon i5"></div></div>
-
+<!-- LEFT -->
+<div class="left">
+<div class="icon"></div>
+<div class="icon"></div>
+<div class="icon"></div>
+<div class="icon"></div>
 </div>
 
 <!-- CHATS -->
 <div class="chats">
-<div class="chat">🚨 Термінові новини</div>
-<div class="chat">🚌 Транспорт</div>
-<div class="chat">🏙 Місто</div>
+<div class="chat">Новини міста</div>
+<div class="chat">Транспорт</div>
+<div class="chat">Терміново</div>
+<div class="chat">Карта тривог LIVE</div>
 </div>
 
 <!-- CENTER -->
 <div class="center">
+
+<div class="live">
+<h1>BorykNews LIVE Бориспіль</h1>
+<p>інформує 24/7 онлайн</p>
+</div>
+
+<div class="grid4">
+<div class="block">Новини міста</div>
+<div class="block">Транспорт</div>
+<div class="block">Терміново</div>
+<div class="block">Карта тривог</div>
+</div>
+
 <div class="post">
-<div style="padding:15px;font-weight:800;">BorykNews LIVE</div>
-<img src="https://i.imgur.com/qj6F6Q4.jpeg" style="width:100%">
-<div style="padding:15px;">
-Тут твоя новина буде виглядати як Telegram стиль 🚀
+<img src="https://i.imgur.com/qj6F6Q4.jpeg">
+<div class="text">Головна новина міста в стилі Telegram</div>
 </div>
-</div>
+
 </div>
 
 <!-- RIGHT -->
 <div class="right">
-<h3>LIVE</h3>
-<p>⚠️ Оновлення міста</p>
-<p>💡 Світло</p>
-<p>🚨 Тривога</p>
+
+<h3>BorykNews</h3>
+<p>Бориспіль інформує</p>
+
+<div class="menu">
+<div>Головна</div>
+<div>Новини міста</div>
+<div>Терміново</div>
+<div>Транспорт</div>
+<div>Карта тривог</div>
 </div>
 
+<div class="social">
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+</div>
+
+</div>
+
+</div>
+
+<!-- MOBILE -->
+<div class="bottom">
+<div></div>
+<div></div>
+<div></div>
+<div></div>
 </div>
 
 </body>
