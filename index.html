@@ -4,248 +4,749 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BorykNews PRO MAX</title>
+<title>BoryNews TELEGRAM LIVE</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 
 /* ================= RESET ================= */
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 }
 
-body{
-font-family:Inter,sans-serif;
-background:#070A10;
-color:white;
-overflow:hidden;
+html{
+scroll-behavior:smooth;
 }
 
-/* ================= BACKGROUND ================= */
+body{
+font-family:'Inter',sans-serif;
+background:#07111d;
+height:100vh;
+overflow:hidden;
+color:white;
+}
+
+/* ================= BG ================= */
+
 .bg{
 position:fixed;
 inset:0;
-z-index:-2;
+
 background:
-radial-gradient(circle at 20% 20%, #ff2d5520, transparent 40%),
-radial-gradient(circle at 80% 40%, #2d7dff20, transparent 45%),
-radial-gradient(circle at 40% 80%, #00ffb320, transparent 50%),
-linear-gradient(120deg,#070A10,#0b1220);
-background-size:200% 200%;
-animation:bg 14s ease infinite;
+linear-gradient(rgba(3,8,20,.82),rgba(3,8,20,.92)),
+url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1800&auto=format&fit=crop");
+
+background-size:cover;
+background-position:center;
+
+animation:bgzoom 25s infinite alternate;
+z-index:-5;
 }
 
-@keyframes bg{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
+@keyframes bgzoom{
+from{
+transform:scale(1);
+}
+to{
+transform:scale(1.12);
+}
+}
+
+/* ================= LIGHTS ================= */
+
+.light1{
+position:fixed;
+width:600px;
+height:600px;
+background:#0077ff;
+filter:blur(170px);
+top:-200px;
+right:-150px;
+opacity:.18;
+z-index:-2;
+animation:move1 10s infinite alternate;
+}
+
+.light2{
+position:fixed;
+width:500px;
+height:500px;
+background:#ff00b7;
+filter:blur(160px);
+bottom:-180px;
+left:-120px;
+opacity:.15;
+z-index:-2;
+animation:move2 12s infinite alternate;
+}
+
+@keyframes move1{
+from{transform:translateY(0)}
+to{transform:translateY(60px)}
+}
+
+@keyframes move2{
+from{transform:translateX(0)}
+to{transform:translateX(80px)}
 }
 
 /* ================= APP ================= */
-.app{
-display:flex;
+
+.telegram{
+display:grid;
+grid-template-columns:80px 340px 1fr 360px;
 height:100vh;
 }
 
-/* LEFT */
-.left{
-width:80px;
-background:rgba(255,255,255,0.03);
-backdrop-filter:blur(20px);
-border-right:1px solid rgba(255,255,255,0.05);
+/* ================= LEFT BAR ================= */
+
+.mini{
+background:#17212b;
+border-right:1px solid rgba(255,255,255,.05);
+
 display:flex;
 flex-direction:column;
 align-items:center;
-padding:10px 0;
-gap:12px;
+padding-top:18px;
+gap:18px;
 }
 
-.logo{
-width:48px;
-height:48px;
-border-radius:14px;
-background:linear-gradient(135deg,#ff2d55,#2d7dff);
-}
+.mini-btn{
+width:54px;
+height:54px;
+border-radius:18px;
 
-/* LIST */
-.list{
-width:320px;
-background:rgba(255,255,255,0.03);
-backdrop-filter:blur(20px);
-border-right:1px solid rgba(255,255,255,0.05);
-overflow:auto;
-}
-
-.item{
-padding:14px;
-border-bottom:1px solid rgba(255,255,255,0.05);
-cursor:pointer;
-}
-
-.item:hover{
-background:rgba(255,255,255,0.08);
-}
-
-/* CENTER */
-.center{
-flex:1;
-overflow:auto;
-padding:15px;
-}
-
-/* HEADER */
-.header{
-display:flex;
-align-items:center;
-gap:12px;
-position:sticky;
-top:0;
-background:rgba(7,10,16,0.8);
-backdrop-filter:blur(20px);
-padding:10px;
-z-index:10;
-}
-
-.title{
-font-family:Montserrat;
-font-weight:800;
-font-size:18px;
-}
-
-.status{
-font-size:12px;
-opacity:0.7;
-}
-
-.dot{
-width:7px;
-height:7px;
-border-radius:50%;
-background:#00ff88;
-animation:blink 1s infinite;
-display:inline-block;
-margin-right:6px;
-}
-
-@keyframes blink{
-0%,100%{opacity:1}
-50%{opacity:0.2}
-}
-
-/* LIVE */
-.live{
-margin-top:12px;
-padding:16px;
-border-radius:16px;
-background:rgba(255,255,255,0.04);
-border:1px solid rgba(255,255,255,0.08);
-}
-
-/* CARD */
-.card{
-margin-top:10px;
-padding:14px;
-border-radius:14px;
-background:rgba(255,255,255,0.04);
-cursor:pointer;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
-margin-top:12px;
-}
-
-.box{
-padding:12px;
-border-radius:14px;
-background:rgba(255,255,255,0.04);
-min-height:110px;
-}
-
-/* RIGHT */
-.right{
-width:320px;
-background:rgba(255,255,255,0.03);
-backdrop-filter:blur(20px);
-border-left:1px solid rgba(255,255,255,0.05);
-padding:12px;
-}
-
-/* SOCIAL */
-.social{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
-margin-top:12px;
-}
-
-.social a{
-height:42px;
-border-radius:12px;
-background:rgba(255,255,255,0.04);
 display:flex;
 align-items:center;
 justify-content:center;
+
+background:rgba(255,255,255,.04);
+
+cursor:pointer;
+transition:.25s;
+
+font-size:22px;
 }
 
-/* ================= MOBILE ================= */
-.bottom{
+.mini-btn:hover{
+transform:scale(1.07);
+background:#2b5278;
+}
+
+.mini-btn.active{
+background:linear-gradient(145deg,#00a2ff,#005eff);
+
+box-shadow:
+0 0 30px rgba(0,119,255,.45);
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+background:rgba(25,35,48,.96);
+backdrop-filter:blur(25px);
+
+border-right:1px solid rgba(255,255,255,.05);
+
+display:flex;
+flex-direction:column;
+
+transition:.35s;
+overflow:hidden;
+}
+
+.search{
+padding:15px;
+}
+
+.search input{
+width:100%;
+height:48px;
+
+border:none;
+outline:none;
+
+background:#2a3645;
+border-radius:16px;
+
+padding:0 18px;
+
+color:white;
+font-size:15px;
+}
+
+.chat-list{
+overflow:auto;
+}
+
+.chat{
+display:flex;
+gap:14px;
+
+padding:15px;
+
+cursor:pointer;
+
+transition:.22s;
+
+border-bottom:1px solid rgba(255,255,255,.04);
+}
+
+.chat:hover{
+background:#243140;
+}
+
+.chat.active{
+background:linear-gradient(90deg,#2b5278,#204061);
+}
+
+.avatar{
+width:56px;
+height:56px;
+border-radius:50%;
+overflow:hidden;
+flex-shrink:0;
+}
+
+.avatar img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.chat-info{
+flex:1;
+}
+
+.chat-info h4{
+font-size:15px;
+font-weight:700;
+margin-bottom:6px;
+}
+
+.chat-info p{
+font-size:13px;
+opacity:.65;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+
+/* ================= CENTER ================= */
+
+.center{
+display:flex;
+flex-direction:column;
+position:relative;
+overflow:hidden;
+}
+
+/* ================= TOPBAR ================= */
+
+.topbar{
+height:74px;
+
+background:rgba(8,14,26,.82);
+backdrop-filter:blur(30px);
+
+border-bottom:1px solid rgba(255,255,255,.05);
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+padding:0 22px;
+
+z-index:10;
+}
+
+.top-left{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.top-avatar{
+width:48px;
+height:48px;
+border-radius:50%;
+overflow:hidden;
+}
+
+.top-avatar img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.top-title h3{
+font-size:17px;
+font-weight:800;
+}
+
+.top-title span{
+font-size:13px;
+opacity:.6;
+}
+
+.menu-btn{
+font-size:28px;
+cursor:pointer;
+}
+
+/* ================= CONTENT ================= */
+
+.content{
+flex:1;
+overflow:auto;
+padding:30px;
+position:relative;
+}
+
+/* ================= POST ================= */
+
+.post{
+width:560px;
+max-width:100%;
+
+background:white;
+color:#111;
+
+border-radius:28px;
+
+overflow:hidden;
+
+box-shadow:
+0 30px 80px rgba(0,0,0,.45);
+
+animation:show .45s ease;
+}
+
+@keyframes show{
+from{
+opacity:0;
+transform:translateY(25px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.post-head{
+padding:18px;
+font-size:18px;
+font-weight:800;
+color:#46a520;
+}
+
+.post img{
+width:100%;
+height:330px;
+object-fit:cover;
+}
+
+.post-body{
+padding:22px;
+}
+
+.post-body h1{
+font-size:34px;
+line-height:1.05;
+margin-bottom:16px;
+font-weight:900;
+}
+
+.post-body p{
+font-size:16px;
+line-height:1.65;
+margin-bottom:16px;
+}
+
+.tags{
+color:#3390ec;
+font-weight:700;
+}
+
+/* ================= REACT ================= */
+
+.reacts{
+display:flex;
+gap:12px;
+margin-top:18px;
+}
+
+.react{
+padding:10px 15px;
+border-radius:999px;
+background:#eef5ff;
+font-weight:700;
+font-size:14px;
+}
+
+/* ================= INPUT ================= */
+
+.input{
+height:82px;
+
+background:rgba(8,14,26,.85);
+backdrop-filter:blur(30px);
+
+border-top:1px solid rgba(255,255,255,.05);
+
+display:flex;
+align-items:center;
+gap:14px;
+
+padding:0 20px;
+}
+
+.input input{
+flex:1;
+height:54px;
+
+background:#1d2a3a;
+
+border:none;
+outline:none;
+
+border-radius:18px;
+
+padding:0 20px;
+
+color:white;
+font-size:15px;
+}
+
+.send{
+width:54px;
+height:54px;
+
+border-radius:18px;
+
+background:linear-gradient(145deg,#00a2ff,#005eff);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:24px;
+
+cursor:pointer;
+
+transition:.25s;
+
+box-shadow:
+0 0 30px rgba(0,119,255,.45);
+}
+
+.send:hover{
+transform:scale(1.08);
+}
+
+/* ================= RIGHT PANEL ================= */
+
+.right{
+background:rgba(255,255,255,.96);
+
+backdrop-filter:blur(30px);
+
+border-left:1px solid rgba(0,0,0,.08);
+
+padding:20px;
+
+overflow:auto;
+}
+
+/* ================= WEATHER ================= */
+
+.widget{
+background:white;
+
+border-radius:26px;
+
+padding:24px;
+
+margin-bottom:20px;
+
+box-shadow:
+0 15px 40px rgba(0,0,0,.08);
+}
+
+.widget h2{
+color:#111;
+font-size:24px;
+font-weight:900;
+margin-bottom:20px;
+}
+
+.weather{
+background:
+linear-gradient(145deg,#0077ff,#00a2ff);
+
+border-radius:24px;
+
+padding:24px;
+
+position:relative;
+overflow:hidden;
+
+box-shadow:
+0 0 35px rgba(0,119,255,.35);
+}
+
+.weather::before{
+content:"";
+position:absolute;
+width:180px;
+height:180px;
+background:white;
+filter:blur(80px);
+opacity:.16;
+top:-70px;
+right:-70px;
+}
+
+.temp{
+font-size:64px;
+font-weight:900;
+}
+
+.weather p{
+font-size:18px;
+opacity:.95;
+}
+
+/* ================= MAP ================= */
+
+.map{
+height:260px;
+
+border-radius:24px;
+
+overflow:hidden;
+
+position:relative;
+
+background:
+url("https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1200&auto=format&fit=crop");
+
+background-size:cover;
+background-position:center;
+}
+
+.map::before{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(0,0,0,.4);
+}
+
+.alert{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+
+background:red;
+
+padding:14px 24px;
+
+border-radius:18px;
+
+font-weight:800;
+
+box-shadow:
+0 0 35px rgba(255,0,0,.55);
+
+animation:alarm 1s infinite;
+}
+
+@keyframes alarm{
+0%{
+transform:translate(-50%,-50%) scale(1);
+}
+50%{
+transform:translate(-50%,-50%) scale(1.08);
+}
+100%{
+transform:translate(-50%,-50%) scale(1);
+}
+}
+
+/* ================= SOCIAL ================= */
+
+.socials{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:14px;
+margin-top:20px;
+}
+
+.social{
+height:72px;
+
+border-radius:22px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:30px;
+
+cursor:pointer;
+
+transition:.25s;
+
+color:white;
+font-weight:800;
+}
+
+.social:hover{
+transform:translateY(-5px) scale(1.05);
+}
+
+.tg{
+background:linear-gradient(145deg,#0088cc,#005eff);
+}
+
+.insta{
+background:linear-gradient(145deg,#ff006a,#ff7b00);
+}
+
+.yt{
+background:linear-gradient(145deg,#ff0000,#d90000);
+}
+
+/* ================= MOBILE MENU ================= */
+
+.mobile-menu{
+position:fixed;
+
+top:0;
+left:-100%;
+
+width:300px;
+height:100vh;
+
+background:#101a28;
+
+z-index:9999;
+
+transition:.35s;
+
+padding:24px;
+
+box-shadow:
+0 0 60px rgba(0,0,0,.45);
+}
+
+.mobile-menu.active{
+left:0;
+}
+
+.mobile-menu h2{
+margin-bottom:25px;
+font-size:28px;
+}
+
+.mobile-link{
+padding:16px;
+border-radius:18px;
+
+background:#17212b;
+
+margin-bottom:14px;
+
+font-weight:700;
+
+cursor:pointer;
+transition:.25s;
+}
+
+.mobile-link:hover{
+background:#2b5278;
+}
+
+/* ================= MOBILE NAV ================= */
+
+.mobile-nav{
+display:none;
+
 position:fixed;
 bottom:0;
 left:0;
 right:0;
-height:60px;
-display:none;
-grid-template-columns:repeat(4,1fr);
-background:rgba(0,0,0,0.6);
+
+height:74px;
+
+background:rgba(8,14,26,.92);
+
 backdrop-filter:blur(25px);
-border-top:1px solid rgba(255,255,255,0.08);
+
+border-top:1px solid rgba(255,255,255,.05);
+
+z-index:999;
+
+grid-template-columns:repeat(5,1fr);
 }
 
-.bottom div{
+.mobile-nav div{
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:12px;
+
+font-size:24px;
 }
 
-/* ================= MOBILE WOW (FULL MODE) ================= */
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1300px){
+
+.right{
+display:none;
+}
+
+.telegram{
+grid-template-columns:80px 320px 1fr;
+}
+
+}
+
 @media(max-width:900px){
 
-body{overflow:auto;}
-
-.app{
-flex-direction:column;
-height:auto;
+.sidebar{
+position:fixed;
+left:-100%;
+top:0;
+height:100vh;
+width:320px;
+z-index:9999;
 }
 
-.left,.list,.right{
+.sidebar.active{
+left:80px;
+}
+
+.telegram{
+grid-template-columns:80px 1fr;
+}
+
+.content{
+padding:20px;
+padding-bottom:100px;
+}
+
+.post{
 width:100%;
 }
 
-.left{
-flex-direction:row;
-justify-content:space-around;
-}
-
-.grid{
-grid-template-columns:1fr;
-}
-
-.bottom{
+.mobile-nav{
 display:grid;
-}
-
-iframe{
-width:100%;
-height:220px;
-border-radius:14px;
-border:none;
 }
 
 }
@@ -257,115 +758,344 @@ border:none;
 
 <div class="bg"></div>
 
-<div class="app">
+<div class="light1"></div>
+<div class="light2"></div>
 
-<!-- LEFT -->
-<div class="left">
-<div class="logo"></div>
-<div class="logo"></div>
-<div class="logo"></div>
-<div class="logo"></div>
+<!-- MOBILE MENU -->
+
+<div class="mobile-menu" id="mobileMenu">
+
+<h2>BoryNews</h2>
+
+<div class="mobile-link">🏠 Головна</div>
+<div class="mobile-link">📰 Новини</div>
+<div class="mobile-link">⚡ Терміново</div>
+<div class="mobile-link">🚌 Транспорт</div>
+<div class="mobile-link">🗺 Карта тривог</div>
+<div class="mobile-link">⚙ Налаштування</div>
+
 </div>
 
-<!-- LIST -->
-<div class="list">
-<div class="item">Новини (LIVE)</div>
-<div class="item">Транспорт</div>
-<div class="item">Тривоги</div>
-<div class="item">Погода</div>
-<div class="item">Карта</div>
+<!-- APP -->
+
+<div class="telegram">
+
+<!-- LEFT MINI -->
+
+<div class="mini">
+
+<div class="mini-btn active">💬</div>
+<div class="mini-btn">📢</div>
+<div class="mini-btn">📁</div>
+<div class="mini-btn">⚙️</div>
+
+</div>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+<div class="search">
+<input type="text" placeholder="Пошук">
+</div>
+
+<div class="chat-list">
+
+<div class="chat active">
+
+<div class="avatar">
+<img src="transport.png">
+</div>
+
+<div class="chat-info">
+<h4>BorykNews 🇺🇦</h4>
+<p>🚨 ЦІНИ НА ПРОЇЗД ПІДВИЩИЛИСЯ</p>
+</div>
+
+</div>
+
+<div class="chat">
+
+<div class="avatar">
+<img src="https://i.pravatar.cc/100?img=12">
+</div>
+
+<div class="chat-info">
+<h4>Транспорт LIVE</h4>
+<p>🚌 Маршрут 316 затримується</p>
+</div>
+
+</div>
+
+<div class="chat">
+
+<div class="avatar">
+<img src="https://i.pravatar.cc/100?img=25">
+</div>
+
+<div class="chat-info">
+<h4>Карта тривог</h4>
+<p>⚡ Повітряна тривога</p>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 <!-- CENTER -->
+
 <div class="center">
 
-<div class="header">
-<div class="logo"></div>
-<div>
-<div class="title">BorykNews</div>
-<div class="status"><span class="dot"></span>online • live</div>
-</div>
-</div>
+<!-- TOPBAR -->
 
-<div class="live">
-LIVE • Бориспіль інформує 24/7
+<div class="topbar">
+
+<div class="top-left">
+
+<div class="top-avatar">
+<img src="transport.png">
 </div>
 
-<div class="card">Новини: оновлення транспорту</div>
-<div class="card">Терміново: повітряна тривога</div>
-<div class="card">Місто: нові маршрути</div>
-
-<div class="grid">
-
-<div class="box" id="weatherBox">🌦 Weather slot</div>
-<div class="box" id="alertBox">🚨 Alert system</div>
-
-<div class="box">🚍 Transport LIVE</div>
-
-<div class="box">
-<iframe src="https://alerts.in.ua/"></iframe>
+<div class="top-title">
+<h3>BoryNews | Бориспіль</h3>
+<span>65 підписників онлайн</span>
 </div>
 
 </div>
 
-<div class="box" id="newsBox">📰 Live news loading...</div>
+<div class="menu-btn" id="menuBtn">
+☰
+</div>
+
+</div>
+
+<!-- CONTENT -->
+
+<div class="content">
+
+<div class="post">
+
+<div class="post-head">
+Новини Борисполя | BorykNews 🇺🇦
+</div>
+
+<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop">
+
+<div class="post-body">
+
+<h1>ЦІНИ НА ПРОЇЗД ПІДВИЩИЛИСЯ!</h1>
+
+<p>
+📍 Бориспіль — Баришівка
+</p>
+
+<p>
+Вартість квитка зросла до
+<b>150 грн</b>.
+</p>
+
+<p>
+Пасажири масово обговорюють ситуацію.
+</p>
+
+<div class="tags">
+#Бориспіль #транспорт #новини
+</div>
+
+<div class="reacts">
+
+<div class="react">👍 4</div>
+<div class="react">😡 2</div>
+<div class="react">🔥 1</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- INPUT -->
+
+<div class="input">
+
+<input placeholder="Публікація...">
+
+<div class="send">
+➤
+</div>
+
+</div>
 
 </div>
 
 <!-- RIGHT -->
+
 <div class="right">
 
-<h3>Соцмережі</h3>
+<!-- WEATHER -->
 
-<div class="social">
-<a></a><a></a><a></a><a></a>
+<div class="widget">
+
+<h2>Погода LIVE</h2>
+
+<div class="weather">
+
+<div class="temp" id="temp">
++18°
+</div>
+
+<p id="weatherText">
+Хмарно у Борисполі
+</p>
+
+</div>
+
+</div>
+
+<!-- ALERT MAP -->
+
+<div class="widget">
+
+<h2>Карта тривог</h2>
+
+<div class="map">
+
+<div class="alert">
+⚡ ТРИВОГА
 </div>
 
 </div>
 
 </div>
 
-<!-- MOBILE -->
-<div class="bottom">
-<div>News</div>
-<div>Transport</div>
-<div>Alerts</div>
-<div>Map</div>
+<!-- SOCIAL -->
+
+<div class="widget">
+
+<h2>Соц мережі</h2>
+
+<div class="socials">
+
+<div class="social tg">
+✈
 </div>
 
-<!-- ================= JS ================= -->
+<div class="social insta">
+◎
+</div>
+
+<div class="social yt">
+▶
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- MOBILE NAV -->
+
+<div class="mobile-nav">
+
+<div>🏠</div>
+<div>📰</div>
+<div>⚡</div>
+<div>🚌</div>
+<div>⚙️</div>
+
+</div>
+
 <script>
 
-/* LIVE NEWS */
-async function loadNews(){
-const box=document.getElementById("newsBox");
-box.innerHTML="Loading...";
+/* ================= MENU ================= */
 
-const data=[
-"Оновлення транспорту міста",
-"Новий маршрут автобуса",
-"Екстрене повідомлення",
-"Інфраструктура модернізована"
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+menuBtn.onclick = ()=>{
+
+mobileMenu.classList.toggle('active');
+
+};
+
+/* ================= CHAT EFFECT ================= */
+
+document.querySelectorAll('.chat').forEach(card=>{
+
+card.addEventListener('mousemove',(e)=>{
+
+const rect = card.getBoundingClientRect();
+
+const x = e.clientX - rect.left;
+const y = e.clientY - rect.top;
+
+card.style.background =
+`radial-gradient(circle at ${x}px ${y}px,
+rgba(0,119,255,.35),
+rgba(36,49,64,1))`;
+
+});
+
+card.addEventListener('mouseleave',()=>{
+
+if(card.classList.contains('active')){
+card.style.background =
+'linear-gradient(90deg,#2b5278,#204061)';
+}else{
+card.style.background='';
+}
+
+});
+
+});
+
+/* ================= WEATHER FAKE LIVE ================= */
+
+const temp = document.getElementById('temp');
+const text = document.getElementById('weatherText');
+
+const weatherData = [
+
+{t:'+18°',d:'Хмарно у Борисполі'},
+{t:'+20°',d:'Сонячно'},
+{t:'+17°',d:'Можливий дощ'},
+{t:'+16°',d:'Сильний вітер'}
+
 ];
 
-box.innerHTML=data.map(n=>`<div class="card">${n}</div>`).join("");
-}
-loadNews();
-setInterval(loadNews,15000);
+let i = 0;
 
-/* WEATHER (mock slot) */
-function loadWeather(){
-document.getElementById("weatherBox").innerText=
-"🌦 +12°C Бориспіль (live slot)";
-}
-loadWeather();
+setInterval(()=>{
 
-/* ALERT SYSTEM (mock slot) */
-function loadAlerts(){
-document.getElementById("alertBox").innerText=
-"🚨 Статус: перевірка сигналу";
+i++;
+
+if(i>=weatherData.length){
+i=0;
 }
-loadAlerts();
+
+temp.innerHTML = weatherData[i].t;
+text.innerHTML = weatherData[i].d;
+
+},4000);
+
+/* ================= MOBILE CATEGORY OPEN ================= */
+
+document.querySelectorAll('.mobile-link').forEach(link=>{
+
+link.addEventListener('click',()=>{
+
+mobileMenu.classList.remove('active');
+
+});
+
+});
 
 </script>
 
