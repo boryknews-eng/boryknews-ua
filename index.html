@@ -4,476 +4,151 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BoryNews LIVE</title>
+<title>BorykNews PRO</title>
 
-<!-- ШРИФТ ЯК В TELEGRAM / MINI APP -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
-/* ================= RESET ================= */
-
+/* ===== RESET ===== */
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 }
 
-html{
-scroll-behavior:smooth;
-}
-
 body{
-font-family:'Inter',sans-serif;
-background:#050b16;
-color:#fff;
-overflow-x:hidden;
+background:#0b0d12;
+color:white;
+font-family:'Manrope',sans-serif;
+overflow:hidden;
 }
 
-/* ================= BACKGROUND ================= */
-
+/* ===== BACKGROUND ===== */
 .bg{
 position:fixed;
 inset:0;
-
-/* ПІДСТАВ СВОЄ ФОТО */
-background-image:url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1600&auto=format&fit=crop");
-
-background-size:cover;
-background-position:center;
-filter:brightness(0.18) saturate(1.2);
-transform:scale(1.1);
-z-index:-3;
-}
-
-.overlay{
-position:fixed;
-inset:0;
-background:
-linear-gradient(to bottom,
-rgba(4,10,20,0.88),
-rgba(4,10,20,0.95));
-z-index:-2;
-}
-
-/* ================= BLUE GLOW ================= */
-
-.glow1{
-position:fixed;
-width:500px;
-height:500px;
-background:#0077ff;
-filter:blur(160px);
-opacity:0.18;
-top:-100px;
-right:-120px;
+background:linear-gradient(-45deg,#0b0d12,#111a2e,#1a1233,#0a1b2b);
+background-size:400% 400%;
+animation:bg 15s infinite ease;
 z-index:-1;
 }
 
-.glow2{
-position:fixed;
-width:400px;
-height:400px;
-background:#00a2ff;
-filter:blur(150px);
-opacity:0.14;
-bottom:-100px;
-left:-100px;
-z-index:-1;
+@keyframes bg{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
 }
 
-/* ================= LAYOUT ================= */
-
+/* ===== LAYOUT ===== */
 .app{
-display:grid;
-grid-template-columns:260px 1fr 300px;
+display:flex;
 height:100vh;
 }
 
-/* ================= LEFT SIDEBAR ================= */
-
-.left{
-padding:24px;
-border-right:1px solid rgba(255,255,255,0.06);
-background:rgba(255,255,255,0.02);
-backdrop-filter:blur(30px);
+/* ===== ICON SPRITE ===== */
+.icon{
+width:34px;
+height:34px;
+background-image:url("/mnt/data/a_set_of_five_digital_icons_is_displayed_on_a_dark.png");
+background-repeat:no-repeat;
+background-size:1536px 1024px;
 }
 
-.logo{
-display:flex;
-align-items:center;
-gap:12px;
-margin-bottom:25px;
-}
+/* 5 іконок (1 ряд) */
+.i1{background-position:0px 0px;}
+.i2{background-position:-307px 0px;}
+.i3{background-position:-614px 0px;}
+.i4{background-position:-921px 0px;}
+.i5{background-position:-1228px 0px;}
 
-.logo-circle{
-width:52px;
-height:52px;
-border-radius:50%;
-background:linear-gradient(145deg,#0b57ff,#0039a6);
-display:flex;
-align-items:center;
-justify-content:center;
-font-weight:800;
-font-size:15px;
-box-shadow:
-0 0 25px rgba(0,119,255,0.55);
-}
-
-.logo-text h2{
-font-size:19px;
-font-weight:800;
-}
-
-.logo-text span{
-font-size:12px;
-opacity:0.65;
-}
-
-.left-menu{
+/* ===== SIDEBAR ===== */
+.sidebar{
+width:90px;
+background:rgba(20,22,30,.8);
+backdrop-filter:blur(20px);
 display:flex;
 flex-direction:column;
-gap:12px;
-}
-
-.left-item{
-padding:15px 16px;
-border-radius:18px;
-background:rgba(255,255,255,0.03);
-border:1px solid rgba(255,255,255,0.04);
-transition:.25s;
-cursor:pointer;
-font-size:15px;
-font-weight:600;
-}
-
-.left-item:hover{
-transform:translateX(6px);
-background:rgba(0,119,255,0.14);
-border:1px solid rgba(0,119,255,0.35);
-box-shadow:0 0 25px rgba(0,119,255,0.2);
-}
-
-/* ================= CENTER ================= */
-
-.center{
-padding:24px;
-overflow:auto;
-}
-
-/* HERO */
-
-.hero{
-padding:35px;
-border-radius:35px;
-position:relative;
-overflow:hidden;
-
-background:
-linear-gradient(145deg,
-rgba(0,25,60,0.9),
-rgba(0,10,25,0.96));
-
-border:1px solid rgba(255,255,255,0.06);
-
-box-shadow:
-0 0 45px rgba(0,119,255,0.18),
-inset 0 0 25px rgba(255,255,255,0.02);
-}
-
-.hero::before{
-content:"";
-position:absolute;
-width:300px;
-height:300px;
-background:#008cff;
-filter:blur(130px);
-top:-120px;
-right:-80px;
-opacity:.28;
-}
-
-.live{
-display:inline-flex;
 align-items:center;
-gap:10px;
-padding:10px 18px;
-border-radius:999px;
-
-background:rgba(255,255,255,0.05);
-
-font-size:14px;
-font-weight:700;
-
-margin-bottom:18px;
-
-border:1px solid rgba(255,255,255,0.06);
-}
-
-.dot{
-width:11px;
-height:11px;
-background:#00ff6a;
-border-radius:50%;
-box-shadow:0 0 12px #00ff6a;
-animation:pulse 1.4s infinite;
-}
-
-@keyframes pulse{
-0%{transform:scale(1)}
-50%{transform:scale(1.25)}
-100%{transform:scale(1)}
-}
-
-.hero h1{
-font-size:48px;
-font-weight:800;
-line-height:1.05;
-margin-bottom:10px;
-}
-
-.hero p{
-font-size:16px;
-opacity:0.72;
-max-width:650px;
-line-height:1.6;
-}
-
-/* ================= GRID ================= */
-
-.grid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
+padding:12px 0;
 gap:18px;
-margin-top:28px;
-}
-
-.card{
-position:relative;
-padding:28px 22px;
-border-radius:28px;
-
-background:
-linear-gradient(145deg,
-rgba(8,18,35,0.95),
-rgba(4,10,20,0.95));
-
-border:1px solid rgba(255,255,255,0.05);
-
-overflow:hidden;
-cursor:pointer;
-transition:.3s;
-}
-
-.card::before{
-content:"";
-position:absolute;
-width:180px;
-height:180px;
-background:#0077ff;
-filter:blur(90px);
-top:-70px;
-right:-70px;
-opacity:0;
-transition:.3s;
-}
-
-.card:hover::before{
-opacity:.22;
-}
-
-.card:hover{
-transform:translateY(-7px);
-border:1px solid rgba(0,119,255,0.35);
-
-box-shadow:
-0 0 35px rgba(0,119,255,0.22);
-}
-
-.icon{
-font-size:38px;
-margin-bottom:20px;
-}
-
-.card h3{
-font-size:22px;
-font-weight:800;
-margin-bottom:7px;
-}
-
-.card span{
-font-size:14px;
-opacity:0.66;
-}
-
-/* ================= NEWS ================= */
-
-.news{
-margin-top:28px;
-
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:18px;
-}
-
-.news-box{
-padding:18px;
-border-radius:24px;
-
-background:
-linear-gradient(145deg,
-rgba(8,18,35,0.9),
-rgba(3,8,18,0.95));
-
-border:1px solid rgba(255,255,255,0.04);
-}
-
-.news-box h4{
-font-size:18px;
-font-weight:800;
-margin-bottom:18px;
-}
-
-.news-item{
-display:flex;
-gap:14px;
-margin-bottom:14px;
-padding-bottom:14px;
-border-bottom:1px solid rgba(255,255,255,0.06);
-}
-
-.news-item img{
-width:85px;
-height:65px;
-object-fit:cover;
-border-radius:14px;
-}
-
-.news-item h5{
-font-size:14px;
-line-height:1.45;
-font-weight:700;
-margin-bottom:5px;
-}
-
-.news-item span{
-font-size:12px;
-opacity:0.55;
-}
-
-/* ================= RIGHT ================= */
-
-.right{
-padding:24px;
-border-left:1px solid rgba(255,255,255,0.06);
-background:rgba(255,255,255,0.02);
-backdrop-filter:blur(30px);
-}
-
-.menu-title{
-font-size:14px;
-opacity:0.5;
-margin-bottom:18px;
-text-transform:uppercase;
-letter-spacing:1px;
 }
 
 .menu{
-display:flex;
-flex-direction:column;
-gap:12px;
-}
-
-.menu a{
-padding:15px;
+width:60px;
+height:60px;
 border-radius:18px;
-
-background:rgba(255,255,255,0.03);
-
-text-decoration:none;
-color:white;
-
-font-weight:600;
-
-transition:.25s;
-
-border:1px solid rgba(255,255,255,0.04);
-}
-
-.menu a:hover{
-background:rgba(0,119,255,0.14);
-border:1px solid rgba(0,119,255,0.35);
-transform:translateX(5px);
-}
-
-/* ================= MOBILE ================= */
-
-.bottom-nav{
-display:none;
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-
-height:72px;
-
-background:rgba(3,8,18,0.94);
-backdrop-filter:blur(30px);
-
-border-top:1px solid rgba(255,255,255,0.06);
-
-grid-template-columns:repeat(4,1fr);
-
-z-index:999;
-}
-
-.bottom-nav div{
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:13px;
-font-weight:600;
+cursor:pointer;
+transition:.3s;
+background:rgba(255,255,255,.05);
 }
 
-/* ================= RESPONSIVE ================= */
-
-@media(max-width:1200px){
-
-.grid{
-grid-template-columns:repeat(2,1fr);
+.menu:hover{
+background:#c41c1e;
+transform:scale(1.05);
 }
 
-.news{
-grid-template-columns:1fr;
+/* ===== CHAT ===== */
+.chats{
+width:320px;
+background:rgba(18,20,28,.75);
+overflow:auto;
 }
 
+.chat{
+padding:15px;
+border-bottom:1px solid rgba(255,255,255,.05);
+cursor:pointer;
 }
 
+.chat:hover{
+background:rgba(255,255,255,.05);
+}
+
+/* ===== CENTER ===== */
+.center{
+flex:1;
+overflow:auto;
+padding:20px;
+}
+
+.post{
+background:white;
+color:black;
+border-radius:20px;
+overflow:hidden;
+max-width:600px;
+}
+
+/* ===== RIGHT ===== */
+.right{
+width:340px;
+background:rgba(18,20,28,.75);
+overflow:auto;
+padding:15px;
+}
+
+/* ===== MOBILE ===== */
 @media(max-width:900px){
 
+body{overflow:auto;}
+
 .app{
-grid-template-columns:1fr;
+flex-direction:column;
+height:auto;
 }
 
-.left,
-.right{
-display:none;
+.sidebar{
+flex-direction:row;
+width:100%;
+justify-content:space-around;
 }
 
-.center{
-padding-bottom:100px;
-}
-
-.hero h1{
-font-size:34px;
-}
-
-.grid{
-grid-template-columns:1fr;
-}
-
-.bottom-nav{
-display:grid;
+.chats,.right{
+width:100%;
 }
 
 }
@@ -484,217 +159,45 @@ display:grid;
 <body>
 
 <div class="bg"></div>
-<div class="overlay"></div>
-
-<div class="glow1"></div>
-<div class="glow2"></div>
 
 <div class="app">
 
-<!-- LEFT -->
+<!-- SIDEBAR ICONS (YOUR PACK) -->
+<div class="sidebar">
 
-<div class="left">
-
-<div class="logo">
-
-<div class="logo-circle">
-BN
-</div>
-
-<div class="logo-text">
-<h2>BoryNews</h2>
-<span>Бориспіль LIVE</span>
-</div>
+<div class="menu"><div class="icon i1"></div></div>
+<div class="menu"><div class="icon i2"></div></div>
+<div class="menu"><div class="icon i3"></div></div>
+<div class="menu"><div class="icon i4"></div></div>
+<div class="menu"><div class="icon i5"></div></div>
 
 </div>
 
-<div class="left-menu">
-
-<div class="left-item">🏙 Новини Борисполя</div>
-<div class="left-item">⚡ Терміново</div>
-<div class="left-item">🚌 Транспорт</div>
-<div class="left-item">🗺 Карта тривог</div>
-<div class="left-item">📩 Надіслати новину</div>
-
-</div>
-
+<!-- CHATS -->
+<div class="chats">
+<div class="chat">🚨 Термінові новини</div>
+<div class="chat">🚌 Транспорт</div>
+<div class="chat">🏙 Місто</div>
 </div>
 
 <!-- CENTER -->
-
 <div class="center">
-
-<div class="hero">
-
-<div class="live">
-<div class="dot"></div>
-LIVE ONLINE
+<div class="post">
+<div style="padding:15px;font-weight:800;">BorykNews LIVE</div>
+<img src="https://i.imgur.com/qj6F6Q4.jpeg" style="width:100%">
+<div style="padding:15px;">
+Тут твоя новина буде виглядати як Telegram стиль 🚀
 </div>
-
-<h1>BoryNews<br>Бориспіль LIVE</h1>
-
-<p>
-Головні новини міста, транспорт, термінові події,
-карта тривог та live оновлення в реальному часі.
-</p>
-
 </div>
-
-<!-- GRID -->
-
-<div class="grid">
-
-<div class="card">
-<div class="icon">🏙</div>
-<h3>Новини</h3>
-<span>усі події Борисполя</span>
-</div>
-
-<div class="card">
-<div class="icon">🚌</div>
-<h3>Транспорт</h3>
-<span>маршрути та рух</span>
-</div>
-
-<div class="card">
-<div class="icon">⚡</div>
-<h3>Терміново</h3>
-<span>важливі повідомлення</span>
-</div>
-
-<div class="card">
-<div class="icon">🗺</div>
-<h3>Карта</h3>
-<span>тривоги онлайн</span>
-</div>
-
-</div>
-
-<!-- NEWS -->
-
-<div class="news">
-
-<div class="news-box">
-
-<h4>Новини міста</h4>
-
-<div class="news-item">
-
-<!-- ПІДСТАВ СВОЄ ФОТО -->
-
-<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop">
-
-<div>
-<h5>У Борисполі чути вибухи, працює ППО</h5>
-<span>10 хв тому</span>
-</div>
-
-</div>
-
-<div class="news-item">
-
-<img src="https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200&auto=format&fit=crop">
-
-<div>
-<h5>У місті відкрили нову зону відпочинку</h5>
-<span>сьогодні</span>
-</div>
-
-</div>
-
-</div>
-
-<div class="news-box">
-
-<h4>Транспорт</h4>
-
-<div class="news-item">
-
-<img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop">
-
-<div>
-<h5>Маршрут 316 затримується</h5>
-<span>оновлено</span>
-</div>
-
-</div>
-
-<div class="news-item">
-
-<img src="https://images.unsplash.com/photo-1529074963764-98f45c47344b?q=80&w=1200&auto=format&fit=crop">
-
-<div>
-<h5>Перекриття дороги до 18:00</h5>
-<span>важливо</span>
-</div>
-
-</div>
-
-</div>
-
-<div class="news-box">
-
-<h4>Карта тривог</h4>
-
-<div class="news-item">
-
-<img src="https://images.unsplash.com/photo-1521295121783-8a321d551ad2?q=80&w=1200&auto=format&fit=crop">
-
-<div>
-<h5>Повітряна тривога у Київській області</h5>
-<span>LIVE</span>
-</div>
-
-</div>
-
-<div class="news-item">
-
-<img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop">
-
-<div>
-<h5>Карта оновлюється в реальному часі</h5>
-<span>онлайн</span>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
 </div>
 
 <!-- RIGHT -->
-
 <div class="right">
-
-<div class="menu-title">
-Меню
+<h3>LIVE</h3>
+<p>⚠️ Оновлення міста</p>
+<p>💡 Світло</p>
+<p>🚨 Тривога</p>
 </div>
-
-<div class="menu">
-
-<a href="#">🏠 Головна</a>
-<a href="#">📰 Новини</a>
-<a href="#">⚡ Терміново</a>
-<a href="#">🚌 Транспорт</a>
-<a href="#">🗺 Карта тривог</a>
-<a href="#">⚙ Налаштування</a>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- MOBILE NAV -->
-
-<div class="bottom-nav">
-
-<div>🏠</div>
-<div>📰</div>
-<div>⚡</div>
-<div>⚙</div>
 
 </div>
 
