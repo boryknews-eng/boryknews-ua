@@ -232,38 +232,70 @@ font-size:12px;
 cursor:pointer;
 }
 
-/* ================= MOBILE FULL APP ================= */
+/* ================= MOBILE FIX (ВАЖЛИВО) ================= */
 @media(max-width:900px){
 
-.left,.list,.right{
-display:none;
-}
-
-.app{
-flex-direction:column;
-height:100vh;
-}
-
-.center{
-height:calc(100vh - 60px);
-padding:10px;
+body{
 overflow:auto;
 }
 
-/* ВСІ VIEW ВИДИМІ НА МОБІЛІ */
-.view{
-display:block !important;
+/* НІЧОГО НЕ ХОВАЄМО */
+.left,
+.list,
+.right{
+display:flex;
+width:100%;
 }
 
+/* вертикальний режим */
+.app{
+flex-direction:column;
+height:auto;
+}
+
+/* LEFT як верхня панель */
+.left{
+flex-direction:row;
+justify-content:space-around;
+padding:10px 0;
+border-right:none;
+border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+/* LIST повна ширина */
+.list{
+width:100%;
+}
+
+/* CENTER */
+.center{
+width:100%;
+padding:10px;
+}
+
+/* RIGHT вниз */
+.right{
+width:100%;
+border-left:none;
+border-top:1px solid rgba(255,255,255,0.05);
+}
+
+/* GRID в 1 колонку */
+.grid{
+grid-template-columns:1fr;
+}
+
+/* MAP більше */
+iframe{
+height:220px;
+}
+
+/* bottom bar включаємо */
 .bottom{
 display:grid;
 }
 
 }
-
-/* VIEW SYSTEM */
-.view{display:none;}
-.view.active{display:block;}
 
 </style>
 </head>
@@ -285,11 +317,11 @@ display:grid;
 
 <!-- LIST -->
 <div class="list">
-<div class="item" onclick="openView('news')">Новини</div>
-<div class="item" onclick="openView('transport')">Транспорт</div>
-<div class="item" onclick="openView('urgent')">Тривоги</div>
-<div class="item" onclick="openView('weather')">Погода</div>
-<div class="item" onclick="openView('map')">Карта</div>
+<div class="item">Новини</div>
+<div class="item">Транспорт</div>
+<div class="item">Тривоги</div>
+<div class="item">Погода</div>
+<div class="item">Карта</div>
 </div>
 
 <!-- CENTER -->
@@ -303,35 +335,21 @@ display:grid;
 </div>
 </div>
 
-<!-- NEWS -->
-<div id="news" class="view active">
-
 <div class="live">LIVE Бориспіль інформує 24/7</div>
 
 <div class="card">Новина міста: транспорт оновлено</div>
 <div class="card">Терміново: повітряна тривога</div>
 <div class="card">Погода: +12°C</div>
 
-</div>
+<div class="grid">
 
-<!-- TRANSPORT -->
-<div id="transport" class="view">
-<div class="box">Transport LIVE BLOCK</div>
-</div>
-
-<!-- URGENT -->
-<div id="urgent" class="view">
-<div class="box">Air alert system LIVE</div>
-</div>
-
-<!-- WEATHER -->
-<div id="weather" class="view">
-<div class="box">Weather API SLOT (OpenWeather)</div>
-</div>
-
-<!-- MAP -->
-<div id="map" class="view">
+<div class="box">Transport LIVE</div>
+<div class="box">Weather LIVE SLOT</div>
+<div class="box">Alerts LIVE</div>
+<div class="box">
 <iframe src="https://alerts.in.ua/"></iframe>
+</div>
+
 </div>
 
 </div>
@@ -354,18 +372,11 @@ display:grid;
 
 <!-- MOBILE -->
 <div class="bottom">
-<div onclick="openView('news')">News</div>
-<div onclick="openView('transport')">Transport</div>
-<div onclick="openView('urgent')">Alerts</div>
-<div onclick="openView('map')">Map</div>
+<div>News</div>
+<div>Transport</div>
+<div>Alerts</div>
+<div>Map</div>
 </div>
-
-<script>
-function openView(id){
-document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-}
-</script>
 
 </body>
 </html>
