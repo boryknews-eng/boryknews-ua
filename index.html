@@ -1,1157 +1,184 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>BoryNews Premium UI</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-
-/* ================= RESET ================= */
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-body{
-font-family:'Manrope',sans-serif;
-background:#161616;
-height:100vh;
-overflow:hidden;
-color:#f1f1f1;
-}
-
-/* ================= BACKGROUND ================= */
-
-.bg{
-position:fixed;
-inset:0;
-
-background:
-linear-gradient(rgba(15,15,15,.92),rgba(15,15,15,.95)),
-url("https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=1800&auto=format&fit=crop");
-
-background-size:cover;
-background-position:center;
-
-animation:bg 24s infinite alternate;
-
-z-index:-5;
-}
-
-@keyframes bg{
-
-from{
-transform:scale(1);
-}
-
-to{
-transform:scale(1.06);
-}
-
-}
-
-/* ================= LIGHT ================= */
-
-.red{
-position:fixed;
-
-width:500px;
-height:500px;
-
-background:#6e3a3a;
-
-filter:blur(180px);
-
-top:-150px;
-right:-120px;
-
-opacity:.16;
-
-z-index:-2;
-}
-
-.gray{
-position:fixed;
-
-width:450px;
-height:450px;
-
-background:#777;
-
-filter:blur(160px);
-
-bottom:-150px;
-left:-100px;
-
-opacity:.08;
-
-z-index:-2;
-}
-
-/* ================= APP ================= */
-
-.app{
-display:grid;
-grid-template-columns:78px 340px 1fr 350px;
-height:100vh;
-}
-
-/* ================= MINI BAR ================= */
-
-.mini{
-background:#202020;
-
-border-right:1px solid rgba(255,255,255,.04);
-
-display:flex;
-flex-direction:column;
-align-items:center;
-
-padding-top:18px;
-
-gap:18px;
-}
-
-.mini-btn{
-width:54px;
-height:54px;
-
-border-radius:18px;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-background:#2a2a2a;
-
-cursor:pointer;
-
-transition:.25s;
-}
-
-.mini-btn svg{
-width:22px;
-height:22px;
-fill:#f1f1f1;
-opacity:.8;
-}
-
-.mini-btn:hover{
-background:#383838;
-transform:translateY(-3px);
-}
-
-.mini-btn.active{
-
-background:
-linear-gradient(145deg,#5a3030,#3b2323);
-
-box-shadow:
-0 0 25px rgba(120,60,60,.35);
-
-}
-
-/* ================= SIDEBAR ================= */
-
-.sidebar{
-background:#252525;
-
-border-right:1px solid rgba(255,255,255,.04);
-
-display:flex;
-flex-direction:column;
-
-overflow:hidden;
-}
-
-.search{
-padding:16px;
-}
-
-.search input{
-width:100%;
-height:50px;
-
-border:none;
-outline:none;
-
-background:#323232;
-
-border-radius:16px;
-
-padding:0 18px;
-
-font-size:14px;
-font-weight:600;
-
-color:#f1f1f1;
-}
-
-.search input::placeholder{
-color:#8c8c8c;
-}
-
-/* ================= CHAT ================= */
-
-.chat-list{
-overflow:auto;
-}
-
-.chat{
-display:flex;
-gap:14px;
-
-padding:16px;
-
-cursor:pointer;
-
-transition:.25s;
-
-border-bottom:1px solid rgba(255,255,255,.03);
-}
-
-.chat:hover{
-background:#303030;
-}
-
-.chat.active{
-
-background:
-linear-gradient(90deg,#452929,#2f2f2f);
-
-border-left:4px solid #8e5050;
-}
-
-.avatar{
-width:56px;
-height:56px;
-
-border-radius:50%;
-
-overflow:hidden;
-
-flex-shrink:0;
-}
-
-.avatar img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-.chat-info{
-flex:1;
-}
-
-.chat-info h4{
-font-size:15px;
-font-weight:800;
-margin-bottom:6px;
-}
-
-.chat-info p{
-font-size:13px;
-opacity:.58;
-
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
-}
-
-/* ================= CENTER ================= */
-
-.center{
-display:flex;
-flex-direction:column;
-overflow:hidden;
-}
-
-/* ================= TOPBAR ================= */
-
-.topbar{
-height:74px;
-
-background:rgba(28,28,28,.9);
-
-backdrop-filter:blur(25px);
-
-border-bottom:1px solid rgba(255,255,255,.04);
-
-display:flex;
-align-items:center;
-justify-content:space-between;
-
-padding:0 24px;
-}
-
-.top-left{
-display:flex;
-align-items:center;
-gap:14px;
-}
-
-.top-avatar{
-width:48px;
-height:48px;
-
-border-radius:50%;
-
-overflow:hidden;
-}
-
-.top-avatar img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-.top-title h3{
-font-size:17px;
-font-weight:800;
-}
-
-.top-title span{
-font-size:13px;
-opacity:.55;
-}
-
-/* ================= CONTENT ================= */
-
-.content{
-flex:1;
-overflow:auto;
-
-padding:28px;
-}
-
-/* ================= POST ================= */
-
-.post{
-width:580px;
-max-width:100%;
-
-background:#efefef;
-
-border-radius:30px;
-
-overflow:hidden;
-
-color:#1c1c1c;
-
-box-shadow:
-0 20px 60px rgba(0,0,0,.4);
-
-animation:show .4s ease;
-}
-
-@keyframes show{
-
-from{
-opacity:0;
-transform:translateY(25px);
-}
-
-to{
-opacity:1;
-transform:translateY(0);
-}
-
-}
-
-.post-head{
-padding:18px 22px;
-
-font-size:17px;
-font-weight:800;
-
-color:#6e3a3a;
-
-background:#f6f6f6;
-
-border-bottom:1px solid rgba(0,0,0,.05);
-}
-
-.post img{
-width:100%;
-height:330px;
-object-fit:cover;
-}
-
-.post-body{
-padding:24px;
-}
-
-.post-body h1{
-font-size:34px;
-line-height:1.1;
-font-weight:800;
-
-margin-bottom:16px;
-
-color:#232323;
-}
-
-.post-body p{
-font-size:16px;
-line-height:1.7;
-
-margin-bottom:16px;
-
-font-weight:600;
-
-color:#444;
-}
-
-.tags{
-font-size:14px;
-font-weight:800;
-
-color:#6e3a3a;
-}
-
-/* ================= REACTIONS ================= */
-
-.reactions{
-display:flex;
-gap:10px;
-
-margin-top:20px;
-}
-
-.react{
-padding:10px 14px;
-
-border-radius:999px;
-
-background:#d8d8d8;
-
-font-size:13px;
-font-weight:800;
-}
-
-/* ================= INPUT ================= */
-
-.input{
-height:82px;
-
-background:#202020;
-
-border-top:1px solid rgba(255,255,255,.04);
-
-display:flex;
-align-items:center;
-gap:14px;
-
-padding:0 20px;
-}
-
-.input input{
-flex:1;
-
-height:54px;
-
-border:none;
-outline:none;
-
-background:#323232;
-
-border-radius:16px;
-
-padding:0 18px;
-
-font-size:15px;
-font-weight:600;
-
-color:white;
-}
-
-.send{
-width:54px;
-height:54px;
-
-border-radius:16px;
-
-background:
-linear-gradient(145deg,#6e3a3a,#402222);
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-cursor:pointer;
-
-transition:.25s;
-}
-
-.send:hover{
-transform:scale(1.06);
-}
-
-.send svg{
-width:22px;
-fill:white;
-}
-
-/* ================= RIGHT ================= */
-
-.right{
-background:#ececec;
-
-border-left:1px solid rgba(0,0,0,.06);
-
-padding:20px;
-
-overflow:auto;
-}
-
-/* ================= CARD ================= */
-
-.card{
-background:#f7f7f7;
-
-border-radius:28px;
-
-padding:24px;
-
-margin-bottom:22px;
-
-box-shadow:
-0 10px 35px rgba(0,0,0,.07);
-}
-
-.card h2{
-font-size:24px;
-font-weight:800;
-
-margin-bottom:20px;
-
-color:#232323;
-}
-
-/* ================= WEATHER ================= */
-
-.weather{
-height:210px;
-
-border-radius:24px;
-
-padding:28px;
-
-background:
-linear-gradient(145deg,#3c3c3c,#242424);
-
-position:relative;
-
-overflow:hidden;
-}
-
-.weather::before{
-content:"";
-
-position:absolute;
-
-width:200px;
-height:200px;
-
-background:#6e3a3a;
-
-filter:blur(90px);
-
-top:-80px;
-right:-70px;
-
-opacity:.25;
-}
-
-.temp{
-font-size:68px;
-font-weight:800;
-position:relative;
-z-index:2;
-}
-
-.weather p{
-margin-top:8px;
-
-font-size:17px;
-font-weight:700;
-
-opacity:.8;
-
-position:relative;
-z-index:2;
-}
-
-/* ================= MAP ================= */
-
-.map{
-height:250px;
-
-border-radius:24px;
-
-overflow:hidden;
-
-position:relative;
-}
-
-.map img{
-width:100%;
-height:100%;
-object-fit:cover;
-filter:brightness(.7);
-}
-
-.alert{
-position:absolute;
-
-top:50%;
-left:50%;
-
-transform:translate(-50%,-50%);
-
-padding:14px 24px;
-
-background:#6e3a3a;
-
-border-radius:18px;
-
-font-size:16px;
-font-weight:800;
-
-box-shadow:
-0 0 25px rgba(110,58,58,.4);
-
-animation:alert 1.5s infinite;
-}
-
-@keyframes alert{
-
-0%{
-transform:translate(-50%,-50%) scale(1);
-}
-
-50%{
-transform:translate(-50%,-50%) scale(1.06);
-}
-
-100%{
-transform:translate(-50%,-50%) scale(1);
-}
-
-}
-
-/* ================= SOCIAL ================= */
-
-.socials{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:14px;
-}
-
-.social{
-height:74px;
-
-border-radius:22px;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-cursor:pointer;
-
-transition:.25s;
-}
-
-.social:hover{
-transform:translateY(-4px);
-}
-
-.social svg{
-width:28px;
-fill:white;
-}
-
-.tg{
-background:#3d3d3d;
-}
-
-.inst{
-background:#6e3a3a;
-}
-
-.yt{
-background:#4a4a4a;
-}
-
-/* ================= MOBILE ================= */
-
-.mobile-nav{
-display:none;
-}
-
-@media(max-width:1300px){
-
-.right{
-display:none;
-}
-
-.app{
-grid-template-columns:78px 320px 1fr;
-}
-
-}
-
-@media(max-width:900px){
-
-.sidebar{
-display:none;
-}
-
-.app{
-grid-template-columns:70px 1fr;
-}
-
-.content{
-padding:18px;
-padding-bottom:90px;
-}
-
-.post{
-width:100%;
-}
-
-.mobile-nav{
-display:grid;
-
-position:fixed;
-
-bottom:0;
-left:0;
-right:0;
-
-height:72px;
-
-background:#202020;
-
-border-top:1px solid rgba(255,255,255,.04);
-
-grid-template-columns:repeat(4,1fr);
-}
-
-.mobile-nav div{
-display:flex;
-align-items:center;
-justify-content:center;
-}
-
-.mobile-nav svg{
-width:24px;
-fill:white;
-opacity:.75;
-}
-
-}
-
-</style>
-</head>
-
-<body>
-
-<div class="bg"></div>
-
-<div class="red"></div>
-<div class="gray"></div>
-
-<div class="app">
-
-<!-- LEFT -->
-
-<div class="mini">
-
-<div class="mini-btn active">
-
-<svg viewBox="0 0 24 24">
-<path d="M4 4h16v12H5.17L4 17.17V4z"/>
-</svg>
-
-</div>
-
-<div class="mini-btn">
-
-<svg viewBox="0 0 24 24">
-<path d="M3 5h18v14H3z"/>
-</svg>
-
-</div>
-
-<div class="mini-btn">
-
-<svg viewBox="0 0 24 24">
-<path d="M12 8a4 4 0 100 8 4 4 0 000-8zm8 4a8 8 0 11-16 0 8 8 0 0116 0z"/>
-</svg>
-
-</div>
-
-<div class="mini-btn">
-
-<svg viewBox="0 0 24 24">
-<path d="M12 8a4 4 0 100 8 4 4 0 000-8z"/>
-</svg>
-
-</div>
-
-</div>
-
-<!-- SIDEBAR -->
-
-<div class="sidebar">
-
-<div class="search">
-
-<input type="text" placeholder="Пошук">
-
-</div>
-
-<div class="chat-list">
-
-<div class="chat active">
-
-<div class="avatar">
-<img src="transport.png">
-</div>
-
-<div class="chat-info">
-<h4>BoryNews</h4>
-<p>ЦІНИ НА ПРОЇЗД ПІДВИЩИЛИСЯ</p>
-</div>
-
-</div>
-
-<div class="chat">
-
-<div class="avatar">
-<img src="https://i.pravatar.cc/100?img=15">
-</div>
-
-<div class="chat-info">
-<h4>Транспорт LIVE</h4>
-<p>Маршрут 316 затримується</p>
-</div>
-
-</div>
-
-<div class="chat">
-
-<div class="avatar">
-<img src="https://i.pravatar.cc/100?img=22">
-</div>
-
-<div class="chat-info">
-<h4>Карта тривог</h4>
-<p>Повітряна тривога</p>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- CENTER -->
-
-<div class="center">
-
-<!-- TOPBAR -->
-
-<div class="topbar">
-
-<div class="top-left">
-
-<div class="top-avatar">
-<img src="transport.png">
-</div>
-
-<div class="top-title">
-
-<h3>BoryNews | Бориспіль</h3>
-
-<span>
-65 підписників онлайн
-</span>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- CONTENT -->
-
-<div class="content">
-
-<div class="post">
-
-<div class="post-head">
-Новини Борисполя | BoryNews
-</div>
-
-<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop">
-
-<div class="post-body">
-
-<h1>
-ЦІНИ НА ПРОЇЗД ПІДВИЩИЛИСЯ
-</h1>
-
-<p>
-Бориспіль — Баришівка
-</p>
-
-<p>
-Вартість квитка
-зросла до 150 грн.
-</p>
-
-<p>
-Пасажири активно
-обговорюють ситуацію.
-</p>
-
-<div class="tags">
-#Бориспіль #транспорт #новини
-</div>
-
-<div class="reactions">
-
-<div class="react">
-124
-</div>
-
-<div class="react">
-38
-</div>
-
-<div class="react">
-12
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- INPUT -->
-
-<div class="input">
-
-<input placeholder="Публікація...">
-
-<div class="send">
-
-<svg viewBox="0 0 24 24">
-<path d="M2 21l21-9L2 3v7l15 2-15 2z"/>
-</svg>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- RIGHT -->
-
-<div class="right">
-
-<!-- WEATHER -->
-
-<div class="card">
-
-<h2>
-Погода LIVE
-</h2>
-
-<div class="weather">
-
-<div class="temp" id="temp">
-+18°
-</div>
-
-<p id="weatherText">
-Хмарно у Борисполі
-</p>
-
-</div>
-
-</div>
-
-<!-- MAP -->
-
-<div class="card">
-
-<h2>
-Карта тривог
-</h2>
-
-<div class="map">
-
-<img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1200&auto=format&fit=crop">
-
-<div class="alert">
-ТРИВОГА
-</div>
-
-</div>
-
-</div>
-
-<!-- SOCIAL -->
-
-<div class="card">
-
-<h2>
-Соц мережі
-</h2>
-
-<div class="socials">
-
-<div class="social tg">
-
-<svg viewBox="0 0 24 24">
-<path d="M9.04 15.47l-.39 5.49c.56 0 .8-.24 1.09-.53l2.61-2.5 5.41 3.96c.99.55 1.69.26 1.96-.92l3.55-16.64h.01c.32-1.5-.54-2.09-1.5-1.73L1.64 10.34c-1.45.56-1.43 1.37-.25 1.73l5.39 1.68L19.3 5.9c.59-.39 1.13-.17.69.22"/>
-</svg>
-
-</div>
-
-<div class="social inst">
-
-<svg viewBox="0 0 24 24">
-<path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3.5A5.5 5.5 0 1112 18.5 5.5 5.5 0 0112 7.5zm0 2A3.5 3.5 0 1015.5 13 3.5 3.5 0 0012 9.5zm6.25-3.25a1.25 1.25 0 11-1.25 1.25 1.25 1.25 0 011.25-1.25z"/>
-</svg>
-
-</div>
-
-<div class="social yt">
-
-<svg viewBox="0 0 24 24">
-<path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2 31.6 31.6 0 000 12a31.6 31.6 0 00.5 5.8 3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1A31.6 31.6 0 0024 12a31.6 31.6 0 00-.5-5.8zM9.6 15.5v-7l6.2 3.5-6.2 3.5z"/>
-</svg>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- MOBILE -->
-
-<div class="mobile-nav">
-
-<div>
-<svg viewBox="0 0 24 24">
-<path d="M4 4h16v12H5.17L4 17.17V4z"/>
-</svg>
-</div>
-
-<div>
-<svg viewBox="0 0 24 24">
-<path d="M3 5h18v14H3z"/>
-</svg>
-</div>
-
-<div>
-<svg viewBox="0 0 24 24">
-<path d="M12 8a4 4 0 100 8 4 4 0 000-8z"/>
-</svg>
-</div>
-
-<div>
-<svg viewBox="0 0 24 24">
-<path d="M2 21l21-9L2 3v7l15 2-15 2z"/>
-</svg>
-</div>
-
-</div>
-
-<script>
-
-/* ================= WEATHER ================= */
-
-const temp = document.getElementById('temp');
-const text = document.getElementById('weatherText');
-
-const weather = [
-
-{t:'+18°',d:'Хмарно'},
-{t:'+16°',d:'Дощ'},
-{t:'+20°',d:'Сонячно'},
-{t:'+14°',d:'Вітер'}
-
-];
-
-let i = 0;
-
-setInterval(()=>{
-
-i++;
-
-if(i>=weather.length){
-i=0;
-}
-
-temp.innerHTML = weather[i].t;
-text.innerHTML = weather[i].d;
-
-},4000);
-
-/* ================= CHAT EFFECT ================= */
-
-document.querySelectorAll('.chat').forEach(card=>{
-
-card.addEventListener('mousemove',(e)=>{
-
-const rect = card.getBoundingClientRect();
-
-const x = e.clientX - rect.left;
-const y = e.clientY - rect.top;
-
-card.style.background =
-`radial-gradient(circle at ${x}px ${y}px,
-rgba(110,58,58,.28),
-rgba(48,48,48,1))`;
-
-});
-
-card.addEventListener('mouseleave',()=>{
-
-if(card.classList.contains('active')){
-
-card.style.background =
-'linear-gradient(90deg,#452929,#2f2f2f)';
-
-}else{
-
-card.style.background='';
-
+export default function BorykNewsEditor() {
+  return (
+    <div className="min-h-screen bg-[#f3f4f6] text-[#1f1f1f] flex">
+      {/* Sidebar */}
+      <aside className="w-72 bg-[#1e1e1e] text-white flex flex-col border-r border-[#2b2b2b]">
+        <div className="p-6 border-b border-[#2b2b2b]">
+          <h1 className="text-3xl font-black tracking-tight">
+            <span className="text-[#c31f20]">Boryk</span>News
+          </h1>
+          <p className="text-sm text-gray-400 mt-1">Панель керування контентом</p>
+        </div>
+
+        <nav className="flex-1 p-4 space-y-2">
+          {[
+            '🏙️ Новини міста',
+            '📢 Оголошення',
+            '💼 Реклама',
+            '🎥 Фото / Відео',
+            '📍 Події',
+            '📊 Статистика',
+            '⚙️ Налаштування',
+          ].map((item) => (
+            <div
+              key={item}
+              className="px-4 py-3 rounded-2xl bg-[#252525] hover:bg-[#c31f20] transition cursor-pointer font-medium"
+            >
+              {item}
+            </div>
+          ))}
+        </nav>
+
+        <div className="p-4 border-t border-[#2b2b2b] text-sm text-gray-400">
+          © 2026 BorykNews Media
+        </div>
+      </aside>
+
+      {/* Main */}
+      <main className="flex-1 flex flex-col overflow-hidden">
+        {/* Topbar */}
+        <header className="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-8 shadow-sm">
+          <div>
+            <h2 className="text-2xl font-black">BorykNews Studio</h2>
+            <p className="text-gray-500 text-sm">Керування новинами, оголошеннями та рекламою</p>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <button className="px-5 py-2 rounded-2xl bg-gray-200 font-semibold hover:bg-gray-300 transition">
+              ← Назад
+            </button>
+            <button className="px-6 py-2 rounded-2xl bg-[#c31f20] text-white font-bold shadow-lg hover:scale-105 transition">
+              Далі →
+            </button>
+          </div>
+        </header>
+
+        {/* Content */}
+        <div className="flex-1 overflow-auto p-8 grid grid-cols-12 gap-8">
+          {/* Editor */}
+          <section className="col-span-8 space-y-6">
+            <div className="bg-white rounded-3xl shadow-sm border border-gray-200 p-6">
+              <input
+                type="text"
+                placeholder="Заголовок публікації..."
+                className="w-full text-5xl font-black outline-none placeholder:text-gray-300"
+              />
+
+              <div className="flex gap-3 mt-6 flex-wrap">
+                {['B', 'I', 'U', 'H1', 'H2', '📷', '🎥', '🔗', '📍'].map((tool) => (
+                  <button
+                    key={tool}
+                    className="w-12 h-12 rounded-2xl bg-[#f3f4f6] hover:bg-[#c31f20] hover:text-white transition font-bold"
+                  >
+                    {tool}
+                  </button>
+                ))}
+              </div>
+
+              <textarea
+                placeholder="Напишіть текст оголошення або новини..."
+                className="w-full mt-8 min-h-[400px] outline-none resize-none text-lg leading-9 placeholder:text-gray-400"
+                defaultValue={`📢 У Борисполі відкрито новий набір оголошень та реклами.
+
+Додавайте фото, відео та важливу інформацію для мешканців міста.
+
+Публікації автоматично відображаються у стрічці BorykNews.`}
+              />
+            </div>
+
+            {/* Gallery */}
+            <div className="bg-white rounded-3xl shadow-sm border border-gray-200 p-6">
+              <div className="flex items-center justify-between mb-5">
+                <h3 className="text-2xl font-black">Медіа</h3>
+                <button className="bg-[#c31f20] text-white px-4 py-2 rounded-xl font-semibold">
+                  + Додати фото
+                </button>
+              </div>
+
+              <div className="grid grid-cols-3 gap-4">
+                <img
+                  src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=1200&auto=format&fit=crop"
+                  className="rounded-2xl h-48 w-full object-cover"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1495020689067-958852a7765e?q=80&w=1200&auto=format&fit=crop"
+                  className="rounded-2xl h-48 w-full object-cover"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop"
+                  className="rounded-2xl h-48 w-full object-cover"
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* Right Panel */}
+          <aside className="col-span-4 space-y-6">
+            <div className="bg-[#c31f20] text-white rounded-3xl p-6 shadow-xl">
+              <h3 className="text-2xl font-black">АКТИВНІСТЬ</h3>
+              <p className="mt-3 text-white/80">
+                Сьогодні користувачі активно переглядають новини та оголошення.
+              </p>
+
+              <div className="mt-6 bg-white/10 rounded-2xl p-4">
+                <div className="flex justify-between text-sm mb-2">
+                  <span>Охоплення</span>
+                  <span>+24%</span>
+                </div>
+                <div className="w-full h-3 bg-white/20 rounded-full overflow-hidden">
+                  <div className="w-3/4 h-full bg-white rounded-full"></div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-3xl border border-gray-200 p-6 shadow-sm">
+              <h3 className="text-2xl font-black mb-5">Preview</h3>
+
+              <div className="rounded-3xl overflow-hidden bg-[#1f1f1f] text-white shadow-lg">
+                <img
+                  src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop"
+                  className="h-56 w-full object-cover"
+                />
+
+                <div className="p-5">
+                  <span className="bg-[#c31f20] text-xs px-3 py-1 rounded-full font-bold">
+                    BORYKNEWS
+                  </span>
+
+                  <h4 className="text-2xl font-black mt-4 leading-tight">
+                    Новини міста • Оголошення • Фото та Відео
+                  </h4>
+
+                  <p className="text-gray-300 mt-3 text-sm leading-6">
+                    Сучасна стрічка для міських новин та локальної реклами.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-3xl border border-gray-200 p-6 shadow-sm">
+              <h3 className="text-2xl font-black mb-4">Теги</h3>
+
+              <div className="flex flex-wrap gap-3">
+                {[
+                  '#BorykNews',
+                  '#Бориспіль',
+                  '#Новини',
+                  '#Тривога',
+                  '#Україна',
+                ].map((tag) => (
+                  <div
+                    key={tag}
+                    className="px-4 py-2 rounded-full bg-[#f3f4f6] font-semibold"
+                  >
+                    {tag}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </aside>
+        </div>
+      </main>
+    </div>
+  )
 }
-
-});
-
-});
-
-</script>
-
-</body>
-</html>
